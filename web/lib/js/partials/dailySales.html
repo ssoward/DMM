@@ -1,0 +1,40 @@
+<!-- APP SCRIPT -->
+<div class="list-group-item">
+    <h5 class="pull-right">Daily Sales</h5>
+    <br />
+    <spinner class="bl-spinner-large" ng-show="!pageLoaded"></spinner>
+    <div ng-show="pageLoaded">
+        <div class="row">
+            <div class="col-md-2">
+                <p class="input-group">
+                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dateToEval" is-open="opened"
+                           min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+                </p>
+                <button class="btn btn-default" ng-click="getReport()">Get Report <span ng-show="searchingInvoices"><spinner></spinner></span></button>
+            </div>
+        </div>
+        <br/>
+        <pre>Showing Results for: <em>{{dateToEval | date:'fullDate' }}</em></pre>
+        <div ng-show="!searchingInvoices">
+            <table class="table table-striped table-bordered table-hover table-responsive">
+                <tr>
+                    <th>Invoice#</th>
+                    <th>Invoice#</th>
+                    <th>Invoice#</th>
+                </tr>
+                <tr ng-repeat="inv in invoices">
+                    <td>{{inv.invoiceNum}}</td>
+                    <td>{{inv.invoiceDate | date:'dd MM yyyy'}}</td>
+                    <td>
+                        <ul ng-repeat="trans in inv.transList">
+                            <li>{{'('+ trans.prod.productCatalogNum +') '+trans.prod.productName}}</li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+CREATE TABLE `dmm`.`sm_sales_order` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `sm_id` INT NOT NULL,
+  `sm_store_id` INT NOT NULL,
+  `sm_created_dt` DATETIME NULL,
+  `sm_customer_id` INT NOT NULL,
+  `sm_tax_amt` DECIMAL NULL,
+  `sm_shipping_amt` DECIMAL NULL,
+  `sm_discount_amt` DECIMAL NULL,
+  `sm_subtotal_amt` DECIMAL NULL,
+  `sm_grand_total_amt` DECIMAL NULL,
+  `sm_total_paid_amt` DECIMAL NULL,
+  `sm_total_qty` DECIMAL NULL,
+  `sm_sales_order_entity_json` BLOB NULL,
+  PRIMARY KEY (`id`, `sm_id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  UNIQUE INDEX `sm_id_UNIQUE` (`sm_id` ASC));

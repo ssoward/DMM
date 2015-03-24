@@ -1,0 +1,351 @@
+/* CSS Basic Document */
+/* Sortable tables */
+/*html, body, #contents {*/
+	/*min-height: 100%;*/
+	/*width: 100%;*/
+	/*height: 100%;*/
+/*}*/
+/*.scrollTable{	*/
+  /*overflow: auto; */
+  /*width: 100%; */
+  /*height: 400px;	*/
+  /*padding: 0px; */
+  /*margin: 0px;	*/
+/*}*/
+
+
+/**/
+ /** The "height" above is a hack for IE5+/Win.  Below we adjust*/
+ /** it using the child selector to hide from IE5+/Win*/
+ /**/
+
+/*html>body, html>body #contents {*/
+	/*height: auto;*/
+/*}*/
+
+/**/
+ /** Without this, Moz1.0 adds a vertical scrollbar*/
+ /**/
+
+/*body {*/
+	/*margin: 0;*/
+	/*font-family: Arial, sans-serif;*/
+	/*background-image: url(../images/bg-tile.gif);*/
+	/*background-repeat: repeat;*/
+/*}*/
+
+/*#contents {*/
+	/*position: absolute;*/
+	/*top: 0;*/
+    /*left: 0;*/
+/*  Use the following to center this at 50% width, or this for 750px: width: 700px, margin-left: -350px: */
+/**/
+	/*left: 50%;*/
+    /*width: 50%;*/
+    /*margin-left: -25%;*/
+/**/
+/*}*/
+
+/*#footer {*/
+	/*position: absolute;*/
+	/*bottom: 0;*/
+	/* background-color: #ccffcc; */
+	/*width: 70%; *//* See note below */
+	/*text-align: center;*/
+	/*padding: 0 15%;*/
+/*}*/
+
+/* SBMH -- see http://css-discuss.incutio.com/?page=BoxModelHack */
+ /** Stupid hack lets IE see 100%, others see 70%. */
+ /**/
+/*#footer {*/
+    /*\width: 100%;*/
+    /*w\idth: 70%;*/
+/*}*/
+
+/*#main {*/
+	/*margin-bottom: 5em;*/
+	/*height: auto;*/
+	/*padding: .5em;*/
+/*}*/
+
+
+/*table.sortable a.sortheader {*/
+    /*background-color:#eee;*/
+    /*color:#666666;*/
+    /*font-weight: bold;*/
+    /*font-size: 12px;*/
+    /*text-decoration: none;*/
+    /*display: block;*/
+/*}*/
+/*table.sortable span.sortarrow {*/
+    /*color: black;*/
+    /*text-decoration: none;*/
+/*}*/
+
+/*body*/
+/*{*/
+/*margin:0px auto;*/
+/*padding:0px;*/
+/*}*/
+/*.logo*/
+/*{*/
+/*margin-left:47px;*/
+/*margin-top:28px;*/
+/*}*/
+/*.menu_box*/
+/*{*/
+/*background:url(../images/menu-box-bg.jpg) left top repeat-x;*/
+/*height:30px;*/
+/*border-bottom:1px solid #D4D4D4;*/
+/*border-top:1px solid #D4D4D4;*/
+/*border-left:2px double #D4D4D4;*/
+/*border-right:2px  double #D4D4D4;*/
+/*}*/
+/*.footer_box*/
+/*{*/
+/*background: url(../images/footer-bg.jpg) left top repeat-x;*/
+/*height:34px;*/
+/*border-bottom:1px solid #D1D1D1;*/
+/*border-top:1px solid #D1D1D1;*/
+/*border-left:2px double #D1D1D1;*/
+/*border-right:2px  double #D1D1D1;*/
+/*}*/
+/*.body_padding*/
+/*{*/
+/*padding:11px 11px 6px 11px;*/
+/*}*/
+/*.menu_table td*/
+/*{*/
+/*border-bottom:1px dotted #3A5A96;*/
+/*height:16px;*/
+/*}*/
+/*.home-icon*/
+/*{*/
+/*margin-right:7px;*/
+/*}*/
+/*.input-box*/
+/*{*/
+/*border:1px solid #848284;*/
+/*width:100px;*/
+/*height:16px;*/
+/*padding-left:3px;*/
+/*font-family: Verdana, Arial, Helvetica, sans-serif;*/
+/*font-size: 11px;*/
+/*font-style: normal;*/
+/*line-height: 16px;*/
+/*font-weight: normal;*/
+/*font-variant: normal;*/
+/*text-transform: none;*/
+/*color: #333333;*/
+/*background-color:#FFFFFF;*/
+/*text-decoration: none;*/
+/*}*/
+/*.order-box*/
+/*{*/
+/*border:1px solid #A1A1A1;*/
+/*padding:6px;*/
+/*}*/
+/*.order-title*/
+/*{*/
+/*background-color:#E9E9E9;*/
+/*height:37px;*/
+/*border-bottom:2px solid #FFFFFF;*/
+/*padding-left:16px;*/
+/*font-family: Verdana, Arial, Helvetica, sans-serif;*/
+	/*font-size: 16px;*/
+	/*font-style: normal;*/
+	/*line-height: 36px;*/
+	/*font-weight: bold;*/
+	/*font-variant: normal;*/
+	/*text-transform: none;*/
+	/*color: #515E85;*/
+	/*text-decoration: none;*/
+/*}*/
+/*.order-box-padding*/
+/*{*/
+/*padding:18px 10px 10px 16px;*/
+/*}*/
+/*.footer-margin*/
+/*{*/
+/*margin:0px 11px;*/
+/*}*/
+
+
+
+/* CSS Background image Document */
+/*.header-bg*/
+/*{*/
+/*background:url(../images/header-bg.jpg) right top no-repeat;*/
+/*height:76px; */
+/*}*/
+/*.search-bg*/
+/*{*/
+/*background:url(../images/search-bg2.jpg) left top no-repeat;*/
+/*height:250px;*/
+/*}*/
+/*.add-bg*/
+/*{*/
+/*background:url(../images/add-bg.jpg) left top no-repeat;*/
+/*height:112px;*/
+/*}*/
+/*.world-map*/
+/*{*/
+/*background:url(../images/world-map.jpg) 65px 5px no-repeat;*/
+/*border-bottom:1px solid #D1D1D1;*/
+/*}*/
+
+
+
+
+
+
+/* CSS Text Document */
+/*body{*/
+	/*font-family: Arial, Helvetica, sans-serif;*/
+	/*font-size: 12px;*/
+	/*font-style: normal;*/
+	/*line-height: 14px;*/
+	/*font-weight: normal;*/
+	/*font-variant: normal;*/
+	/*text-transform: none;*/
+	/*color: #666666;*/
+	/*text-decoration: none;*/
+	/*background-color:inherit;*/
+/*}*/
+/*.blue-text{*/
+	/*font-family: Verdana, Arial, Helvetica, sans-serif;*/
+	/*font-size: 11px;*/
+	/*font-style: normal;*/
+	/*line-height: 14px;*/
+	/*font-weight: normal;*/
+	/*font-variant: normal;*/
+	/*text-transform: none;*/
+	/*color: #515E85;*/
+	/*text-decoration: none;*/
+	/*background-color:inherit;*/
+/*}*/
+/*.blue-link{*/
+	/*font-family: Verdana, Arial, Helvetica, sans-serif;*/
+	/*font-size: 11px;*/
+	/*font-style: normal;*/
+	/*line-height: 14px;*/
+	/*font-weight: normal;*/
+	/*font-variant: normal;*/
+	/*text-transform: none;*/
+	/*color: #515E85;*/
+	/*text-decoration: none;*/
+	/*background-color:inherit;*/
+/*}*/
+/*.blue-link:hover*/
+/*{*/
+/*color: #515E85;*/
+/*text-decoration: underline;*/
+/*background-color:inherit;*/
+/*}*/
+/*.red-text{*/
+	/*font-family: Verdana, Arial, Helvetica, sans-serif;*/
+	/*font-size: 11px;*/
+	/*font-style: normal;*/
+	/*line-height: 14px;*/
+	/*font-weight: normal;*/
+	/*font-variant: normal;*/
+	/*text-transform: none;*/
+	/*color: #DA0008;*/
+	/*text-decoration: none;*/
+	/*background-color:inherit;*/
+/*}*/
+/*.body_title{*/
+	/*font-family: Arial, Helvetica, sans-serif;*/
+	/*font-size: 14px;*/
+	/*font-style: normal;*/
+	/*line-height: 20px;*/
+	/*font-weight: bold;*/
+	/*font-variant: normal;*/
+	/*text-transform: none;*/
+	/*color: #515E85;*/
+	/*text-decoration: none;*/
+	/*background-color:inherit;*/
+/*}*/
+/*.red_title{*/
+	/*font-family: Arial, Helvetica, sans-serif;*/
+	/*font-size: 16px;*/
+	/*font-style: normal;*/
+	/*line-height: 20px;*/
+	/*font-weight: bold;*/
+	/*font-variant: normal;*/
+	/*text-transform: none;*/
+	/*color: #DF2229;*/
+	/*text-decoration: none;*/
+	/*background-color:inherit;*/
+/*}*/
+
+/*.blue_title{*/
+	/*font-family: Arial, Helvetica, sans-serif;*/
+	/*font-size: 12px;*/
+	/*font-style: normal;*/
+	/*line-height: 14px;*/
+	/*font-weight: bold;*/
+	/*font-variant: normal;*/
+	/*text-transform: none;*/
+	/*color: #1E4B78;*/
+	/*text-decoration: none;*/
+	/*background-color:inherit;*/
+/*}*/
+/*.top_menu{*/
+	/*font-family: Verdana, Arial, Helvetica, sans-serif;*/
+	/*font-size: 10px;*/
+	/*font-style: normal;*/
+	/*line-height: 28px;*/
+	/*font-weight: normal;*/
+	/*font-variant: normal;*/
+	/*text-transform: none;*/
+	/*color: #515E85;*/
+	/*text-decoration: none;*/
+	/*border-bottom:1px solid #515E85;*/
+	/*background-color:inherit;*/
+	/*}*/
+/*.top_menu:hover*/
+/*{*/
+/*color: #515E85;*/
+/*text-decoration: none;*/
+/*border-bottom:1px solid #DA0008;*/
+/*background-color:inherit;*/
+/*}*/
+/*.left_menu{*/
+	/*font-family: Arial, Helvetica, sans-serif;*/
+	/*font-size: 12px;*/
+	/*font-style: normal;*/
+	/*line-height: 16px;*/
+	/*font-weight: bold;*/
+	/*font-variant: normal;*/
+	/*text-transform: none;*/
+	/*color: #515E85;*/
+	/*text-decoration: none;*/
+	/*background-color:inherit;*/
+/*}*/
+/*.left_menu:hover*/
+/*{*/
+/*color: #DA0008;*/
+/*text-decoration: none;*/
+/*background-color:inherit;*/
+/*}*/
+
+/*.footer-link{*/
+	/*font-family: Verdana, Arial, Helvetica, sans-serif;*/
+	/*font-size: 11px;*/
+	/*font-style: normal;*/
+	/*line-height: 34px;*/
+	/*font-weight: bold;*/
+	/*font-variant: normal;*/
+	/*text-transform: none;*/
+	/*color: #515E85;*/
+	/*text-decoration: none;*/
+	/*background-color:inherit;*/
+/*}*/
+/*.footer-link:hover*/
+/*{*/
+/*color:#515E85;*/
+/*text-decoration:underline;*/
+/*background-color:inherit;*/
+/*}*/

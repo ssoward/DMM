@@ -1,0 +1,101 @@
+basic.css:#simplemodal-container a.modalCloseImg {background:url(../images/x.png) no-repeat; width:25px; height:29px; display:inline; z-index:3200; position:absolute; top:-15px; right:-16px; cursor:pointer;}
+bv.css:	background-image: url(images/secondary_pages/tile_background.gif);
+bv.css:	background-image: url(images/front_page/tile_masthead.gif);
+bv.css:	background-image: url(images/front_page_v2/logo-map.gif);
+bv.css:	background-image: url(images/secondary_pages/right_of_buttons.gif);
+bv.css:	background-image: url(images/secondary_pages/nav_bar_right3.gif);
+bv.css:	list-style: url(images/arrow.gif) outside;
+bv.css:	 list-style: url(images/arrow.gif) outside; 
+bv.css:	background-image:url(images/secondary_pages/nav_bar_nosubs_tile.gif);
+bv.css:	background-image:url(images/secondary_pages/nav_bar_right.gif);
+chg_dojo_admin.css:    background : url(../../../global/scripts/dojo/dijit/themes/soria/images/treeI.gif);
+chg_dojo_admin.css:    background: url(../../../global/scripts/dojo/dijit/themes/soria/images/treeI_half.gif) no-repeat;
+chg_dojo_admin.css:	background: url(../../../global/scripts/dojo/dijit/themes/soria/images/spriteTree.gif) no-repeat -18px top;
+chg_dojo_admin.css:	background-image: url(../../../global/scripts/dojo/dijit/themes/soria/images/spriteTree.gif);
+chg_dojo_admin.css:	background: url(../../../global/scripts/dojo/dijit/themes/soria/images/spriteTree.gif) no-repeat -36px top;
+chg_dojo_admin.css:	background-image: url(../../../global/scripts/dojo/dijit/themes/soria/images/treeExpand_loading.gif);
+chromestyle.css:background: url(../images/chromebg.gif) center center repeat-x; /*THEME CHANGE HERE*/
+chromestyle.css:background: url(../images/chromebg-over.gif) center center repeat-x; /*THEME CHANGE HERE*/
+demos.css:	background: url('/images/demos_bg.jpg') no-repeat;
+demos.css:#demo-config-menu li.demo-config-on { background: url(images/demo-config-on-tile.gif) repeat-x left center; }
+demos.css:#demo-config-menu li.demo-config-on a:active { background: url(images/demo-config-on.gif) no-repeat left; padding-left:18px; color:#fff; border:0; margin-left:-10px; margin-top: 0px; margin-bottom: 0px; }
+demos.css:#demo-source a.source-open:active { background-image: url(images/demo-spindown-open.gif); }
+demos.css:#demo-source a.source-closed:active { background-image: url(images/demo-spindown-closed.gif); }
+demos.css:#widget-docs .ui-widget-header { border: 1px solid #ffffff; background: #464646 url(images/464646_40x100_textures_01_flat_100.png) 50% 50% repeat-x; color: #ffffff; font-weight: bold; }
+demos.css:#widget-docs .ui-widget-content { border: 1px solid #ffffff; background: #ffffff url(images/ffffff_40x100_textures_01_flat_75.png) 50% 50% repeat-x; color: #222222; }
+demos.css:#widget-docs .ui-state-default, #widget-docs .ui-widget-content #widget-docs .ui-state-default { border: 1px solid #666666; background: #555555 url(images/555555_40x100_textures_03_highlight_soft_75.png) 50% 50% repeat-x; font-weight: normal; color: #ffffff; outline: none; }
+demos.css:#widget-docs .ui-state-hover, #widget-docs .ui-widget-content #widget-docs .ui-state-hover, #widget-docs .ui-state-focus, #widget-docs .ui-widget-content #widget-docs .ui-state-focus { border: 1px solid #666666; background: #444444 url(images/444444_40x100_textures_03_highlight_soft_60.png) 50% 50% repeat-x; font-weight: normal; color: #ffffff; outline: none; }
+demos.css:#widget-docs .ui-state-active, #widget-docs .ui-widget-content #widget-docs .ui-state-active { border: 1px solid #666666; background: #ffffff url(images/ffffff_40x100_textures_01_flat_65.png) 50% 50% repeat-x; font-weight: normal; color: #F6921E; outline: none; }
+demos.css:#widget-docs .ui-state-highlight, #widget-docs .ui-widget-content #widget-docs .ui-state-highlight {border: 1px solid #fcefa1; background: #fbf9ee url(images/fbf9ee_40x100_textures_02_glass_55.png) 50% 50% repeat-x; color: #363636; }
+demos.css:#widget-docs .ui-state-error, #widget-docs .ui-widget-content #widget-docs .ui-state-error {border: 1px solid #cd0a0a; background: #fef1ec url(images/fef1ec_40x100_textures_05_inset_soft_95.png) 50% bottom repeat-x; color: #cd0a0a; }
+demos.css:/* states and images */
+demos.css:#demo-frame-wrapper .ui-icon, #widget-docs .ui-icon { width: 16px; height: 16px; background-image: url(images/222222_256x240_icons_icons.png); }
+demos.css:#widget-docs .ui-widget-content .ui-icon {background-image: url(images/222222_256x240_icons_icons.png); }
+demos.css:#widget-docs .ui-widget-header .ui-icon {background-image: url(images/222222_256x240_icons_icons.png); }
+demos.css:#widget-docs .ui-state-default .ui-icon { background-image: url(images/888888_256x240_icons_icons.png); }
+demos.css:#widget-docs .ui-state-hover .ui-icon, #widget-docs .ui-state-focus .ui-icon {background-image: url(images/454545_256x240_icons_icons.png); }
+demos.css:#widget-docs .ui-state-active .ui-icon {background-image: url(images/454545_256x240_icons_icons.png); }
+demos.css:#widget-docs .ui-state-highlight .ui-icon {background-image: url(images/2e83ff_256x240_icons_icons.png); }
+demos.css:#widget-docs .ui-state-error .ui-icon, #widget-docs .ui-state-error-text .ui-icon {background-image: url(images/cd0a0a_256x240_icons_icons.png); }
+demos.css:#widget-docs .ui-widget-overlay { background: #aaaaaa url(images/aaaaaa_40x100_textures_01_flat_0.png) 50% 50% repeat-x; opacity: .30;filter:Alpha(Opacity=30); }
+demos.css:#widget-docs .ui-widget-shadow { margin: -8px 0 0 -8px; padding: 8px; background: #aaaaaa url(images/aaaaaa_40x100_textures_01_flat_0.png) 50% 50% repeat-x; opacity: .30;filter:Alpha(Opacity=30); -moz-border-radius: 8px; -webkit-border-radius: 8px; }
+demos.css:#widget-docs .param-header h3 span { background: url(images/demo-spindown-closed.gif) no-repeat left; padding-left:13px; }
+demos.css:#widget-docs .param-open .param-header h3 span { background: url(images/demo-spindown-open.gif) no-repeat left; }
+demos.css:#widget-docs .param-header p.param-type span { background: url(images/icon-docs-info.gif) no-repeat left; cursor:pointer; border-bottom:1px dashed #ccc; padding-left:15px; }
+jquery-ui-1.8.4.custom.css:/* states and images */
+jquery-ui-1.8.4.custom.css:.ui-widget-content { border: 1px solid #dddddd; background: #eeeeee url(images/ui-bg_highlight-soft_100_eeeeee_1x100.png) 50% top repeat-x; color: #333333; }
+jquery-ui-1.8.4.custom.css:.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default { border: 1px solid #cccccc; background: #f6f6f6 url(images/ui-bg_glass_100_f6f6f6_1x400.png) 50% 50% repeat-x; font-weight: bold; color: #1c94c4; }
+jquery-ui-1.8.4.custom.css:.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus { border: 1px solid #fbcb09; background: #fdf5ce url(images/ui-bg_glass_100_fdf5ce_1x400.png) 50% 50% repeat-x; font-weight: bold; color: #c77405; }
+jquery-ui-1.8.4.custom.css:.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active { border: 1px solid #fbd850; background: #ffffff url(images/ui-bg_glass_65_ffffff_1x400.png) 50% 50% repeat-x; font-weight: bold; color: #eb8f00; }
+jquery-ui-1.8.4.custom.css:.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight  {border: 1px solid #fed22f; background: #ffe45c url(images/ui-bg_highlight-soft_75_ffe45c_1x100.png) 50% top repeat-x; color: #363636; }
+jquery-ui-1.8.4.custom.css:.ui-state-error, .ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error {border: 1px solid #cd0a0a; background: #b81900 url(images/ui-bg_diagonals-thick_18_b81900_40x40.png) 50% 50% repeat; color: #ffffff; }
+jquery-ui-1.8.4.custom.css:/* states and images */
+jquery-ui-1.8.4.custom.css:.ui-icon { width: 16px; height: 16px; background-image: url(images/ui-icons_222222_256x240.png); }
+jquery-ui-1.8.4.custom.css:.ui-widget-content .ui-icon {background-image: url(images/ui-icons_222222_256x240.png); }
+jquery-ui-1.8.4.custom.css:.ui-widget-header .ui-icon {background-image: url(images/ui-icons_ffffff_256x240.png); }
+jquery-ui-1.8.4.custom.css:.ui-state-default .ui-icon { background-image: url(images/ui-icons_ef8c08_256x240.png); }
+jquery-ui-1.8.4.custom.css:.ui-state-hover .ui-icon, .ui-state-focus .ui-icon {background-image: url(images/ui-icons_ef8c08_256x240.png); }
+jquery-ui-1.8.4.custom.css:.ui-state-active .ui-icon {background-image: url(images/ui-icons_ef8c08_256x240.png); }
+jquery-ui-1.8.4.custom.css:.ui-state-highlight .ui-icon {background-image: url(images/ui-icons_228ef1_256x240.png); }
+jquery-ui-1.8.4.custom.css:.ui-state-error .ui-icon, .ui-state-error-text .ui-icon {background-image: url(images/ui-icons_ffd27a_256x240.png); }
+jquery-ui-1.8.4.custom.css:.ui-widget-overlay { background: #666666 url(images/ui-bg_diagonals-thick_20_666666_40x40.png) 50% 50% repeat; opacity: .50;filter:Alpha(Opacity=50); }
+jquery-ui-1.8.4.custom.css:.ui-widget-shadow { margin: -5px 0 0 -5px; padding: 5px; background: #000000 url(images/ui-bg_flat_10_000000_40x100.png) 50% 50% repeat-x; opacity: .20;filter:Alpha(Opacity=20); -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; }/*
+jquery.ui.autocomplete.css:.ui-autocomplete-loading { background: white url('images/ui-anim_basic_16x16.gif') right center no-repeat; }
+jquery.ui.core.css:/* states and images */
+jquery.ui.theme.css:.ui-widget-content { border: 1px solid #aaaaaa/*{borderColorContent}*/; background: #ffffff/*{bgColorContent}*/ url(images/ui-bg_flat_75_ffffff_40x100.png)/*{bgImgUrlContent}*/ 50%/*{bgContentXPos}*/ 50%/*{bgContentYPos}*/ repeat-x/*{bgContentRepeat}*/; color: #222222/*{fcContent}*/; }
+jquery.ui.theme.css:.ui-widget-header { border: 1px solid #aaaaaa/*{borderColorHeader}*/; background: #cccccc/*{bgColorHeader}*/ url(images/ui-bg_highlight-soft_75_cccccc_1x100.png)/*{bgImgUrlHeader}*/ 50%/*{bgHeaderXPos}*/ 50%/*{bgHeaderYPos}*/ repeat-x/*{bgHeaderRepeat}*/; color: #222222/*{fcHeader}*/; font-weight: bold; }
+jquery.ui.theme.css:.ui-state-default, .ui-widget-content .ui-state-default { border: 1px solid #d3d3d3/*{borderColorDefault}*/; background: #e6e6e6/*{bgColorDefault}*/ url(images/ui-bg_glass_75_e6e6e6_1x400.png)/*{bgImgUrlDefault}*/ 50%/*{bgDefaultXPos}*/ 50%/*{bgDefaultYPos}*/ repeat-x/*{bgDefaultRepeat}*/; font-weight: normal/*{fwDefault}*/; color: #555555/*{fcDefault}*/; }
+jquery.ui.theme.css:.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus { border: 1px solid #999999/*{borderColorHover}*/; background: #dadada/*{bgColorHover}*/ url(images/ui-bg_glass_75_dadada_1x400.png)/*{bgImgUrlHover}*/ 50%/*{bgHoverXPos}*/ 50%/*{bgHoverYPos}*/ repeat-x/*{bgHoverRepeat}*/; font-weight: normal/*{fwDefault}*/; color: #212121/*{fcHover}*/; }
+jquery.ui.theme.css:.ui-state-active, .ui-widget-content .ui-state-active { border: 1px solid #aaaaaa/*{borderColorActive}*/; background: #ffffff/*{bgColorActive}*/ url(images/ui-bg_glass_65_ffffff_1x400.png)/*{bgImgUrlActive}*/ 50%/*{bgActiveXPos}*/ 50%/*{bgActiveYPos}*/ repeat-x/*{bgActiveRepeat}*/; font-weight: normal/*{fwDefault}*/; color: #212121/*{fcActive}*/; }
+jquery.ui.theme.css:.ui-state-highlight, .ui-widget-content .ui-state-highlight {border: 1px solid #fcefa1/*{borderColorHighlight}*/; background: #fbf9ee/*{bgColorHighlight}*/ url(images/ui-bg_glass_55_fbf9ee_1x400.png)/*{bgImgUrlHighlight}*/ 50%/*{bgHighlightXPos}*/ 50%/*{bgHighlightYPos}*/ repeat-x/*{bgHighlightRepeat}*/; color: #363636/*{fcHighlight}*/; }
+jquery.ui.theme.css:.ui-state-error, .ui-widget-content .ui-state-error {border: 1px solid #cd0a0a/*{borderColorError}*/; background: #fef1ec/*{bgColorError}*/ url(images/ui-bg_glass_95_fef1ec_1x400.png)/*{bgImgUrlError}*/ 50%/*{bgErrorXPos}*/ 50%/*{bgErrorYPos}*/ repeat-x/*{bgErrorRepeat}*/; color: #cd0a0a/*{fcError}*/; }
+jquery.ui.theme.css:/* states and images */
+jquery.ui.theme.css:.ui-icon { width: 16px; height: 16px; background-image: url(images/ui-icons_222222_256x240.png)/*{iconsContent}*/; }
+jquery.ui.theme.css:.ui-widget-content .ui-icon {background-image: url(images/ui-icons_222222_256x240.png)/*{iconsContent}*/; }
+jquery.ui.theme.css:.ui-widget-header .ui-icon {background-image: url(images/ui-icons_222222_256x240.png)/*{iconsHeader}*/; }
+jquery.ui.theme.css:.ui-state-default .ui-icon { background-image: url(images/ui-icons_888888_256x240.png)/*{iconsDefault}*/; }
+jquery.ui.theme.css:.ui-state-hover .ui-icon, .ui-state-focus .ui-icon {background-image: url(images/ui-icons_454545_256x240.png)/*{iconsHover}*/; }
+jquery.ui.theme.css:.ui-state-active .ui-icon {background-image: url(images/ui-icons_454545_256x240.png)/*{iconsActive}*/; }
+jquery.ui.theme.css:.ui-state-highlight .ui-icon {background-image: url(images/ui-icons_2e83ff_256x240.png)/*{iconsHighlight}*/; }
+jquery.ui.theme.css:.ui-state-error .ui-icon, .ui-state-error-text .ui-icon {background-image: url(images/ui-icons_cd0a0a_256x240.png)/*{iconsError}*/; }
+jquery.ui.theme.css:.ui-widget-overlay { background: #aaaaaa/*{bgColorOverlay}*/ url(images/ui-bg_flat_0_aaaaaa_40x100.png)/*{bgImgUrlOverlay}*/ 50%/*{bgOverlayXPos}*/ 50%/*{bgOverlayYPos}*/ repeat-x/*{bgOverlayRepeat}*/; opacity: .3;filter:Alpha(Opacity=30)/*{opacityOverlay}*/; }
+jquery.ui.theme.css:.ui-widget-shadow { margin: -8px/*{offsetTopShadow}*/ 0 0 -8px/*{offsetLeftShadow}*/; padding: 8px/*{thicknessShadow}*/; background: #aaaaaa/*{bgColorShadow}*/ url(images/ui-bg_flat_0_aaaaaa_40x100.png)/*{bgImgUrlShadow}*/ 50%/*{bgShadowXPos}*/ 50%/*{bgShadowYPos}*/ repeat-x/*{bgShadowRepeat}*/; opacity: .3;filter:Alpha(Opacity=30)/*{opacityShadow}*/; -moz-border-radius: 8px/*{cornerRadiusShadow}*/; -webkit-border-radius: 8px/*{cornerRadiusShadow}*/; border-radius: 8px/*{cornerRadiusShadow}*/; }
+prototype-1.6.0.3.js:        // via arrow keys. It also screws up the "load" and "error" events on images,
+stylesheet-12-06-backup.css:	background-image: url(../images/bg-tile.gif);
+stylesheet-12-06-backup.css:background:url(../images/menu-box-bg.jpg) left top repeat-x;
+stylesheet-12-06-backup.css:background: url(../images/footer-bg.jpg) left top repeat-x;
+stylesheet-12-06-backup.css:background:url(../images/header-bg.jpg) right top no-repeat;
+stylesheet-12-06-backup.css:background:url(../images/search-bg2.jpg) left top no-repeat;
+stylesheet-12-06-backup.css:background:url(../images/add-bg.jpg) left top no-repeat;
+stylesheet-12-06-backup.css:background:url(../images/world-map.jpg) 65px 5px no-repeat;
+stylesheet.css:	background-image: url(../images/bg-tile.gif);
+stylesheet.css:	background-image: url(../images/content-bg.jpg);
+stylesheet.css:	background-image: url(../images/header-bg.jpg);
+stylesheet.css:	background-image: url(../images/footer-bg.jpg);
+stylesheet.css:	background: #656668 url(../images/btn-bg.gif) repeat-x;
+stylesheet.css:	background-image: url(../images/nav-bg.gif);
+stylesheet.css:#nav li a.down {background:url(../imagesdown.gif) no-repeat right center;}
+stylesheet.css:	background-image: url(../images/search-h3-bg.jpg);
+stylesheet.css:	background-image: url(../images/table-row-bg.gif);
+stylesheet.css:	background-image: url(../images/table-header-bg.gif);
+stylesheet.css:	background-image: url(../images/table-header-bg.gif);

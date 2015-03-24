@@ -1,0 +1,1 @@
+hello world from jsp inside WEB-INF

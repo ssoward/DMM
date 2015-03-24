@@ -1,0 +1,136 @@
+<pre>
+   ____  __  __ __  __   _____  _    ____  _  ______  
+  |  _ \|  \/  |  \/  | |_   _|/ \  / ___|| |/ / ___| 
+  | | | | |\/| | |\/| |   | | / _ \ \___ \| ' /\___ \ 
+  | |_| | |  | | |  | |   | |/ ___ \ ___) | . \ ___) |
+  |____/|_|  |_|_|  |_|   |_/_/   \_\____/|_|\_\____/ 
+                                                      
+  ============================ 
+ </pre>
+
+ <table border="1" cellspacing="0" cellpadding="3">
+   <tr><th>HOURS</th><th>DATE</th><th>DESC</th></tr>
+
+    <tr><td>.5</td><td>4.23.11</td><td> 
+       create an account type teacher with no discount associated with it.
+       insert into AccountTypes values ('30', 'Teacher',0,0)
+    </td></tr>
+ 
+    <tr><td>3</td><td>4.23.11</td><td> 
+        The products to be listed in the report need to come from the history box in the sforzando inventory (https://www.daymurraymusic.com/cgi-bin/e.magine/em-inventory.cgi) Anything that was listed as sold in those boxes for the year should be included on the report. The figures listed for the quantities need to be what is currently on the shelves for all three stores the day the report was run. The report needs the option to be able to select the department just like the current product inventory report (http://dashboard/DMM/reportProductInventory.jsp) There is a similar report that might be able to work if we added in the missing parts. It's located at (http://dashboard/DMM/reportProductSold.jsp) 
+        <br/>
+        We're noticing a problem on the inventory page https://www.daymurraymusic.com/cgi-bin/e.magine/em-inventory.cgi -  Next to the last DO option, the current date is no longer showing up when the Reset DO button is pressed. It hasn't been able to do so ever since the add qty option was added.
+    </td></tr>
+ 
+   <tr><td> .5</td>
+       <td>4.23.11</td> 
+       <td>
+       <h2>Detail/Customer Section</h2>
+       <ul>
+         <li>create status and ability to update status</li>
+         <li>required fields: location(dropped)</li>
+       </ul>
+       <h2>Product Section</h2>
+       <ul>
+         <li>tabs: estimated time</li>
+         <li>customer email</li>
+         <li>create link for point of sale with products populated on link</li>
+       </ul>
+       <h2> Misc</h2>
+       <ul>
+         <li>Add ability to save order</li>
+         <li>Add ability to recreate order</li>
+         <li>Reports...</li>
+         <li>- Under the status column add to the drop down an option for Ordered - (order date) that would populate automatically with the date that Klint ordered the music from the publisher. It should populate from the publisher ordered/received report that will be created.</li>
+       </ul>
+   </td></tr>
+ </table>
+ <br/>
+
+
+
+
+
+
+
+  <br/>
+ 
+   <table border="1" cellspacing="0" cellpadding="3">
+
+    <tr><th>HOURS</th><th>DATE</th><th>DESC</th></tr>
+    <tr><td>3</td><td>3.17.11</td><td> 
+        Special Orders work flow feedback/design/review/discussion/planning
+    </td></tr>
+    <tr><td>9,2,2<br/>5,1
+        <br/>5
+        <br/>.5
+        </td><td>
+        3/(26,28,29)/11<br/>
+        04/(02,04)/11<br/>
+        04/09/11<br/>
+        04/11/11<br/>
+        </td><td> 
+        <h2>Detail/Customer Section</h2>
+        <ul>
+          <li>&#x2713; Set person by default for Method </li>
+          <li>create status and ability to update status</li>
+          <li>&#x2713; show some part of the note without having to click into the notes</li>
+          <li>&#x2713; add 'Drop Ship' [overnight, 2 day, 3 day, ground, first class, priority]</li>
+          <li>&#x2713; add pick up and mail on location radio</li>
+          <li>&#x2713; add 'pick up at' if pickup is selected</li>
+          <li>required fields: location(dropped)</li>
+          <li>&#x2713; allow search customer to use phone, name, and acct#</li>
+          <li>&#x2713; add contact to customer fields</li>
+          <li>&#x2713; add cc# modal</li>
+          <li>&#x2713; add cc#  security via db encryption</li>
+          <li>&#x2713; add create new prod link</li>
+        </ul>
+        <h2>Product Section</h2>
+        <ul>
+          <li>&#x2713;Set the first, second...tabs to publisher names</li>
+          <li>&#x2713;tabs should change color when selected</li>
+          <li>&#x2713;tabs: publisher names</li>
+          <li>tabs: estimated time</li>
+          <li>&#x2713;new column 'verified' checkbox</li>
+          <li>&#x2713;new column 'price' </li>
+          <li>&#x2713;new column 'status' [T.O.P.,P.O.P., B.O., RECIEVED] </li>
+          <li>&#x2713;new column emailed checkbox</li>
+          <li>&#x2713;add ability to enter products without publishers</li>
+          <li>&#x2713;add modal link to create new prod</li>
+          <li>&#x2713;add estimate price</li>
+          <li>customer email</li>
+          <li>create link for point of sale with products populated on link</li>
+        </ul>
+        <h2> Misc</h2>
+        <ul>
+          <li>Add ability to save order</li>
+          <li>Add ability to recreate order</li>
+          <li>Reports...</li>
+
+          <li>&#x2713; When the preview text from the notes box shows up, can we have it be a highlighted color like red, or something else that stands out.</li>
+          <li>&#x2713; Under the drop ship drop down list, have a blank option that would be defaulted to, or have "Drop Ship" be an optional field to select, as we won't be using this option very often.</li>
+          <li>&#x2713; Change the Location box to two different boxes "Ordered At" (Murray, Lehi, Orem) and "Pick Up At" (Murray, Lehi, Orem, Mail)</li>
+          <li>&#x2713; The ability to add a customer to the database if not found in the search is no longer there.</li>
+          <li>- Under the status column add to the drop down an option for Ordered - (order date) that would populate automatically with the date that Klint ordered the music from the publisher. It should populate from the publisher ordered/received report that will be created.</li>
+          <li>&#x2713; When I saved the account information for account 1002 - "Klint & Rosanne Day" from the order page it changed the account name to just "Klint" in both sforzando and dashboard</li>
+        </ul>
+    </td></tr>
+  </table>
+  <br/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,81 @@
+<!-- APP SCRIPT -->
+<div class="list-group-item">
+    <h5 class="pull-right">Products</h5>
+    <br />
+    <spinner class="bl-spinner-large" ng-show="pageLoaded"></spinner>
+    <div class="form">
+        <div class="form-group">
+            <label for="productSearch">Product Search</label>
+            <div class="form-inline">
+                <input type="text" ng-model="data.newProduct" id="productSearch"
+                       placeholder="12345"
+                       bl-autofocus
+                       autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       typeahead="product as product.productName + ' ' +product.productNum for product in getSearchProducts($viewValue) | filter:$viewValue"
+                       typeahead-loading="!matchesLoaded"
+                       typeahead-min-length="5"
+                       typeahead-editable="false"
+                       typeahead-on-select="setProduct(data.newProduct)"
+                       class="form-control bishop-typeahead"/>
+                <a class="btn" ng-click="createPOrder()">Create PO</a>
+            </div>
+            <spinner ng-show="fetchingSuppliers" class="bishop-typeahead-spinner"></spinner>
+        </div>
+        <div class="form-group">
+            <div ng-if="product" class="form-group">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-4 form-ele">
+                            <label for="productName">Name</label>
+                            <input class="form-control" ng-disabled="true" id="productName" ng-model="product.productName" />
+                        </div>
+                        <div class="col-md-4 form-ele">
+                            <label for="productDescription">Description</label>
+                            <input class="form-control" ng-disabled="true" id="productDescription" ng-model="product.productDescription" />
+                        </div>
+                        <div class="col-md-4 form-ele">
+                            <label for="productWeight">Weight <span ng-if="updatingWeight" class="pull-right"><spinner></spinner></span><span ng-if="updatedWeight" class="glyphicon glyphicon-ok alert-success" tooltip="Successfully saved product weight."></span></label>
+                            <select class="form-control" id="productWeight" ng-change="saveWeight(product)" ng-model="product.weight" ng-options="weight.name as weight.desc for weight in productWeights">
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-ele">
+                            <label for="productAuthor">Author or Composer</label>
+                            <input class="form-control" ng-disabled="true" id="productAuthor" ng-model="product.productAuthor" />
+                        </div>
+                        <div class="col-md-4 form-ele">
+                            <label for="productArranger">Arranger</label>
+                            <input class="form-control" ng-disabled="true" id="productArranger" ng-model="product.productArranger" />
+                        </div>
+                        <div class="col-md-4 form-ele">
+                            <label for="productCat">Catalog Number</label>
+                            <input class="form-control" ng-disabled="true" id="productCat" ng-model="product.productCatalogNum" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-ele">
+                            <label for="productBar">Bar Code</label>
+                            <input class="form-control" ng-disabled="true" id="productBar" ng-model="product.productBarCode" />
+                        </div>
+                        <div class="col-md-4 form-ele">
+                            <label for="productSKU">SKU</label>
+                            <input class="form-control" ng-disabled="true" id="productSKU" ng-model="product.productSKU" />
+                        </div>
+                        <div class="col-md-4 form-ele">
+                            <label for="productSupplier">Supplier</label>
+                            <input class="form-control" ng-disabled="true" id="productSupplier" ng-model="product.productSupplier1" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

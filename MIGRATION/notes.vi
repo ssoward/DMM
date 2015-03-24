@@ -1,0 +1,1 @@
+print STDERR "MY PRINT: $ccSQL \n\n";

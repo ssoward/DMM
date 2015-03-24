@@ -1,0 +1,202 @@
+<?xml version="1.0"?>
+
+<project name="Ganges Buildfile" default="build" basedir=".">
+
+  <property file="build.properties"/>
+
+  <!-- LOCAL DIRECTORIES -->
+  <property name="buildwar.dir" value="${basedir}/${context.name}"/>	
+  <property name="lib.local" value="${basedir}/lib"/>	
+  <property name="src.dir" value="${basedir}/src"/>	
+  <property name="web.dir" value="${basedir}/web"/>	
+  <property name="web.js.lib.dir" value="${basedir}/web/lib"/>
+  <property name="web.inf.local" value="${web.dir}/WEB-INF"/>
+  <property name="ssh.home" value="c:/tools/cygwin/home/amorvivir/.ssh/"/>	
+
+
+  <!-- WEB DIRECTORIES -->
+  <property name="output" value="${basedir}/dist"/>
+  <property name="war.dir" value="${basedir}/dist/${context.name}"/>
+  <property name="web.inf.dir" value="${war.dir}/WEB-INF"/>
+  <property name="classes.dir" value="${web.inf.dir}/classes"/>
+  <property name="lib.dir" value="${web.inf.dir}/lib"/>
+  <property name="war.file" value="${basedir}/dist/${context.name}.war"/>
+  <property name="war.filename" value="${context.name}.war"/>
+  <property name="images.dir" value="${war.dir}/images"/>
+  <property name="jslib.dir" value="${war.dir}/lib"/>
+  <property name="css.dir" value="${war.dir}/css"/>
+  <property name="jasper.dir" value="${war.dir}/jasper"/>
+  <property name="js.dir" value="${war.dir}/js"/>
+  <property name="misc.dir" value="${basedir}/web/misc"/>
+  <property name="misc.out.dir" value="${js.dir}/misc"/>
+
+  <!-- JAVA OPTIONS -->
+  <property name="javac.debug" value="true"/>
+  <property name="javac.debug.level" value="lines,vars,source"/>
+  <property name="javac.deprecation" value="false"/>
+  <property name="javac.optimize" value="true"/>
+
+
+  <!-- CATALINA ANT -->
+  <!--<taskdef name="deploy" classname="org.apache.catalina.ant.DeployTask"/>     -->
+  <!--<taskdef name="reload" classname="org.apache.catalina.ant.ReloadTask"/>     -->
+  <!--<taskdef name="undeploy" classname="org.apache.catalina.ant.UndeployTask"/> -->
+
+  <!-- BUILD CLASSPATH -->
+  <path id="build.classpath">
+    <pathelement location="${src.dir}"/>
+    <fileset dir="${lib.local}">
+      <include name="*.jar"/>
+    </fileset>
+  </path>
+	
+	<path id="reports.classpath">
+		  <fileset dir="${lib.local}">
+		      <include name="*.jar"/>
+		    </fileset>
+	</path>
+
+	<taskdef name="jrc" classname="net.sf.jasperreports.ant.JRAntCompileTask">
+		<classpath refid="reports.classpath" />
+	</taskdef>	
+
+  <target name="build" description="main target" depends="clean, init, compile-reports">
+    <javac destdir="${classes.dir}"
+    	failonerror="false"
+      debug="${javac.debug}"
+      debuglevel="${javac.debug.level}"
+      deprecation="${javac.deprecation}"
+      optimize="${javac.optimize}"
+      srcdir="${src.dir}">
+      <classpath refid="build.classpath"/>
+    </javac>
+  	<antcall target="war"/>
+  </target>
+	
+   <target name="compile-reports">
+		<jrc srcdir="${web.dir}/jasper" destdir="${jasper.dir}">
+			<classpath refid="reports.classpath" />
+		</jrc>
+	</target>			
+
+
+  <target name="init">
+    <mkdir dir="${output}"/>
+    <mkdir dir="${war.dir}"/>
+    <mkdir dir="${web.inf.dir}"/>
+    <mkdir dir="${classes.dir}"/>
+    <mkdir dir="${lib.dir}"/>
+    <mkdir dir="${images.dir}"/>
+    <mkdir dir="${jslib.dir}"/>
+    <mkdir dir="${css.dir}"/>
+    <mkdir dir="${jasper.dir}"/>
+    <mkdir dir="${js.dir}"/>
+    <mkdir dir="${misc.out.dir}"/>
+
+  	<copy todir="${jslib.dir}">
+      <fileset dir="${web.js.lib.dir}" />
+    </copy>
+
+    <copy todir="${lib.dir}">
+      <fileset dir="${lib.local}" includes="jconn3.jar"/>
+      <fileset dir="${lib.local}" includes="jai_codec.jar"/>
+      <fileset dir="${lib.local}" includes="jasperreports-1.2.7.jar"/>
+      <fileset dir="${lib.local}" includes="*.jar"/>
+    </copy>
+
+
+    <copy todir="${war.dir}">
+      <fileset dir="${web.dir}" includes="*.jsp"/>
+      <fileset dir="${web.dir}" includes="*.html"/>
+    </copy>
+
+    <copy todir="${images.dir}">
+      <fileset dir="${web.dir}/images" includes="*.jpg"/>
+      <fileset dir="${web.dir}/images" includes="*.gif"/>
+      <fileset dir="${web.dir}/images" includes="*.png"/>
+    </copy>
+
+    <copy todir="${css.dir}">
+      <fileset dir="${web.dir}/images" includes="*.css"/>
+      <fileset dir="${web.dir}/images" includes="*.js"/>
+    </copy>
+  	
+    <copy todir="${jasper.dir}">
+      <fileset dir="${web.dir}/jasper" includes="*.jasper"/>
+    </copy>
+  	
+    <copy todir="${js.dir}">
+      <fileset dir="${web.dir}/images" includes="*.js"/>
+    </copy>
+
+
+    <copy todir="${web.inf.dir}">
+      <fileset dir="${web.inf.local}" includes="*.xml"/>
+    </copy>
+
+
+  </target>
+
+  <target name="clean">
+    <delete includeEmptyDirs="true"
+    	failonerror="false">
+      <fileset dir="${output}"/>
+    </delete> 
+  </target>
+
+  <target name="send.war">
+    <scp 
+      port="2222"
+      file="${war.file}"
+      keyfile="${ssh.home}/id_dsa"
+      passphrase=""
+      todir="scott@soward.mine.nu:${remote.path}"/>
+
+  </target>
+  <!--
+      todir="scott:Isabel@mygirl@soward.mine.nu:${remote.host}"/>
+    -->
+
+  <target name="install"> 
+    <echo>
+      "file://${remote.path}/${war.filename}"
+    </echo>
+    <deploy url="${manager.url}" 
+    	failonerror="true"
+      username="${manager.username}"
+      password="${manager.password}"
+      path="${app.path}${context.name}"
+      localWar="file://${remote.path}/${war.filename}"/> 
+  </target> 
+
+  <target name="reload"> 
+    <reload url="${manager.url}" 
+    	failonerror="false"
+      username="${manager.username}"
+      password="${manager.password}"
+      path="${app.path}${context.name}"/> 
+  </target>
+
+  <target name="remove"> 
+    <undeploy url="${manager.url}"
+    	failonerror="false"
+      username="${manager.username}" 
+      password="${manager.password}"
+      path="${app.path}${context.name}"/> 
+  </target>
+
+  <target name="war"> 
+    <jar jarfile="${war.file}" basedir="${war.dir}"/>
+  </target>
+
+  <target name="unwar"> 
+    <mkdir dir="${unwar.dir}"/>
+    <unwar src="${war.file}" dest="${unwar.dir}" />
+  	<echo>Deleting META-INF dir.</echo>
+  	<delete dir="${unwar.dir}/META-INF"/>
+  </target>
+
+
+
+</project>
+

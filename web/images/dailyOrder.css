@@ -1,0 +1,105 @@
+#smallNotes{
+  color: #9000A1;
+}
+#loadOrder{
+  padding: 2px;
+  position:relative;
+  left: 20px;
+}
+#recreateOrder{
+  padding: 2px;
+}
+.divLink{ 
+  cursor: pointer; cursor: hand;
+  text-decoration: underline;
+  float: right;
+  color: #271849;
+  margin-right: 8px;
+}
+.tableBorder{
+  border-style:solid;
+  border-width:1px;
+  background: #FFFFFF; /* old browsers */ 
+  /*background: -moz-linear-gradient(top, #FFFFFF 0%, #E5E5E5 100%); /* firefox */ 
+  /*background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFFFFF), color-stop(100%,#E5E5E5)); /* webkit */
+  /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFFFFF', endColorstr='#E5E5E5',GradientType=0 ); /* ie */
+  padding: 1em;
+}
+.editAccount{
+  background: #f2f2f2;
+  border: 1px solid #666;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  padding: 1em;
+}
+#specialOrder{
+}
+#page{
+  padding: 1em;
+}
+
+ input[type='text'], input[type='number'], input[type='email'],
+ textarea, select { 
+ 	#background-color: #fff; 
+ 	#border: solid 1px #999;
+ 	#padding: 5px;
+ }
+ input[type='text'], input[type='number'], input[type='email'],
+ textarea { 
+ 	#width: 145px;
+ }
+ textarea { 
+ 	height: 100px; 
+ }
+ select { 
+ 	#width: 155px; 
+ }
+
+ input[maxlength='3'] {	width: 30px;	}
+ input[maxlength='4'] {	width: 40px;	}
+ input[maxlength='5'] {	width: 45px;	}
+ input[type='text'].focus, input[type='number'].focus, input[type='email'].focus,
+ textarea.focus, select.focus { 
+ 	border-color: #000 !important; 
+ }
+ input[type='text'].inactive, input[type='number'].inactive, input[type='email'].inactive,
+ textarea.inactive, select.inactive, option.inactive { 
+ 	color: #999;
+ 	font-style: italic;
+ }
+ input[type='text'].invalid, input[type='number'].invalid, input[type='email'].invalid, 
+ textarea.invalid, select.invalid {
+ 	border-color: red;
+ }
+ 
+ span.checkbox-container {
+ 	display: inline-block;
+ 	border: 1px solid transparent;
+ 	padding: 2px 5px;
+ }
+ span.checkbox-container.invalid {
+ 	border-color: red;
+ }
+
+ select.inactive option {
+ 	color: #000;
+ 	font-style: normal;
+ }
+ select option.inactive,
+ select.inactive option.inactive {
+ 	color: #999;
+ 	font-style: italic;
+ }
+
+
+ body, p, input {
+ 	font-family: Arial, Helvetica, sans-serif;
+ 	font-size: 12px;
+ }
+ label {
+ 	width: 150px;
+ 	padding: 5px 0 0 15px;
+ 	display: block;
+ 	float: left;
+ }
+ 

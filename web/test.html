@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en">
+<head>
+    <META HTTP-EQUIV="imagetoolbar" CONTENT="no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>DMM DashBoard</title>
+    <link href="images/stylesheet.css" rel="stylesheet" type="text/css" media="all" />
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+    <!--link rel="stylesheet" type="text/css" href="css/chromestyle.css" /-->
+    <script type="text/javascript" src="images/sorttable.js"></script>
+    <script type="text/javascript" src="images/chrome.js"></script>
+    <script type="text/javascript" src="images/dmm.js"></script>
+    <!-- APP SCRIPT -->
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/js/component/lodash.js"></script>
+    <script src="lib/angular/angular-animate.js"></script>
+    <script src="lib/angular/angular-ui-router.js"></script>
+    <script src="lib/angular/angular-route.js"></script>
+    <script src="lib/angular/ui-bootstrap-tpls.js"></script>
+    <script src="lib/angular/angular-slider.min.js"></script>
+
+    <script src="lib/js/DMMCore.js"></script>
+
+    <script src="lib/js/ProductsApp.js"></script>
+    <script src="lib/js/productsRoute.js"></script>
+
+    <script src="lib/js/DailySalesApp.js"></script>
+    <script src="lib/js/dailySalesRouter.js"></script>
+
+    <script src="lib/js/PurchaseOrderApp.js"></script>
+    <script src="lib/js/purchaseOrderRouter.js"></script>
+
+    <script src="lib/js/SMAuthApp.js"></script>
+    <script src="lib/js/SMAuthRouter.js"></script>
+
+    <script src="lib/js/controllers/PurchaseOrderController.js"></script>
+    <script src="lib/js/controllers/DailySalesController.js"></script>
+    <script src="lib/js/controllers/SMAController.js"></script>
+    <script src="lib/js/controllers/ProductsController.js"></script>
+
+    <script src="lib/js/services/SMAuthService.js"></script>
+    <script src="lib/js/services/POService.js"></script>
+    <script src="lib/js/services/InvoiceTransService.js"></script>
+    <script src="lib/js/services/ProductServcie.js"></script>
+
+    <script src="lib/js/directives/spinner.js"></script>
+
+    <link type="text/css" href="images/jquery-ui-1.8.4.custom.css" rel="stylesheet" />
+    <script type="text/javascript" src="images/notification.js"></script>
+</head>
+<body>
+<div id="content">
+    <div class="header-bg">
+        <span class="welcome"></span>
+        <span class="menu_box">
+            <a href="http://www.daymurraymusic.com">DMM Website</a>
+            <a href="index.jsp">Home</a> |
+            <a href="logout.jsp">Logout</a>
+        </span>
+    </div>
+    <div id="ajaxLoader" class="hideAjaxLoader"></div>
+    <div id="dialogBackground" class="dialogBackgroundHide"> </div>
+
+<div ng-app="dailySalesApp" style="margin: 0 .5em;">
+    <div ui-view autoscroll="false"></div>
+</div>

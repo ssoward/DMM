@@ -1,0 +1,314 @@
+<?xml version="1.0"?>
+<!DOCTYPE web-app PUBLIC
+        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app>
+
+
+    <servlet>
+        <servlet-name>Login</servlet-name>
+        <servlet-class>com.soward.util.Login</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>InventoryAjax</servlet-name>
+        <servlet-class>com.soward.ajax.InventoryAjax</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>InventoryAjax</servlet-name>
+        <url-pattern>/InventoryAjax</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AccountSearchAjax</servlet-name>
+        <servlet-class>com.soward.ajax.AccountSearchAjax</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>InvoiceUtilAjax</servlet-name>
+        <servlet-class>com.soward.ajax.InvoiceUtilAjax</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AccountSearchAjax</servlet-name>
+        <url-pattern>/AccountSearchAjax</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>InvoiceUtilAjax</servlet-name>
+        <url-pattern>/InvoiceUtilAjax</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SpecialOrderAjax</servlet-name>
+        <servlet-class>com.soward.ajax.SpecialOrderAjax</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SpecialOrderAjax</servlet-name>
+        <url-pattern>/SpecialOrderAjax</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ProdAjax</servlet-name>
+        <servlet-class>com.soward.ajax.ProdAjax</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ProdAjax</servlet-name>
+        <url-pattern>/ProdAjax</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>InstrumentAjax</servlet-name>
+        <servlet-class>com.soward.ajax.InstrumentAjax</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>InstrumentAjax</servlet-name>
+        <url-pattern>/InstrumentAjax</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet-mapping>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UpdateAccount</servlet-name>
+        <servlet-class>com.soward.util.UpdateAccount</servlet-class>
+    </servlet>
+
+
+    <servlet-mapping>
+        <servlet-name>UpdateAccount</servlet-name>
+        <url-pattern>/UpdateAccount</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>reportsUtil</servlet-name>
+        <servlet-class>com.soward.util.ReportsUtil</servlet-class>
+    </servlet>
+
+    <!--REST CONTROLLERS-->
+    <servlet>
+        <servlet-name>suppliers</servlet-name>
+        <servlet-class>com.soward.controller.SupplierController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>users</servlet-name>
+        <servlet-class>com.soward.controller.UserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>products</servlet-name>
+        <servlet-class>com.soward.controller.ProductsController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>sma</servlet-name>
+        <servlet-class>com.soward.controller.SMAController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>invoices</servlet-name>
+        <servlet-class>com.soward.controller.InvoiceController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>suppliers</servlet-name>
+        <url-pattern>/suppliers</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>users</servlet-name>
+        <url-pattern>/users</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>sma</servlet-name>
+        <url-pattern>/sma</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>products</servlet-name>
+        <url-pattern>/products</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>invoices</servlet-name>
+        <url-pattern>/invoices</url-pattern>
+    </servlet-mapping>
+
+<!--REST CONTROLLERS-->
+
+    <servlet>
+        <servlet-name>InvUtil</servlet-name>
+        <servlet-class>com.soward.ajax.InventoryUtilAjax</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ajaxUtil</servlet-name>
+        <servlet-class>com.soward.ajax.UtilsAjax</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>InvUtil</servlet-name>
+        <url-pattern>/InvUtil</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ajaxUtil</servlet-name>
+        <url-pattern>/ajaxUtil</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet-mapping>
+        <servlet-name>reportsUtil</servlet-name>
+        <url-pattern>/DailySales.pdf</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>reportsUtil</servlet-name>
+        <url-pattern>/DailySales.csv</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>reportsUtil</servlet-name>
+        <url-pattern>/StockOrder.pdf</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>reportsUtil</servlet-name>
+        <url-pattern>/StockOrder.csv</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>reportsUtil</servlet-name>
+        <url-pattern>/ProductInventoryReport.pdf</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>reportsUtil</servlet-name>
+        <url-pattern>/AccountAddresses.pdf</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>reportsUtil</servlet-name>
+        <url-pattern>/ProductInventoryReport.csv</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>reportsUtil</servlet-name>
+        <url-pattern>/InvProductSoldReport.pdf</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>reportsUtil</servlet-name>
+        <url-pattern>/InvProductSoldReport.csv</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>REP</servlet-name>
+        <servlet-class>com.soward.util.ReportsUtil</servlet-class>
+    </servlet>
+
+
+    <servlet-mapping>
+        <servlet-name>REP</servlet-name>
+        <url-pattern>/report</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>BarcodeServlet</servlet-name>
+        <servlet-class>com.soward.servlet.BarcodeServlet</servlet-class>
+    </servlet>
+
+
+    <servlet-mapping>
+        <servlet-name>BarcodeServlet</servlet-name>
+        <url-pattern>/BarcodeServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UserUtil</servlet-name>
+        <servlet-class>com.soward.util.UserUtil</servlet-class>
+    </servlet>
+
+
+    <servlet-mapping>
+        <servlet-name>UserUtil</servlet-name>
+        <url-pattern>/UserUtil</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PagesUtil</servlet-name>
+        <servlet-class>com.soward.util.PagesUtil</servlet-class>
+    </servlet>
+
+
+    <servlet-mapping>
+        <servlet-name>PagesUtil</servlet-name>
+        <url-pattern>/PagesUtil</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AjaxTheadServlet</servlet-name>
+        <servlet-class>com.soward.servlet.AjaxTheadServlet</servlet-class>
+    </servlet>
+
+
+    <servlet-mapping>
+        <servlet-name>AjaxTheadServlet</servlet-name>
+        <url-pattern>/AjaxTheadServlet</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>SupUtil</servlet-name>
+        <servlet-class>com.soward.ajax.SupplierAjax</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>com.soward.gwt.music SortService</servlet-name>
+        <servlet-class>com.soward.gwt.server.SortServiceImpl</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SupUtil</servlet-name>
+        <url-pattern>/SupUtil</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>com.soward.gwt.music SortService</servlet-name>
+        <url-pattern>/music/SortService</url-pattern>
+    </servlet-mapping>
+
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/home.jsp?message=A HTML 404 occured, please contact sys admin or login in again.</location>
+    </error-page>
+
+    <error-page>
+        <error-code>500</error-code>
+        <location>/home.jsp?message=A HTML 500 occured, please contact sys admin or login in again.</location>
+    </error-page>
+
+    <error-page>
+        <error-code>403</error-code>
+        <location>/home.jsp?message=A HTML 403 occured, please contact sys admin or login in again.</location>
+    </error-page>
+
+    <error-page>
+        <error-code>505</error-code>
+        <location>/home.jsp?message=A HTML 505 occured, please contact sys admin or login in again.</location>
+    </error-page>
+
+    <welcome-file-list>
+        <welcome-file>home.jsp</welcome-file>
+    </welcome-file-list>
+
+    <session-config>
+        <session-timeout>200</session-timeout>
+    </session-config>
+
+
+</web-app>
+
+
+
+

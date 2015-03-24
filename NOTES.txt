@@ -1,0 +1,235 @@
+ALTER TABLE `dmm`.`archivedinvoice` ADD COLUMN `register` VARCHAR(45) NULL DEFAULT NULL  AFTER `comments` ;
+
+
+----------------------------------------------------------
+
+CREATE  TABLE `dmm`.`archivedinvoice` (
+  `id` INT NOT NULL ,
+  `date` TIMESTAMP NULL ,
+  `invoice` BLOB NULL ,
+  `userid` VARCHAR(45) NULL ,
+  `username` VARCHAR(45) NULL ,
+  `invoicenum` VARCHAR(45) NULL ,
+  `reason` VARCHAR(45) NULL ,
+  `comments` BLOB NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `index2` (`date` ASC) ,
+  INDEX `index3` (`username` ASC) ,
+  UNIQUE INDEX `index4` (`invoicenum` ASC) );
+
+  ALTER TABLE `dmm`.`archivedinvoice` CHANGE COLUMN `id` `id` INT(11) NOT NULL AUTO_INCREMENT
+, ADD UNIQUE INDEX `id_UNIQUE` (`id` ASC) ;
+
+ALTER TABLE `dmm`.`archivedinvoice` CHANGE COLUMN `reason` `reason` INT NULL DEFAULT NULL  ;
+
+
+
+----------------------------------------------------------
+
+ALTER TABLE `dmm`.`special_order` ADD COLUMN `accountName` VARCHAR(45) DEFAULT NULL AFTER `accountNum`;
+
+----------------------------------------------------------
+CREATE TABLE `dmm`.`special_order_prods` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `prodNum`        varchar(45),
+  `verified`    varchar(45),
+  `quantity`         varchar(45),
+  `status`     varchar(45),
+  `emailed`             varchar(45),
+  PRIMARY KEY (`id`)
+)
+ALTER TABLE `dmm`.`special_order_prods` ADD COLUMN `sup_num` varchar(45) AFTER `s_order_id`;
+
+ALTER TABLE `dmm`.`special_order_prods` ADD COLUMN `s_order_id` INT AFTER `emailed`;
+
+----------------------------------------------------------
+CREATE TABLE `dmm`.`special_order` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `orderMethod`        varchar(45),
+  `droppedLocation`    varchar(45),
+  `shipMethod`         varchar(45),
+  `droppedShipped`     varchar(45),
+  `pickUp`             varchar(45),
+  `orderStatus`        varchar(45),
+  `shipNote`           varchar(2000),
+  `orderDate`          varchar(45),
+  `createdBy`          varchar(45),
+  `deliveryDate`       varchar(45),
+  `accountNum`         varchar(45),
+  
+  PRIMARY KEY (`id`)
+)
+
+----------------------------------------------------------
+mysqladmin -u root -p'root' password newPass
+
+CREATE TABLE  `dmm`.`account_info` (
+  `pid` int(11) NOT NULL auto_increment,
+  `name` blob,
+  `type` blob,
+  `number` blob,
+  `code` blob,
+  `month` int(11) default NULL,
+  `year` int(11) default NULL,
+  `account` varchar(45) NOT NULL,
+  PRIMARY KEY  USING BTREE (`pid`)
+) 
+----------------------------------------------------------
+ALTER TABLE `dmm`.`order` ADD COLUMN `order_method` VARCHAR(45) DEFAULT NULL AFTER `note`,
+ ADD COLUMN `dropped` VARCHAR(45) DEFAULT NULL AFTER `order_method`,
+ ADD COLUMN `ship_method` VARCHAR(45) DEFAULT NULL AFTER `dropped`,
+ ADD COLUMN `accout_num` VARCHAR(45) DEFAULT NULL AFTER `ship_method`,
+ ADD COLUMN `delivery_date` DATETIME DEFAULT NULL AFTER `accout_num`;
+
+----------------------------------------------------------
+ALTER TABLE `dmm`.`order` ADD COLUMN `note` LONGTEXT AFTER `user_received`;
+----------------------------------------------------------
+ALTER TABLE `dmm`.`order` ADD COLUMN `date_received` DATETIME AFTER `product_num`,
+ ADD COLUMN `user_received` VARCHAR(45) AFTER `date_received`;
+----------------------------------------------------------
+Added new table:
+CREATE TABLE `dmm`.`productMoves` (
+  `id` INT  NOT NULL AUTO_INCREMENT,
+  `moveDate` DATETIME  NOT NULL,
+  `moveUser` varchar(45)  NOT NULL,
+  `moveAmt` varchar(15)  NOT NULL,
+  `locFrom` varchar(25)  NOT NULL,
+  `locTo` varchar(25)  NOT NULL,
+  `prodNum` varchar(25)  NOT NULL,
+  PRIMARY KEY (`id`)
+)
+----------------------------------------------------------
+duplicates
+select productNum, count(productNum) from ProductsLocationCount
+group by productNum
+having count(*) > 1
+----------------------------------------------------------
+Create table ProductsLocationCount (plcNum int, productNum int not null primary key, OREM int, LEHI int, MURRAY int, LOC01 int, LOC02 int)
+CREATE unique INDEX productNum ON ProductsLocationCount (productNum)
+CREATE unique INDEX plcNum ON ProductsLocationCount (plcNum)
+----------------------------------------------------------
+--drop table AccountCreditHistory
+Create table AccountCreditHistory (pid integer not null primary key, accountNum numeric, creditSum money, creditType varchar(45) null, creditDesc text null, creditDate datetime null)
+--insert into AccountCreditHistory (pid, creditType, creditDesc, creditDate) values (1, 'newType', 'asome long description', '')
+----------------------------------------------------------
+insert into Accounts (accountNum, accountName, accountPhone1, accountStreet, accountCity, accountState, accountPostalCode,accountCountry,accountType1,accountType2,accountOpenDate)
+values(105, 'aa', 'bb', 'cc', 'dd', 'ee','','','10','ST','')
+----------------------------------------------------------
+--drop table InvoiceLocation
+--Create table InvoiceLocation (invoiceNum int, location varchar(45), invDate datetime)
+CREATE UNIQUE INDEX invoiceNum
+ON InvoiceLocation (invoiceNum)
+----------------------------------------------------------
+
+Add OREM products table:
+select * into OremProducts from Products
+select productNum, numAvailable, lastSold, lastInvDate, lastDODte into OremProd from Products
+----------------------------------------------------------
+command line sybase commands:
+ssoward@firewall pts/2 10:28:56 Sat Dec 06 /opt/sybase-11.9.2/bin/ 
+$./isql -Usa -Pesa4yb
+
+change db_options:
+1> sp_dboption Sforzando , "allow nulls by default", false
+2> go
+Database option 'allow nulls by default' turned OFF for database 'Sforzando'.
+Run the CHECKPOINT command in the database that was changed.
+(return status = 0)
+1> use Sforzando
+2> go
+1> checkpoint
+2> go
+
+
+----------------------------------------------------------
+ALTER table:
+--Create table testtable (pid integer not null primary key, first_name varchar(40), dob datetime)
+select * from testtable
+--ALTER TABLE testtable ADD lastDODte2 datetime null --DEFAULT getdate()
+--insert into testtable values(1, 'tset',getdate(),getdate(),getdate())
+
+Create table OremProducts (productNum numeric not null primary key, 
+numAvailable integer,
+lastSold datetime,
+lastInvDate datetime,
+lastDODte datetime
+)
+
+----------------------------------------------------------
+-- Must be SU user to run select into command
+-- alter table Suppliers add locationData varchar(80);
+-- select * into SupplierTest from Suppliers;
+drop table SupplierTest
+
+CREATE TABLE `dmm`.`supplierData` (
+  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  `supplierNum` INTEGER UNSIGNED NOT NULL,
+  `murray_thr` DOUBLE NOT NULL,
+  `orem_thr` DOUBLE NOT NULL,
+  `lehi_thr` DOUBLE NOT NULL,
+  `email_content` LONGTEXT NOT NULL,
+  PRIMARY KEY (`id`)
+)
+
+CREATE TABLE `dmm`.`order` (
+  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  `count` INTEGER UNSIGNED NOT NULL,
+  `date_eval` DATETIME NOT NULL,
+  `date_sent` DATETIME NOT NULL,
+  `user` VARCHAR(45) NOT NULL,
+  `location` VARCHAR(45) NOT NULL,
+  `supplier_num` INTEGER UNSIGNED NOT NULL,
+  `product_num` INTEGER UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`)
+)
+ENGINE = InnoDB;
+----------------------------------------------------------
+
+convert varchar to int: SELECT * FROM WebProductInfo where convert(int, productNum) < 1000
+Create table testtable (pid integer not null primary key, first_name varchar(40), dob datetime)
+Create table ProductInfo (pid integer not null primary key, productNum integer, location varchar(40), dropOrderDate datetime default convert(datetime, '2000-01-01'))
+
+CREATE TABLE WebProductInfo 
+(
+productBlurb varchar(200),
+productFeature varchar(200),
+productNum varchar(10),
+ 
+)
+
+
+CREATE UNIQUE INDEX productNumIndex
+ON WebProductInfo (productNum)
+
+
+find . -name "*.txt" -type f -size +1 > somefile.txt
+
+mysql:
+CREATE TABLE `dmm`.`bugs` (
+  `bug_id` INT NOT NULL AUTO_INCREMENT,
+  `bug_title` VARCHAR(45),
+  `bug_reporter` VARCHAR(100),
+  `bug_desc` TEXT,
+  `bug_status` varchar(10),
+  PRIMARY KEY (`bug_id`)
+)
+CHARACTER SET utf8;
+
+CREATE TABLE `dmm`.`bug_threads` (
+  `bug_thread_id` INT NOT NULL AUTO_INCREMENT,
+  `bug_id` INT,
+  `bug_thread_reporter` varchar(45),
+  `bug_thread_desc` text,
+  PRIMARY KEY (`bug_thread_id`),
+  CONSTRAINT `newfk` FOREIGN KEY `newfk` (`bug_id`)
+    REFERENCES `bugs` (`bug_id`)
+)
+CHARACTER SET utf8;
+
+
+------------------------------------------------------------------------
+DB CONFIG:
+jdbc:jtds:sybase://70.58.38.249:7110;DatabaseName=Sforzando
+userid:sforzando
+passwd:
+------------------------------------------------------------------------

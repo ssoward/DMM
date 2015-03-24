@@ -1,0 +1,1262 @@
+/* CSS Text Document */
+/*@import url(http://fonts.googleapis.com/css?family=Quattrocento);*/
+
+.cursor-pointer{
+    cursor: pointer;
+}
+
+.bl-spinner-large {
+    width: 32px;
+    margin: 4em auto;
+    display: block;
+}
+.bl-spinner-large .bl-spinner {
+    width: 39px;
+    height: 48px;
+}
+.bl-spinner-large .bl-spinner-block {
+    width: 6px;
+    height: 15px;
+    -webkit-border-radius: 6px 6px 0 0;
+    -webkit-transform: scale(0.4);
+    -webkit-animation-duration: 0.72s;
+    border-radius: 6px 6px 0 0;
+    transform: scale(0.4);
+    animation-duration: 0.72s;
+}
+.bl-spinner-large .bl-spinner-01 {
+    left: 0;
+    top: 17px;
+    -webkit-animation-delay: 0.27s;
+    -webkit-transform: rotate(-90deg);
+    animation-delay: 0.27s;
+    transform: rotate(-90deg);
+}
+.bl-spinner-large .bl-spinner-02 {
+    left: 5px;
+    top: 6px;
+    -webkit-animation-delay: 0.36s;
+    -webkit-transform: rotate(-45deg);
+    animation-delay: 0.36s;
+    transform: rotate(-45deg);
+}
+.bl-spinner-large .bl-spinner-03 {
+    left: 16px;
+    top: 2px;
+    -webkit-animation-delay: 0.45s;
+    -webkit-transform: rotate(0deg);
+    animation-delay: 0.45s;
+    transform: rotate(0deg);
+}
+.bl-spinner-large .bl-spinner-04 {
+    right: 5px;
+    top: 6px;
+    -webkit-animation-delay: 0.54s;
+    -webkit-transform: rotate(45deg);
+    animation-delay: 0.54s;
+    transform: rotate(45deg);
+}
+.bl-spinner-large .bl-spinner-05 {
+    right: 0;
+    top: 17px;
+    -webkit-animation-delay: 0.63s;
+    -webkit-transform: rotate(90deg);
+    animation-delay: 0.63s;
+    transform: rotate(90deg);
+}
+.bl-spinner-large .bl-spinner-06 {
+    right: 5px;
+    bottom: 4px;
+    -webkit-animation-delay: 0.72s;
+    -webkit-transform: rotate(135deg);
+    animation-delay: 0.72s;
+    transform: rotate(135deg);
+}
+.bl-spinner-large .bl-spinner-07 {
+    bottom: 0;
+    left: 16px;
+    -webkit-animation-delay: 0.8099999999999999s;
+    -webkit-transform: rotate(180deg);
+    animation-delay: 0.8099999999999999s;
+    transform: rotate(180deg);
+}
+.bl-spinner-large .bl-spinner-08 {
+    left: 5px;
+    bottom: 4px;
+    -webkit-animation-delay: 0.9s;
+    -webkit-transform: rotate(-135deg);
+    animation-delay: 0.9s;
+    transform: rotate(-135deg);
+}
+.btn .bl-spinner {
+    float: left;
+    margin-right: 0.6em;
+}
+
+.bishop-typeahead-spinner {
+    bottom: 28px;
+    float: left;
+    left: 6px;
+    position: relative;
+}
+
+.hideAjaxLoader{
+    display: none;
+}
+#ajaxLoader{
+    z-index: 9999;
+    position: fixed;
+    width: 100%;
+    height: 42px;
+    top: 100px;
+    left:0px;
+    background: url(../images/ajax-loader.gif) center no-repeat;
+}
+.dialogBackgroundHide {
+    display: none;
+}
+.dialogBackgroundShow {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: #222;
+    filter: Alpha(Opacity=35); -moz-opacity:0.35; opacity: 0.35;
+    z-index:4;
+}
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    line-height: 14px;
+    color: #666666;
+    background: #ededed url(../images/bg-gradient.jpg) repeat-x top left;
+    margin-top: 0px;
+}
+/* content is the main column of content, includes header, nav menue and everything else */
+#content {
+    margin-top: 0px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
+    border-right-width: 1px;
+    border-left-width: 1px;
+    border-right-style: solid;
+    border-left-style: solid;
+    border-right-color: #666;
+    border-left-color: #666;
+    /*width: 809px;*/
+    padding: 0px;
+}
+.clear {
+    clear: both;
+}
+/* The content-main is everything between the menu nav and the footer, including all reports, etc. */
+#content-main {
+    background: #fcfcfc;
+    padding: 0em;
+    clear: both;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+}
+/* margined puts a 1em buffer around the content. This is used to avoid spacing issues in IE6 because it's retarded.*/
+.margined {
+    margin: 0 1em;
+    padding: 1em 0 0 0;
+}
+.header-bg
+{
+    height:30px;
+    background-image: url(../images/header-bg.jpg);
+    /*background-repeat: no-repeat;*/
+    background-position: center top;
+}
+#footer {
+/* background-color: #ccffcc; */
+    /*width: 809px; *//* See note below */
+    text-align: center;
+    height: 26px;
+    font-family: Geneva, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    color: #FFFFFF;
+    background: #222;
+    clear: both;
+    position: relative;
+    background-repeat: repeat-y;
+    margin: 0 auto;
+    border: 1px solid #666;
+    border-top: 1px solid #102c5a;
+    padding: 10px 0 0 0;
+    -moz-border-radius-topleft: 0px;
+    -moz-border-radius-topright: 0px;
+    -moz-border-radius-bottomright: 14px;
+    -moz-border-radius-bottomleft: 14px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 14px;
+    border-bottom-left-radius: 14px;
+}
+#footer a {
+    color: #eaeaea;
+    text-decoration: none;
+    margin-right: 20px;
+}
+#footer a:hover { color: #fff; text-decoration: underline; }
+.welcome {
+    float: left;
+    position: relative;
+    /*top: 147px;*/
+    color: #FFFFFF;
+    left: 10px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+}
+.welcome  a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+.welcome  a:hover {
+    text-decoration: underline;
+    color: #FFFFFF;
+}
+/* .menu_box is the section with small links in the header (DMM Website, Home, etc.)*/
+.menu_box
+{
+    float: right;
+    position: relative;
+    /*top: 147px;*/
+    color: #FFFFFF;
+    right: 10px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+}
+.menu_box  a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+.menu_box  a:hover {
+    text-decoration: underline;
+    color: #FFFFFF;
+}
+
+/*.btn {
+	font: bold 14px "Myriad Pro", Arial, Helvetica, sans-serif;
+	color: #1f243b;
+	background: #ebf1f6; 
+	background: -moz-linear-gradient(top, #ebf1f6 0%, #abd3ee 50%, #89c3eb 51%, #d5ebfb 100%); 
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ebf1f6), color-stop(50%,#abd3ee), color-stop(51%,#89c3eb), color-stop(100%,#d5ebfb)); 
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebf1f6', endColorstr='#d5ebfb',GradientType=0 ); 
+	background: -o-linear-gradient(top, #ebf1f6 0%,#abd3ee 50%,#89c3eb 51%,#d5ebfb 100%);
+	padding: 5px;
+	border: 2px solid ##222;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+}*/
+.btn { border: 1px solid #D8D6D0;
+    background-color: #E6E4DD;
+    background-image: -moz-linear-gradient(top, #F7F5EE, #EEEBE3 28%, #D6D4D0);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#F7F5EE), color-stop(.28,#EEEBE3), to(#D6D4D0));
+    color: #6A6862;
+    padding: 4px 20px;
+    margin: 0 0 5px;
+    margin-left: 2px;
+    font-size: 13px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    -webkit-box-shadow: 0 1px 2px #666;
+    -moz-box-shadow: 0 1px 2px #666;
+    box-shadow: 0 1px 2px #666;
+    text-shadow: 0 1px 0 white;
+}
+.btn1 {
+    position:relative;
+    right:-190px;
+}
+
+
+/************** Menu Bar Styles *****************/
+#nav {
+    padding:0;
+    margin:0 auto;
+    list-style:none;
+    font: 11px verdana, sans-serif;
+/*position:relative;*/
+    z-index:200;
+    height:42px;
+    /*width:809px;*/
+    background-color: #000000;
+    background-image: url(../images/nav-bg.gif);
+    background-repeat: repeat-x;
+}
+
+#nav ul {padding:0; margin:0 auto; list-style:none; float:left; background:#000;}
+
+#nav table {border-collapse:collapse; margin:-1px; height:0;}
+#nav li {float:left; margin-left: 2.2em;}
+#nav li li {float:none; margin-left: 0.3em;}
+#nav li.last {border-bottom:1px solid #666;}
+/* a hack for  IE6 */
+#nav li a li {float:left;}
+
+#nav li a {display:block; float:left; color:#fff; height:36px;  padding:0 25px 0 5px; line-height:36px; text-decoration:none; white-space:nowrap; font-weight:bold;}
+/*
+#nav li a.down {background:url(../imagesdown.gif) no-repeat right center;}
+*/
+
+#nav li li a {display:block; height:20px; line-height:20px; float:none; padding:0 25px 0 5px; font-weight:normal;}
+#nav li li a.fly {background:url(fly.gif) no-repeat right center;}
+
+#nav li:hover {position:relative; z-index:300;}
+#nav a:hover {position:relative; z-index:300; color:#633; border:0;}
+
+#nav li li a {color:#fff;}
+#nav li li a:hover {color:#8ddbf4;}
+
+#nav :hover ul {left:0; top:33px; z-index:500;}
+
+#nav ul {position:absolute; left:-9999px; top:-9999px;}
+* html #nav ul {width:2px;}
+/* it could have been this simple if all browsers understood */
+/* show next level */
+#nav li:hover li:hover > ul {left:-5px; margin-left:100%; top:-1px; z-index:500;}
+/* keep further levels hidden */
+#nav li:hover > ul ul {position:absolute; left:-9999px; top:-9999px; width:auto; }
+/* show path followed */
+#nav li a:hover {color:#8ddbf4;}
+#nav li li a:hover {color:#8ddbf4;}
+
+
+/* but IE5.x and IE6 need this lot to style the flyouts*/
+/* show next level */
+#nav a:hover a:hover ul,
+#nav a:hover a:hover a:hover ul,
+#nav a:hover a:hover a:hover a:hover ul,
+#nav a:hover a:hover a:hover a:hover a:hover ul
+{left:100%; margin-left:-5px; top:-1px;}
+
+/* keep further levels hidden */
+#nav a:hover ul ul,
+#nav a:hover a:hover ul ul,
+#nav a:hover a:hover a:hover ul ul,
+#nav a:hover a:hover a:hover a:hover ul ul
+{position:absolute; left:-9999px; top:-9999px;}
+
+/* **************** END OF MENU STYLES *****************/
+
+table.sortable a.sortheader {
+    background-color:#eee;
+    color:#666666;
+    font-weight: bold;
+    font-size: 12px;
+    text-decoration: none;
+    display: block;
+}
+table.sortable span.sortarrow {
+    color: black;
+    text-decoration: none;
+}
+.menu_table td
+{
+    border-bottom:1px dotted #3A5A96;
+    height:16px;
+}
+.home-icon
+{
+    margin-right:7px;
+}
+.input-box
+{
+    border:1px solid #848284;
+    width:100px;
+    height:16px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-style: normal;
+    line-height: 16px;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    color: #333333;
+    background-color:#FFFFFF;
+    text-decoration: none;
+    padding-left: 3px;
+    margin-top: 3px;
+}
+.order-box
+{
+    border:1px solid #A1A1A1;
+    padding:6px;
+}
+.order-title
+{
+    background-color:#E9E9E9;
+    height:37px;
+    border-bottom:2px solid #FFFFFF;
+    padding-left:16px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    line-height: 36px;
+    font-weight: bold;
+    font-variant: normal;
+    text-transform: none;
+    color: #515E85;
+    text-decoration: none;
+}
+#msg{
+    padding: 1em;
+    padding-left: 28em;
+    padding-bottom: 6px;
+}
+.order-box-padding
+{
+    padding:18px 10px 10px 16px;
+}
+.search-bg
+{
+    height:250px;
+    float: left;
+    color: #666666;
+    background-color: #FFFFFF;
+    border: 1px solid #2d5e9d;
+    width: 150px;
+    position: relative;
+    margin-top: 0px;
+    margin-right: 25px;
+    margin-bottom: 15px;
+    margin-left: 10px;
+}
+.search-bg form {
+    padding-top: 0px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+}
+
+.search-bg h3 {
+    background-color: #2d5e9d;
+    margin: 0px;
+    height: 21px;
+    width: 100%;
+    color: #FFFFFF;
+    text-align: center;
+    background-image: url(../images/search-h3-bg.jpg);
+    background-repeat: repeat;
+    background-position: left top;
+    font-family: arial;
+    font-size: 12px;
+    line-height: 21px;
+}
+.submit {
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+}
+.message {
+    color: #FF0000;
+    font-weight: bold;
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+}
+h1 {
+    line-height: 110%;
+    color: #000000;
+    text-align: center;
+    border-bottom: 1px dashed #999;
+    width: 75%;
+    padding: 0 0 10px 0;
+    margin: 0 auto;
+    font-size: 18px;
+    text-transform: uppercase;
+    text-decoration: none;
+    word-spacing: 5px;
+    color: #3C424E;
+    font: 25px/30px 'Quattrocento', Georgia, "Times New Roman", Times, serif;
+}
+
+
+.blue-text{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-style: normal;
+    line-height: 14px;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    color: #515E85;
+    text-decoration: none;
+    background-color:inherit;
+}
+.blue-link{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-style: normal;
+    line-height: 14px;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    color: #515E85;
+    text-decoration: none;
+    background-color:inherit;
+}
+.blue-link:hover
+{
+    color: #515E85;
+    text-decoration: underline;
+    background-color:inherit;
+}
+.red-text{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-style: normal;
+    line-height: 14px;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    color: #DA0008;
+    text-decoration: none;
+    background-color:inherit;
+}
+.body_title{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    line-height: 20px;
+    font-weight: bold;
+    font-variant: normal;
+    text-transform: none;
+    color: #515E85;
+    text-decoration: none;
+    background-color:inherit;
+}
+.red_title{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    line-height: 20px;
+    font-weight: bold;
+    font-variant: normal;
+    text-transform: none;
+    color: #DF2229;
+    text-decoration: none;
+    background-color:inherit;
+}
+
+.blue_title{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    line-height: 14px;
+    font-weight: bold;
+    font-variant: normal;
+    text-transform: none;
+    color: #1E4B78;
+    text-decoration: none;
+    background-color:inherit;
+}
+.top_menu{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    font-style: normal;
+    line-height: 28px;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    color: #515E85;
+    text-decoration: none;
+    border-bottom:1px solid #515E85;
+    background-color:inherit;
+}
+.top_menu:hover
+{
+    color: #515E85;
+    text-decoration: none;
+    border-bottom:1px solid #DA0008;
+    background-color:inherit;
+}
+.left_menu{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    line-height: 16px;
+    font-weight: bold;
+    font-variant: normal;
+    text-transform: none;
+    color: #515E85;
+    text-decoration: none;
+    background-color:inherit;
+}
+.left_menu:hover
+{
+    color: #DA0008;
+    text-decoration: none;
+    background-color:inherit;
+}
+
+#reversedInvoiceJSON{
+    font: bold;
+    font-size: 15px;
+    padding-left: 2em;
+}
+.scrollTable{
+    height: 400px;
+    padding: 5px;
+}
+.table-header{
+    padding: 5px;
+
+}
+
+table.common {
+    background-color: #FFFFFF;
+    padding: 0;
+    border: 1px solid #999999;
+    #width: 95%;
+    margin-top: 0;
+    margin-right: auto;
+    margin-bottom: 0;
+    margin-left: auto;
+}
+table.common td {
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-top-style: none;
+    border-right-style: solid;
+    border-bottom-style: solid;
+    border-left-style: none;
+    border-right-color: #CCCCCC;
+    border-bottom-color: #999999;
+    padding: 5px;
+}
+table.common tr {
+    background-color: #FFFFFF;
+    background-image: url(../images/table-row-bg.gif);
+    background-repeat: repeat-x;
+    margin: 0px;
+    padding: 0px;
+}
+table.common tr th {
+    font-weight: bold;
+    color: #000000;
+    background-color: #5c6d75;
+    background-image: url(../images/table-header-bg.gif);
+    background-repeat: repeat-x;
+    background-position: left top;
+    border-bottom-width: 2px;
+    border-top-style: none;
+    border-right-style: none;
+    border-bottom-style: double;
+    border-left-style: none;
+    border-bottom-color: #666666;
+    height: 25px;
+    padding: 3px;
+}
+.invEval001{
+    display: inline;
+}
+.invEval0010{
+    text-align: left;
+}
+.invEval0011{
+}
+
+.invEval002{
+}
+
+.updateAccountType2{
+    padding-right: 25px;
+}
+.updateAccountType2AjaxResult{
+    padding-right: 25px;
+}
+
+.updateAccountType2Input{
+    float: right;
+    margin-right: -20px;
+}
+table.simple {
+    background-color: #FFFFFF;
+    padding: 0px;
+    border: 1px solid #999999;
+    margin: 0 auto;
+}
+table.simple td {
+    padding: 3px;
+/*border: 1px solid #CCCCCC;*/
+}
+table.simple tr th {
+    font-weight: bold;
+    color: #000000;
+    background-color: #5c6d75;
+    background-image: url(../images/table-header-bg.gif);
+    background-repeat: repeat-x;
+    background-position: left top;
+    border-top-style: none;
+    border-right-style: none;
+    border-left-style: none;
+    height: 20px;
+    padding: 3px;
+    border-bottom: 3px double #666666;
+}
+.text {
+    width:785px;
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+}
+#specialOrderWrapper{
+    border: 1px solid;
+    padding-left: 100px;
+    padding: 2em;
+}
+
+/* ******** NILS UPDATES ********* */
+
+div.rcgrad, table.rcgrad { border: 1px solid #ccc; -moz-border-radius: 10px; border-radius: 10px; background: #FFFFFF; /* old browsers */
+    background: -moz-linear-gradient(top, #FFFFFF 0%, #EDEDED 100%); /* firefox */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFFFFF), color-stop(100%,#EDEDED)); /* webkit */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFFFFF', endColorstr='#EDEDED',GradientType=0 ); /* ie */
+    background: -o-linear-gradient(top, #FFFFFF 0%,#EDEDED 100%); /* opera */ display: block; position: relative;
+    margin: 12px 0; }
+.plain { position: relative; display: block; }
+table.plain select { width: 130px; }
+.tlabel { text-align: left; }
+.editAccount input { color: #2B2121; background: #FFFFFF; /* old browsers */
+    background: -moz-linear-gradient(top, #FFFFFF 0%, #EDEDED 100%); /* firefox */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFFFFF), color-stop(100%,#EDEDED)); /* webkit */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFFFFF', endColorstr='#EDEDED',GradientType=0 ); /* ie */
+    background: -o-linear-gradient(top, #FFFFFF 0%,#EDEDED 100%); /* opera */ border: 1px solid #95ACC1; -moz-border-radius: 5px; border-radius: 5px; }
+.rcgrad input:hover { background-color: #fff; background: none; }
+table.customerTable { width: 750px; background-color: white; border: 1px solid #666; -moz-border-radius: 8px; border-radius: 8px; -moz-border-radius-topleft: 0px; border-top-left-radius: 0px;
+}
+table.customerTable input, input.roundlarge { -moz-border-radius: 5px; border-radius: 5px; }
+input.roundlarge { height: 25px; font-size: 16px; }
+h3 { font: 21px/26px 'Quattrocento', Georgia, "Times New Roman", Times, serif; text-transform: uppercase; }
+.onehundredpercent { width: 100% }
+
+
+/* END NILS */
+
+/* START DATE PICKER */
+.gwt-DateBox {
+    padding: 5px 4px;
+    border: 1px solid #ccc;
+    border-top: 1px solid #999;
+    font-size: 100%;
+}
+.gwt-DateBox input {
+    width: 8em;
+}
+.dateBoxFormatError {
+    background: #ffcccc;
+}
+.dateBoxPopup {
+}
+
+.gwt-DatePicker {
+    border: 1px solid #ccc;
+    border-top:1px solid #999;
+    cursor: default;
+}
+.gwt-DatePicker td,
+.datePickerMonthSelector td:focus {
+    outline: none;
+}
+.datePickerDays {
+    width: 100%;
+    background: white;
+}
+.datePickerDay,
+.datePickerWeekdayLabel,
+.datePickerWeekendLabel {
+    font-size: 85%;
+    text-align: center;
+    padding: 4px;
+    outline: none;
+    font-weight:bold;
+    color:#333;
+    border-right: 1px solid #EDEDED;
+    border-bottom: 1px solid #EDEDED;
+}
+.datePickerWeekdayLabel,
+.datePickerWeekendLabel {
+    background: #fff;
+    padding: 0px 4px 2px;
+    cursor: default;
+    color:#666;
+    font-size:70%;
+    font-weight:normal;
+}
+.datePickerDay {
+    padding: 4px 7px;
+    cursor: hand;
+    cursor: pointer;
+}
+.datePickerDayIsWeekend {
+    background: #f7f7f7;
+}
+.datePickerDayIsFiller {
+    color: #999;
+    font-weight:normal;
+}
+.datePickerDayIsValue {
+    background: #d7dfe8;
+}
+.datePickerDayIsDisabled {
+    color: #AAAAAA;
+    font-style: italic;
+}
+.datePickerDayIsHighlighted {
+    background: #F0E68C;
+}
+.datePickerDayIsValueAndHighlighted {
+    background: #d7dfe8;
+}
+.datePickerDayIsToday {
+    padding: 3px;
+    color: #fff;
+    background: url(images/hborder.png) repeat-x 0px -2607px;
+}
+
+.datePickerMonthSelector {
+    width: 100%;
+    padding: 1px 0 5px 0;
+    background: #fff;
+}
+td.datePickerMonth {
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    font-size: 100%;
+    font-weight: bold;
+    color: #333;
+}
+.datePickerPreviousButton,
+.datePickerNextButton {
+    font-size: 120%;
+    line-height: 1em;
+    color: #3a6aad;
+    cursor: hand;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 0px 4px;
+    outline: none;
+}
+/* END DATE PICKER */
+
+tr.alt td {
+    background-color: #ecf6fc;
+}
+div.content div {
+    padding: 4px;
+    border: 1px solid #aaa;
+}
+div.alt {
+    background-color: #ecf6fc;
+}
+.delInvoice{
+    position: absolute;
+    padding-top: 2em;
+    padding-left: 50em;
+}
+#deleteInvoiceModal{
+    padding:1em;
+}
+
+#deleteInvoiceModal .label{
+    font: bold;
+    font-weight: bold;
+    font-size: 15px;
+    float: left;
+    width: 240px;
+}
+#deleteInvoiceModal .labelValue{
+    font: bold;
+    font-size: 15px;
+}
+#deleteInvoiceModal .warning{
+    color: red;
+    font: bold;
+    font-weight: bold;
+    font-size: 15px;
+    float: left;
+    padding-top: 10px;
+}
+#deleteInvoiceModal #modalLabel{
+    font: bold;
+    font-size: 25px;
+    font-weight: bold;
+    padding-left: 5em;
+    padding-bottom: 20px;
+}
+#deleteInvoiceModal #textArea{
+    font: bold;
+}
+#deleteInvoiceModal #delButton{
+    font: bold;
+    padding-left: 25em;
+}
+#deleteInvoiceModal #reason{
+    font: bold;
+}
+.deleteModalCheckbox{
+    font: bold;
+}
+#deleteInvoiceModal #addNotes{
+    font: bold;
+}#deleteInvoiceModal #addLabel{
+    font: bold;
+    padding-bottom: 10px;
+}
+
+#deleteInvoiceModal checkbox{
+    font: bold;
+    font-size: 15px;
+    padding-right:10px;
+}
+
+.form-key{
+    float:left;
+}
+.form-val{
+    float:right;
+}
+.input-form{
+    padding-left: 250px;
+}
+.form-element{
+    padding: 20px;
+    width: 250px;
+}
+
+.form-ele{
+    padding: 10px;
+}
+
+.required{
+    border-color: red;
+}
+
+.modalElement{
+    padding: 3px;
+}
+.ajaxResponse{
+    padding-left: 300px;
+    position: absolute;
+    padding-top: 57px;
+    color: blue;
+}
+.ajaxResponseMessage{
+    padding-left: 300px;
+    position: absolute;
+    color: blue;
+}
+.viewinvoice{
+    position: relative;
+}
+#deleteInvoiceModal .cancelLink{
+    color:blue;
+    padding-left: 1em;
+}
+.table-element{
+    padding: 5px;
+}
+
+.accountSendEmail img{
+    width: 40px;
+    float: right;
+    padding-left: 20px;
+}
+
+#sendEmailModal .label{
+    font: bold;
+    font-weight: bold;
+    font-size: 15px;
+    float: left;
+    width: 110px;
+}
+#sendEmailModal .labelValue{
+    font: bold;
+    font-size: 15px;
+}
+#sendEmailModal .warning{
+    color: red;
+    font: bold;
+    font-weight: bold;
+    font-size: 15px;
+    float: left;
+    width: 300px;
+    padding-top: 10px;
+}
+#sendEmailModal #modalLabel{
+    font: bold;
+    font-size: 25px;
+    font-weight: bold;
+    padding-left: 5em;
+    padding-bottom: 20px;
+}
+#sendEmailModal #textArea{
+    font: bold;
+}
+#sendEmailModal #delButton{
+    font: bold;
+    padding-left: 25em;
+}
+#sendEmailModal #reason{
+    font: bold;
+}
+#sendEmailModal .cancelLink{
+    color:blue;
+    padding-left: 1em;
+}
+.ajaxResponseAccounts{
+    font-size: 16px;
+    top: -46px;
+    position: relative;
+}
+.checkUncheck{
+    float: left;
+}
+.notificationMessage{
+    z-index:999;
+    padding: 10px;
+    position: absolute;
+    border-right: 1px solid #999999;
+    border-left: 1px solid #999999;
+    margin: 0 10px 5px 230px;
+    border: 1px solid #999999;
+    background: #eeeeee;
+    width: 300px;
+    text-align: center;
+    border-radius: 0px 0px 5px 5px;
+    height: 30px;
+    font-size: 15px;
+    color: #444444;
+    display:none;
+}
+.invalidElement{
+    border: 1px solid red;
+    padding: 1px;
+}
+
+
+/* -------- Loading Spinner ------------- */
+.bl-spinner {
+    position: relative;
+    width: 16px;
+    height: 20px;
+}
+.bl-spinner-block {
+    position: absolute;
+    background-color: #fff;
+    width: 3px;
+    height: 6px;
+    -webkit-border-radius: 3px 3px 0 0;
+    -webkit-transform: scale(0.4);
+    -webkit-animation-name: bl-spinner-anim;
+    -webkit-animation-duration: 0.72s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction: linear;
+    border-radius: 3px 3px 0 0;
+    transform: scale(0.4);
+    animation-name: bl-spinner-anim;
+    animation-duration: 0.72s;
+    animation-iteration-count: infinite;
+    animation-direction: linear;
+}
+.bl-spinner-01 {
+    left: 0;
+    top: 7px;
+    -webkit-animation-delay: 0.27s;
+    -webkit-transform: rotate(-90deg);
+    animation-delay: 0.27s;
+    transform: rotate(-90deg);
+}
+.bl-spinner-02 {
+    left: 2px;
+    top: 3px;
+    -webkit-animation-delay: 0.36s;
+    -webkit-transform: rotate(-45deg);
+    animation-delay: 0.36s;
+    transform: rotate(-45deg);
+}
+.bl-spinner-03 {
+    left: 7px;
+    top: 1px;
+    -webkit-animation-delay: 0.45s;
+    -webkit-transform: rotate(0deg);
+    animation-delay: 0.45s;
+    transform: rotate(0deg);
+}
+.bl-spinner-04 {
+    right: 2px;
+    top: 3px;
+    -webkit-animation-delay: 0.54s;
+    -webkit-transform: rotate(45deg);
+    animation-delay: 0.54s;
+    transform: rotate(45deg);
+}
+.bl-spinner-05 {
+    right: 0;
+    top: 7px;
+    -webkit-animation-delay: 0.63s;
+    -webkit-transform: rotate(90deg);
+    animation-delay: 0.63s;
+    transform: rotate(90deg);
+}
+.bl-spinner-06 {
+    right: 2px;
+    bottom: 2px;
+    -webkit-animation-delay: 0.72s;
+    -webkit-transform: rotate(135deg);
+    animation-delay: 0.72s;
+    transform: rotate(135deg);
+}
+.bl-spinner-07 {
+    bottom: 0;
+    left: 7px;
+    -webkit-animation-delay: 0.8099999999999999s;
+    -webkit-transform: rotate(180deg);
+    animation-delay: 0.8099999999999999s;
+    transform: rotate(180deg);
+}
+.bl-spinner-08 {
+    left: 2px;
+    bottom: 2px;
+    -webkit-animation-delay: 0.9s;
+    -webkit-transform: rotate(-135deg);
+    animation-delay: 0.9s;
+    transform: rotate(-135deg);
+}
+@-webkit-keyframes bl-spinner-anim {
+    0% {
+        background-color: #555555;
+    }
+    100% {
+        background-color: #ffffff;
+    }
+}
+@keyframes bl-spinner-anim {
+    0% {
+        background-color: #555555;
+    }
+    100% {
+        background-color: #ffffff;
+    }
+}
+@-webkit-keyframes bl-spinner-anim-primary-btn {
+    0% {
+        background-color: #357ebd;
+    }
+    100% {
+        background-color: #ffffff;
+    }
+}
+@keyframes bl-spinner-anim-primary-btn {
+    0% {
+        background-color: #357ebd;
+    }
+    100% {
+        background-color: #ffffff;
+    }
+}
+.bl-spinner-large {
+    width: 32px;
+    margin: 4em auto;
+    display: block;
+}
+.bl-spinner-large .bl-spinner {
+    width: 39px;
+    height: 48px;
+}
+.bl-spinner-large .bl-spinner-block {
+    width: 6px;
+    height: 15px;
+    -webkit-border-radius: 6px 6px 0 0;
+    -webkit-transform: scale(0.4);
+    -webkit-animation-duration: 0.72s;
+    border-radius: 6px 6px 0 0;
+    transform: scale(0.4);
+    animation-duration: 0.72s;
+}
+.bl-spinner-large .bl-spinner-01 {
+    left: 0;
+    top: 17px;
+    -webkit-animation-delay: 0.27s;
+    -webkit-transform: rotate(-90deg);
+    animation-delay: 0.27s;
+    transform: rotate(-90deg);
+}
+.bl-spinner-large .bl-spinner-02 {
+    left: 5px;
+    top: 6px;
+    -webkit-animation-delay: 0.36s;
+    -webkit-transform: rotate(-45deg);
+    animation-delay: 0.36s;
+    transform: rotate(-45deg);
+}
+.bl-spinner-large .bl-spinner-03 {
+    left: 16px;
+    top: 2px;
+    -webkit-animation-delay: 0.45s;
+    -webkit-transform: rotate(0deg);
+    animation-delay: 0.45s;
+    transform: rotate(0deg);
+}
+.bl-spinner-large .bl-spinner-04 {
+    right: 5px;
+    top: 6px;
+    -webkit-animation-delay: 0.54s;
+    -webkit-transform: rotate(45deg);
+    animation-delay: 0.54s;
+    transform: rotate(45deg);
+}
+.bl-spinner-large .bl-spinner-05 {
+    right: 0;
+    top: 17px;
+    -webkit-animation-delay: 0.63s;
+    -webkit-transform: rotate(90deg);
+    animation-delay: 0.63s;
+    transform: rotate(90deg);
+}
+.bl-spinner-large .bl-spinner-06 {
+    right: 5px;
+    bottom: 4px;
+    -webkit-animation-delay: 0.72s;
+    -webkit-transform: rotate(135deg);
+    animation-delay: 0.72s;
+    transform: rotate(135deg);
+}
+.bl-spinner-large .bl-spinner-07 {
+    bottom: 0;
+    left: 16px;
+    -webkit-animation-delay: 0.8099999999999999s;
+    -webkit-transform: rotate(180deg);
+    animation-delay: 0.8099999999999999s;
+    transform: rotate(180deg);
+}
+.bl-spinner-large .bl-spinner-08 {
+    left: 5px;
+    bottom: 4px;
+    -webkit-animation-delay: 0.9s;
+    -webkit-transform: rotate(-135deg);
+    animation-delay: 0.9s;
+    transform: rotate(-135deg);
+}
+.btn .bl-spinner {
+    float: left;
+    margin-right: 0.6em;
+}
+.btn-primary .bl-spinner-block {
+    -webkit-animation-name: bl-spinner-anim-primary-btn;
+    animation-name: bl-spinner-anim-primary-btn;
+}
+.spinner-right {
+    position: absolute;
+    right: 0px;
+    top: 13px;
+}
+

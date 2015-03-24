@@ -1,0 +1,148 @@
+<!-- APP SCRIPT -->
+<div class="list-group-item">
+    <h5 class="pull-right">Purchase Orders</h5>
+    <br />
+    <spinner class="bl-spinner-large" ng-show="pageLoaded"></spinner>
+    <div class="form">
+        <div class="form-group">
+            <label for="supplierName">Create New PO</label>
+            <div class="form-inline">
+                <input type="text" ng-model="data.newSupplier" id="supplierName"
+                       placeholder="Alfred Publishing"
+                       bl-autofocus
+                       autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       typeahead="member as member.supplierName for member in getSearchSuppliers($viewValue) | filter:$viewValue"
+                       typeahead-loading="!matchesLoaded"
+                       typeahead-min-length="3"
+                       typeahead-editable="false"
+                       typeahead-on-select="setSupplier(data.newSupplier)"
+                       class="form-control bishop-typeahead"/>
+                <a class="btn" ng-click="createPOrder()">Create PO</a>
+            </div>
+            <spinner ng-show="fetchingSuppliers" class="bishop-typeahead-spinner"></spinner>
+        </div>
+        <div class="form-group">
+
+        </div>
+    </div>
+    <div class="form">
+        <div class="form-group">
+            <label for="UpdatePO">Search & Update PO</label>
+            <input type="text" ng-model="poInvoice" id="UpdatePO"
+                   placeholder="000000000"
+                   bl-autofocus
+                   autocomplete="off"
+                   autocorrect="off"
+                   autocapitalize="off"
+                   typeahead="invoice as invoice.invoiceNum +' --- '+ invoice.invoiceDate for invoice in getSearchPOInvoices($viewValue) | filter:$viewValue"
+                   typeahead-loading="!matchesLoaded"
+                   typeahead-min-length="3"
+                   typeahead-editable="false"
+                   typeahead-on-select="setPOInvoice(poInvoice)"
+                   class="form-control bishop-typeahead"/>
+            <spinner ng-show="fetchingInvoices" class="bishop-typeahead-spinner"></spinner>
+        </div>
+    </div>
+    <div ng-if="showInvoiceDetails">
+        <div class="form-inline">
+            This invoice was created by {{data.poInvoice.username2}} on {{data.poInvoice.invoiceDate}}
+            <span tooltip="Delete this Invoice" ng-click="confirmDeleteInvoice()" class="alert-danger glyphicon glyphicon-remove"></span>
+        </div>
+
+        <div class="form">
+            <div class="form-group">
+                <label for="addProdsByCatNum">Add product by searching Catalog Numbers</label>
+                <div class="form-inline">
+                    <input type="text" ng-model="data.addProd" id="addProdsByCatNum"
+                           ng-click="clearProduct()"
+                           placeholder="0000000"
+                           bl-autofocus
+                           autocomplete="off"
+                           autocorrect="off"
+                           autocapitalize="off"
+                           typeahead="product as product.productCatalogNum + '  ' + product.productName for product in getSearchProductsForCatalog($viewValue) | filter:$viewValue"
+                           typeahead-loading="!matchesLoaded"
+                           typeahead-min-length="3"
+                           typeahead-editable="false"
+                           typeahead-on-select="setAddProduct(data.addProd)"
+                           class="form-control bishop-typeahead"/>
+                </div>
+                <spinner ng-show="fetchingProducts" class="bishop-typeahead-spinner"></spinner>
+            </div>
+        </div>
+
+        <!--list transactions -->
+        <spinner class="bl-spinner-large" ng-show="transLoaded"></spinner>
+        <div ng-if="data.transactions" class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Catalog</th>
+                    <th>Barcode</th>
+                    <th>Price</th>
+                    <th>Count: Shelf</th>
+                    <th>Count: Order</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="transaction in data.transactions">
+                    <td>{{$index+1}}</td>
+                    <td>{{transaction.productName}}</td>
+                    <td>{{transaction.prod.productCatalogNum}}</td>
+                    <td>{{transaction.prod.productBarCode}}</td>
+                    <td>{{transaction.prod.productCost1}}</td>
+                    <td>
+                        <input ng-model="transaction.prod.numAvailable" ng-style="!transaction.editS && {'background-color': '#eeeeee'}"
+                               ng-focus="editShelf(transaction)"
+                               ng-click="editShelf(transaction)"
+                               ng-enter="saveShelf(transaction)"
+                               id="{{'AAA'+transaction.prod.productCatalogNum}}"
+                               class="form-control" ng-value="transaction.prod.numAvailable"/>
+                    </td>
+                    <td>
+                        <input ng-model="transaction.productQty" ng-style="!transaction.editC && {'background-color': '#eeeeee'}"
+                               ng-focus="editCount(transaction)"
+                               ng-click="editCount(transaction)"
+                               ng-enter="saveCount(transaction)"
+                               id="{{'BBB'+transaction.prod.productCatalogNum}}"
+                               class="form-control" ng-value="transaction.productQty"/>
+                    </td>
+                    <td><span tooltip="Delete this Transaction" ng-click="confirmDeleteTransaction(transaction)" class="alert-danger glyphicon glyphicon-remove"></span></td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="myModalContent.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Delete Invoice</h3>
+    </div>
+    <div class="modal-body">
+        Are you sure you want to delete invoice {{poInvoice.invoiceNum}}?
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">Yes</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="confirmDeleteTransaction.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Delete Transaction</h3>
+    </div>
+    <div class="modal-body">
+        Are you sure you want to delete Transaction {{trans.prod.productCatalogNum}}?
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">Yes</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+</script>

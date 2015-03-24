@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN"
+ "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+
+<jasperReport
+    name="Daily_Sales_Report"
+        pageWidth="620"
+        pageHeight="842"
+        columnWidth="580"
+        columnSpacing="0"
+        leftMargin="20"
+        rightMargin="20"
+        topMargin="20"
+        bottomMargin="20"
+        orientation="Portrait"
+        whenNoDataType="AllSectionsNoDetail">
+
+    <reportFont name="default" isDefault="true" fontName="Arial" size="10"
+        pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+    <reportFont name="Arial_Bold" isDefault="false" fontName="Arial" size="10"
+        isBold="true" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252"
+        isPdfEmbedded="false"/>
+    <reportFont name="columnHeader" isDefault="false" fontName="Arial" size="12"
+        pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"
+        isBold="true" isUnderline="false"/>
+    <reportFont name="title" isDefault="false" fontName="Arial" size="14"
+        pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"
+        isBold="true" isUnderline="false"/>
+
+    <parameter name="outputType" class="java.lang.String"/>
+    <parameter name="fromDate"   class="java.util.Date"/>
+    <parameter name="toDate"     class="java.util.Date"/>
+    <parameter name="logo"       class="java.lang.String"/>
+    <parameter name="title"      class="java.lang.String"/>
+   
+    <parameter name="column001"   class="java.lang.String"/>
+    <parameter name="column002"   class="java.lang.String"/>
+    <parameter name="column003"   class="java.lang.String"/>
+    <parameter name="column004"   class="java.lang.String"/>
+    <parameter name="column005"   class="java.lang.String"/>
+    <parameter name="column006"   class="java.lang.String"/>
+    <parameter name="column007"   class="java.lang.String"/>
+    <parameter name="column008"   class="java.lang.String"/>
+
+    <field name="value001"   class="java.lang.String"/>
+    <field name="value002"   class="java.lang.String"/>
+    <field name="value003"   class="java.lang.String"/>
+    <field name="value004"   class="java.lang.String"/>
+    <field name="value005"   class="java.lang.String"/>
+    <field name="value006"   class="java.lang.String"/>
+    <field name="value007"   class="java.lang.String"/>
+    <field name="value008"   class="java.lang.String"/>
+
+    <variable name="RowNumber" class="java.lang.Integer" resetType="Page" calculation="Sum">
+            <variableExpression>new Integer(1)</variableExpression>
+            <initialValueExpression>new Integer(0)</initialValueExpression>
+    </variable>
+
+    <title>
+        <band height="90">
+            <textField>
+                <reportElement x="0" y="0" width="620" height="30"/>
+                <textElement textAlignment="Center" lineSpacing="Single">
+                    <font reportFont="Arial_Bold" size="22"/>
+                </textElement>
+                <textFieldExpression>"Daily Sales Report"</textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="0" y="50" width="620" height="20"/>
+                <textElement textAlignment="Center" lineSpacing="Single">
+                    <font reportFont="Arial_Bold"/>
+                </textElement>
+                <textFieldExpression>
+                    new SimpleDateFormat("MM/dd/yy HH:mm").format($P{fromDate}) +
+                    " - " + new SimpleDateFormat("MM/dd/yy HH:mm").format($P{toDate})
+                </textFieldExpression>
+            </textField>
+            <textField evaluationTime="Report">
+                    <reportElement x="0" y="70" width="620" height="20"/>
+                    <textElement textAlignment="Center" lineSpacing="Single">
+                            <font reportFont="Arial_Bold"/>
+                    </textElement>
+                    <textFieldExpression>
+                        $V{REPORT_COUNT} + " record(s) found"
+                    </textFieldExpression>
+            </textField>
+        </band>
+    </title>
+     <pageHeader>
+     	<band height="26">
+     		<printWhenExpression>
+     			new Boolean($V{PAGE_NUMBER}.intValue() == 1 ||
+     			(!$P{outputType}.equalsIgnoreCase("xls")
+     			<![CDATA[&&]]>
+     			!$P{outputType}.equalsIgnoreCase("csv")))
+     		</printWhenExpression>
+     		<textField>
+     			<reportElement x="0" y="0" width="620" height="26" />
+     			<textElement textAlignment="Center"
+     				verticalAlignment="Middle" lineSpacing="Single" />
+     			<textFieldExpression>
+     				"\"" + $P{title} + "\" generated on " + new
+     				SimpleDateFormat("MM/dd/yyyy @ HH:mm:ss").format(new
+     				Date())
+     			</textFieldExpression>
+     		</textField>
+     	</band>
+     </pageHeader>
+
+   <columnHeader>
+        <band height="16">
+			  <printWhenExpression>
+			  	new Boolean($V{PAGE_NUMBER}.intValue() == 1)
+			  </printWhenExpression>
+            <textField isBlankWhenNull="true"> <reportElement x="000"  y="0" width="100"  height="16" forecolor="#FFFFFF" backcolor="#333333" mode="Opaque">  </reportElement> <textElement textAlignment="Left" verticalAlignment="Middle"> <font reportFont="Arial_Bold"/> </textElement> <textFieldExpression>$P{column001}</textFieldExpression> </textField>
+            <textField isBlankWhenNull="true"> <reportElement x="100"  y="0" width="60"   height="16" forecolor="#FFFFFF" backcolor="#333333" mode="Opaque">  </reportElement> <textElement textAlignment="Left" verticalAlignment="Middle"> <font reportFont="Arial_Bold"/> </textElement> <textFieldExpression>$P{column002}</textFieldExpression> </textField>
+            <textField isBlankWhenNull="true"> <reportElement x="160"  y="0" width="60"   height="16" forecolor="#FFFFFF" backcolor="#333333" mode="Opaque">  </reportElement> <textElement textAlignment="Left" verticalAlignment="Middle"> <font reportFont="Arial_Bold"/> </textElement> <textFieldExpression>$P{column003}</textFieldExpression> </textField>
+            <textField isBlankWhenNull="true"> <reportElement x="220"  y="0" width="100"  height="16" forecolor="#FFFFFF" backcolor="#333333" mode="Opaque">  </reportElement> <textElement textAlignment="Left" verticalAlignment="Middle"> <font reportFont="Arial_Bold"/> </textElement> <textFieldExpression>$P{column004}</textFieldExpression> </textField>
+            <textField isBlankWhenNull="true"> <reportElement x="320"  y="0" width="100"  height="16" forecolor="#FFFFFF" backcolor="#333333" mode="Opaque">  </reportElement> <textElement textAlignment="Left" verticalAlignment="Middle"> <font reportFont="Arial_Bold"/> </textElement> <textFieldExpression>$P{column005}</textFieldExpression> </textField>
+            <textField isBlankWhenNull="true"> <reportElement x="420"  y="0" width="65"   height="16" forecolor="#FFFFFF" backcolor="#333333" mode="Opaque">  </reportElement> <textElement textAlignment="Left" verticalAlignment="Middle"> <font reportFont="Arial_Bold"/> </textElement> <textFieldExpression>$P{column006}</textFieldExpression> </textField>
+            <textField isBlankWhenNull="true"> <reportElement x="485"  y="0" width="40"   height="16" forecolor="#FFFFFF" backcolor="#333333" mode="Opaque">  </reportElement> <textElement textAlignment="Left" verticalAlignment="Middle"> <font reportFont="Arial_Bold"/> </textElement> <textFieldExpression>$P{column007}</textFieldExpression> </textField>
+            <textField isBlankWhenNull="true"> <reportElement x="525"  y="0" width="40"   height="16" forecolor="#FFFFFF" backcolor="#333333" mode="Opaque">  </reportElement> <textElement textAlignment="Left" verticalAlignment="Middle"> <font reportFont="Arial_Bold"/> </textElement> <textFieldExpression>$P{column008}</textFieldExpression> </textField>
+
+        </band>
+    </columnHeader> 
+
+    <detail>
+        <band height="40">
+            <textField isBlankWhenNull="true"> <reportElement x="000"  y="0" width="95"   height="40" forecolor="#000000" backcolor="#EEEEEE" mode="Opaque"> <printWhenExpression> new Boolean  ($V{RowNumber}.intValue() % 2 == 1) </printWhenExpression> </reportElement> <textElement textAlignment="Left" lineSpacing="Single" verticalAlignment="Top"/> <textFieldExpression class="java.lang.String"> $F{value001} </textFieldExpression> </textField>
+            <textField isBlankWhenNull="true"> <reportElement x="100"  y="0" width="55"   height="40" forecolor="#000000" backcolor="#EEEEEE" mode="Opaque"> <printWhenExpression> new Boolean  ($V{RowNumber}.intValue() % 2 == 1) </printWhenExpression> </reportElement> <textElement textAlignment="Left" lineSpacing="Single" verticalAlignment="Top"/> <textFieldExpression class="java.lang.String"> $F{value002} </textFieldExpression> </textField>
+            <textField isBlankWhenNull="true"> <reportElement x="160"  y="0" width="55"   height="40" forecolor="#000000" backcolor="#EEEEEE" mode="Opaque"> <printWhenExpression> new Boolean  ($V{RowNumber}.intValue() % 2 == 1) </printWhenExpression> </reportElement> <textElement textAlignment="Left" lineSpacing="Single" verticalAlignment="Top"/> <textFieldExpression class="java.lang.String"> $F{value003} </textFieldExpression> </textField>
+            <textField isBlankWhenNull="true"> <reportElement x="220"  y="0" width="95"   height="40" forecolor="#000000" backcolor="#EEEEEE" mode="Opaque"> <printWhenExpression> new Boolean  ($V{RowNumber}.intValue() % 2 == 1) </printWhenExpression> </reportElement> <textElement textAlignment="Left" lineSpacing="Single" verticalAlignment="Top"/> <textFieldExpression class="java.lang.String"> $F{value004} </textFieldExpression> </textField>
+            <textField isBlankWhenNull="true"> <reportElement x="320"  y="0" width="95"   height="40" forecolor="#000000" backcolor="#EEEEEE" mode="Opaque"> <printWhenExpression> new Boolean  ($V{RowNumber}.intValue() % 2 == 1) </printWhenExpression> </reportElement> <textElement textAlignment="Left" lineSpacing="Single" verticalAlignment="Top"/> <textFieldExpression class="java.lang.String"> $F{value005} </textFieldExpression> </textField>
+            <textField isBlankWhenNull="true"> <reportElement x="420"  y="0" width="60"   height="40" forecolor="#000000" backcolor="#EEEEEE" mode="Opaque"> <printWhenExpression> new Boolean  ($V{RowNumber}.intValue() % 2 == 1) </printWhenExpression> </reportElement> <textElement textAlignment="Left" lineSpacing="Single" verticalAlignment="Top"/> <textFieldExpression class="java.lang.String"> $F{value006} </textFieldExpression> </textField>
+            <textField isBlankWhenNull="true"> <reportElement x="485"  y="0" width="35"   height="40" forecolor="#000000" backcolor="#EEEEEE" mode="Opaque"> <printWhenExpression> new Boolean  ($V{RowNumber}.intValue() % 2 == 1) </printWhenExpression> </reportElement> <textElement textAlignment="Left" lineSpacing="Single" verticalAlignment="Top"/> <textFieldExpression class="java.lang.String"> $F{value007} </textFieldExpression> </textField>
+            <textField isBlankWhenNull="true"> <reportElement x="525"  y="0" width="40"   height="40" forecolor="#000000" backcolor="#EEEEEE" mode="Opaque"> <printWhenExpression> new Boolean  ($V{RowNumber}.intValue() % 2 == 1) </printWhenExpression> </reportElement> <textElement textAlignment="Left" lineSpacing="Single" verticalAlignment="Top"/> <textFieldExpression class="java.lang.String"> $F{value008} </textFieldExpression> </textField>
+                                                                                                   
+            <textField isBlankWhenNull="true"> <reportElement x="000"  y="0" width="95"   height="40" forecolor="#000000" backcolor="#FFFFFF" mode="Opaque"> <printWhenExpression> new Boolean  ($V{RowNumber}.intValue() % 2 != 1) </printWhenExpression> </reportElement> <textElement textAlignment="Left" lineSpacing="Single" verticalAlignment="Top"/> <textFieldExpression class="java.lang.String"> $F{value001} </textFieldExpression> </textField>
+            <textField isBlankWhenNull="true"> <reportElement x="100"  y="0" width="55"   height="40" forecolor="#000000" backcolor="#FFFFFF" mode="Opaque"> <printWhenExpression> new Boolean  ($V{RowNumber}.intValue() % 2 != 1) </printWhenExpression> </reportElement> <textElement textAlignment="Left" lineSpacing="Single" verticalAlignment="Top"/> <textFieldExpression class="java.lang.String"> $F{value002} </textFieldExpression> </textField>
+            <textField isBlankWhenNull="true"> <reportElement x="160"  y="0" width="55"   height="40" forecolor="#000000" backcolor="#FFFFFF" mode="Opaque"> <printWhenExpression> new Boolean  ($V{RowNumber}.intValue() % 2 != 1) </printWhenExpression> </reportElement> <textElement textAlignment="Left" lineSpacing="Single" verticalAlignment="Top"/> <textFieldExpression class="java.lang.String"> $F{value003} </textFieldExpression> </textField>
+            <textField isBlankWhenNull="true"> <reportElement x="220"  y="0" width="95"   height="40" forecolor="#000000" backcolor="#FFFFFF" mode="Opaque"> <printWhenExpression> new Boolean  ($V{RowNumber}.intValue() % 2 != 1) </printWhenExpression> </reportElement> <textElement textAlignment="Left" lineSpacing="Single" verticalAlignment="Top"/>  <textFieldExpression class="java.lang.String"> $F{value004} </textFieldExpression> </textField>
+            <textField isBlankWhenNull="true"> <reportElement x="320"  y="0" width="95"   height="40" forecolor="#000000" backcolor="#FFFFFF" mode="Opaque"> <printWhenExpression> new Boolean  ($V{RowNumber}.intValue() % 2 != 1) </printWhenExpression> </reportElement> <textElement textAlignment="Left" lineSpacing="Single" verticalAlignment="Top"/>  <textFieldExpression class="java.lang.String"> $F{value005} </textFieldExpression> </textField>
+            <textField isBlankWhenNull="true"> <reportElement x="420"  y="0" width="60"   height="40" forecolor="#000000" backcolor="#FFFFFF" mode="Opaque"> <printWhenExpression> new Boolean  ($V{RowNumber}.intValue() % 2 != 1) </printWhenExpression> </reportElement> <textElement textAlignment="Left" lineSpacing="Single" verticalAlignment="Top"/> <textFieldExpression class="java.lang.String"> $F{value006} </textFieldExpression> </textField>
+            <textField isBlankWhenNull="true"> <reportElement x="485"  y="0" width="35"   height="40" forecolor="#000000" backcolor="#FFFFFF" mode="Opaque"> <printWhenExpression> new Boolean  ($V{RowNumber}.intValue() % 2 != 1) </printWhenExpression> </reportElement> <textElement textAlignment="Left" lineSpacing="Single" verticalAlignment="Top"/> <textFieldExpression class="java.lang.String"> $F{value007} </textFieldExpression> </textField>
+            <textField isBlankWhenNull="true"> <reportElement x="525"  y="0" width="40"   height="40" forecolor="#000000" backcolor="#FFFFFF" mode="Opaque"> <printWhenExpression> new Boolean  ($V{RowNumber}.intValue() % 2 != 1) </printWhenExpression> </reportElement> <textElement textAlignment="Left" lineSpacing="Single" verticalAlignment="Top"/> <textFieldExpression class="java.lang.String"> $F{value008} </textFieldExpression> </textField>
+            
+        </band>
+    </detail>
+
+    <pageFooter>
+        <band height="26">
+            <printWhenExpression>
+                new Boolean(!$P{outputType}.equalsIgnoreCase("xls") <![CDATA[&&]]> !$P{outputType}.equalsIgnoreCase("csv"))
+            </printWhenExpression>
+            <textField>
+                <reportElement x="0" y="0" width="310" height="26"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single"/>
+                <textFieldExpression>
+                    "Page " + $V{PAGE_NUMBER}
+                </textFieldExpression>
+            </textField>
+            <textField evaluationTime="Report">
+                <reportElement x="310" y="0" width="310" height="26"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle" lineSpacing="Single"/>
+                <textFieldExpression>
+                    " of " + $V{PAGE_NUMBER}
+                </textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+
+</jasperReport>

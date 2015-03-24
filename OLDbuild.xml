@@ -1,0 +1,198 @@
+<?xml version="1.0"?>
+
+<project name="Ganges Buildfile" default="build" basedir=".">
+
+  <property file="build.properties"/>
+
+  <!-- LOCAL DIRECTORIES -->
+  <property name="buildwar.dir" value="${basedir}/ganges"/>	
+  <property name="GangesWeb" value="${basedir}/GangesWeb"/>
+  <property name="web.inf.dir" value="${GangesWeb}/WEB-INF"/>
+  <property name="tld.dir" value="${web.inf.dir}/tld"/>
+  <property name="src.dir" value="src"/>
+  <property name="lib.local" value="${basedir}/lib"/>
+  <property name="context.name" value="scottsGanges"/>
+  <property name="war.filename" value="${context.name}.war"/>
+  <property name="faces.dir" value="${GangesWeb}/faces"/>
+  <property name="content.dir" value="${faces.dir}/content"/>
+  <property name="template.dir" value="${faces.dir}/template"/>
+  <property name="unwar.dir" value="${basedir}/UNWAR"/>
+  <property name="images.dir" value="${basedir}/images"/>
+  <property name="docs.dir" value="${basedir}/docs"/>
+  <property name="laszlo.dir" value="${basedir}/laszlo"/>
+  <property name="lps.dir" value="${laszlo.dir}/lps"/>
+  <property name="lps.web-inf.dir" value="${laszlo.dir}/WEB-INF/lps"/>
+  <property name="lps.my-apps.dir" value="${laszlo.dir}/web/my-apps"/>
+
+
+  <!-- WEB DIRECTORIES -->
+  <property name="output" value="${basedir}/output"/>
+  <property name="wardir" value="${output}/war"/>
+  <property name="web.inf" value="${wardir}/WEB-INF"/>
+  <property name="docs.out" value="${wardir}/docs"/>
+  <property name="images.out" value="${wardir}/images"/>
+  <property name="tld.out" value="${web.inf}/tld"/>
+  <property name="compiled.out" value="${web.inf}/classes"/>
+  <property name="faces.out" value="${wardir}/faces"/>
+  <property name="content.out" value="${faces.out}/content"/>
+  <property name="template.out" value="${faces.out}/template"/>
+  <property name="app.path" value="/"/>
+  <property name="buildwar.out" value="${wardir}/BUILD"/>
+  <property name="lps.out" value="${wardir}/lps"/>
+  <property name="lps.web-inf.out" value="${web.inf}/lps"/>
+  <property name="lps.my-apps.out" value="${wardir}/my-apps"/>
+
+  <!-- JAVA OPTIONS -->
+  <property name="javac.debug" value="true"/>
+  <property name="javac.debug.level" value="lines,vars,source"/>
+  <property name="javac.deprecation" value="false"/>
+  <property name="javac.optimize" value="true"/>
+
+
+  <!-- CATALINA ANT -->
+  <taskdef name="deploy" classname="org.apache.catalina.ant.DeployTask"/>
+  <taskdef name="reload" classname="org.apache.catalina.ant.ReloadTask"/>
+  <taskdef name="undeploy" classname="org.apache.catalina.ant.UndeployTask"/>
+  <property name="remote.path" value="${basedir}"/>
+  <property name="manager.username" value="root"/>
+  <property name="manager.password" value="root"/>
+  <property name="manager.url" value="http://localhost:8080/manager"/> 
+
+  <!-- BUILD CLASSPATH -->
+  <path id="build.classpath">
+    <pathelement location="${src.dir}"/>
+    <fileset dir="${lib.local}">
+      <include name="*.jar"/>
+    </fileset>
+  </path>
+
+  <target name="build" description="main target" depends="clean, init">
+    <javac destdir="${compiled.out}"
+    	failonerror="false"
+      debug="${javac.debug}"
+      debuglevel="${javac.debug.level}"
+      deprecation="${javac.deprecation}"
+      optimize="${javac.optimize}"
+      srcdir="${src.dir}">
+      <classpath refid="build.classpath"/>
+    </javac>
+  	<antcall target="war"/>
+  	<antcall target="unwar"/>
+  </target>
+
+  <target name="init">
+    <mkdir dir="${output}"/>
+    <mkdir dir="${wardir}"/>
+    <mkdir dir="${images.out}"/>
+    <mkdir dir="${web.inf}"/>
+    <mkdir dir="${compiled.out}"/>
+    <mkdir dir="${web.inf}/lib"/>
+    <mkdir dir="${web.inf}/lib/jar/com/meridias/ganges"/>
+    <mkdir dir="${faces.out}"/>
+    <mkdir dir="${content.out}"/>
+    <mkdir dir="${template.out}"/>
+    <mkdir dir="${tld.out}"/>
+  	<mkdir dir="${buildwar.out}"/>
+    <mkdir dir="${docs.out}"/>
+    <mkdir dir="${lps.out}"/>
+    <mkdir dir="${lps.web-inf.out}"/>
+    <mkdir dir="${lps.my-apps.out}"/>
+
+    <copy todir="${lps.my-apps.out}">
+      <fileset dir="${lps.my-apps.dir}"/>
+     </copy>
+
+    <copy todir="${lps.web-inf.out}">
+      <fileset dir="${lps.web-inf.dir}"/>
+     </copy>
+
+    <copy todir="${lps.out}">
+      <fileset dir="${lps.dir}"/>
+     </copy>
+
+    <copy todir="${images.out}">
+      <fileset dir="${images.dir}" includes="*"/>
+    </copy>
+
+    <copy todir="${docs.out}">
+      <fileset dir="${docs.dir}" includes="*"/>
+    </copy>
+
+    <copy todir="${tld.out}">
+      <fileset dir="${tld.dir}" includes="*.tld"/>
+    </copy>
+
+    <copy todir="${web.inf}/lib">
+      <fileset dir="${lib.local}" includes="*.jar"/>
+    </copy>
+
+    <copy todir="${wardir}">
+      <fileset dir="${GangesWeb}" includes="*.jsp"/>
+    </copy>
+
+    <copy todir="${template.out}">
+      <fileset dir="${template.dir}" includes="*.jsp"/>
+    </copy>
+
+    <copy todir="${content.out}">
+      <fileset dir="${content.dir}" includes="*.jsp"/>
+    </copy>
+
+    <copy todir="${faces.out}">
+      <fileset dir="${faces.dir}" includes="*.jsp"/>
+    </copy>
+
+    <copy todir="${web.inf}">
+      <fileset dir="${web.inf.dir}" includes="*.xml"/>
+    </copy>
+  </target>
+
+  <target name="clean">
+    <delete includeEmptyDirs="true"
+    	failonerror="false">
+      <fileset dir="${unwar.dir}"/>	
+      <fileset dir="${output}"/>
+      <fileset file="${war.filename}"/>	
+    </delete> 
+  </target>
+
+  <target name="install"> 
+    <deploy url="${manager.url}" 
+    	failonerror="false"
+      username="${manager.username}"
+      password="${manager.password}"
+      path="${app.path}${context.name}"
+      localWar="file://${remote.path}/${war.filename}"/> 
+  </target> 
+
+  <target name="reload"> 
+    <reload url="${manager.url}" 
+    	failonerror="false"
+      username="${manager.username}"
+      password="${manager.password}"
+      path="${app.path}${context.name}"/> 
+  </target>
+
+  <target name="remove"> 
+    <undeploy url="${manager.url}"
+    	failonerror="false"
+      username="${manager.username}" 
+      password="${manager.password}"
+      path="${app.path}${context.name}"/> 
+  </target>
+
+  <target name="war"> 
+    <jar jarfile="${war.filename}" basedir="${wardir}"/>
+  </target>
+
+  <target name="unwar"> 
+    <mkdir dir="${unwar.dir}"/>
+    <unwar src="${war.filename}" dest="${unwar.dir}" />
+  	<echo>Deleting META-INF dir.</echo>
+  	<delete dir="${unwar.dir}/META-INF"/>
+  </target>
+
+
+
+</project>
+
