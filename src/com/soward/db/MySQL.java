@@ -24,7 +24,7 @@ public class MySQL {
 
     public static Connection getConn() throws SQLException {
         //daymurray -pkCehjiYSe9pYhwgIZkUt0QdTDNnpaxJro2edV1k8Qn5suS8PBgtrgDOz40Y0J02
-//        return DriverManager.getConnection("jdbc:mysql://192.168.100.1:3306/dmm", "daymurray", "kCehjiYSe9pYhwgIZkUt0QdTDNnpaxJro2edV1k8Qn5suS8PBgtrgDOz40Y0J02");
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/dmm", "root", "asdfg123");
+        return DriverManager.getConnection("jdbc:mysql://192.168.100.1:3306/dmm", "daymurray", "kCehjiYSe9pYhwgIZkUt0QdTDNnpaxJro2edV1k8Qn5suS8PBgtrgDOz40Y0J02");
+//        return DriverManager.getConnection("jdbc:mysql://localhost:3306/dmm", "root", "asdfg123");
     }
 }

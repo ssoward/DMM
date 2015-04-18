@@ -5,6 +5,7 @@ import com.soward.db.MySQL;
 import com.soward.enums.LocationsDBName;
 import com.soward.enums.ProductWeight;
 import com.soward.object.Product;
+import com.soward.object.ProductSold;
 import com.soward.object.ProductsLocationCount;
 import org.apache.commons.lang.StringUtils;
 
@@ -13,10 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class ProductUtils {
 
@@ -382,23 +380,6 @@ public class ProductUtils {
             ProductUtils.updateProductForColumnName( "productName", prod.getProductName().replace( "`", "'" ),
                     prod.getProductNum(), "Products", true );
         }
-    }
-
-    public static void main( String args[] ) {
-        int test = 744;
-        ProductUtils.fetchSupProdsForStr("chri", "27");
-        //System.out.println((test/20)/20);
-        //		 ArrayList<Product> prodList = getSupplierList("169");
-        //		 for(Product prod: prodList){
-        //			 System.out.println(prod.toString());
-        //		 }
-        //		 		 Product prod = ProductUtils.fetchProductForNum( "176494", "MURRAY" );
-        //		 		 System.out.println(prod.getProductName());
-        //		 		 prod.setProductName( prod.getProductName()+" 'test' yep' and' " );
-        //ProductUtils.save( prod );
-        //ProductUtils.saveNewToAllLocations(prod, "10", "20", "1" );
-        //System.out.println(ProductUtils.fetchLastPOForProdNum("86907" ));
-
     }
 
     public static String updateAvailableCount( String newCount, String prodNum, String location ) {
@@ -1490,4 +1471,61 @@ public class ProductUtils {
             e.printStackTrace();
         }
     }
+
+    private static void getHistoryForYear(List<Long> prodIds, String location, int year, Map<Long, ProductSold> map){
+
+        try {
+            Connection con = null;
+            MySQL sdb = new MySQL();
+            con = sdb.getConn();
+            String pids = StringUtils.join(prodIds, ',');
+            String sql = "Select sum(trans.productQty) as count, trans.productNum from Transactions trans join InvoiceLocation invLoc on trans.invoiceNum = invLoc.invoiceNum where trans.productNum in ("+pids+") and invLoc.location = ? and year(transDate) = ? group by productNum";
+            PreparedStatement pstmt = con.prepareStatement( sql );
+            pstmt.setString(1, location);
+            pstmt.setInt   (2, year);
+            ResultSet rset = pstmt.executeQuery();
+            while ( rset.next() ) {
+                Long pId = Long.parseLong(rset.getString("productNum"));
+                ProductSold ps = map.get(pId)!=null?map.get(pId):new ProductSold();
+                ps.setId(pId);
+                String c = rset.getString("count");
+                ps.getYearsCount().put(new Long(year), new Long(c));
+                map.put(pId, ps);
+            }
+            pstmt.close();
+            con.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public static Map<Long, ProductSold> fetchPastThreeYearsSold(List<Long> prodIds, String location){
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        Map<Long, ProductSold> map = new HashMap<Long, ProductSold>();
+        for(int i = 0; i<3; i++){
+            getHistoryForYear(prodIds, location, year-i, map);
+        }
+        return map;
+    }
+
+    public static void main( String args[] ) {
+//        int test = 744;
+//        ProductUtils.fetchSupProdsForStr("chri", "27");
+        //System.out.println((test/20)/20);
+        //		 ArrayList<Product> prodList = getSupplierList("169");
+        //		 for(Product prod: prodList){
+        //			 System.out.println(prod.toString());
+        //		 }
+        //		 		 Product prod = ProductUtils.fetchProductForNum( "176494", "MURRAY" );
+        //		 		 System.out.println(prod.getProductName());
+        //		 		 prod.setProductName( prod.getProductName()+" 'test' yep' and' " );
+        //ProductUtils.save( prod );
+        //ProductUtils.saveNewToAllLocations(prod, "10", "20", "1" );
+        //System.out.println(ProductUtils.fetchLastPOForProdNum("86907" ));
+        Map map = ProductUtils.fetchPastThreeYearsSold(Arrays.asList(9263L,174893L), "MURRAY");
+        System.out.println(map);
+
+    }
+
 }

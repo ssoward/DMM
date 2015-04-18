@@ -7,6 +7,7 @@ public enum Endpoint {
     PROD_CAT_GET,
     PROD_SEARCH,
     COUNT_PUT,
+    PROD_SOLD_HISTORY,
 
     WEIGHT_PUT,
     PROD_WEIGHT,
@@ -15,6 +16,7 @@ public enum Endpoint {
     SYNCED_INVOICES,
     ORIGINAL_FOR_INV,
 
+    PROD_SOLD_FOR_INVOICES,
     PO_PUT,
     SALES_GET,
     TRANS_GET,

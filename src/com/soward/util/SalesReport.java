@@ -6,14 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -397,6 +390,7 @@ public class SalesReport {
         }
         return prodList;
     }
+
     private void getSales(String loca, String lList) {
         //today
         Calendar m00 = Calendar.getInstance();
@@ -426,7 +420,7 @@ public class SalesReport {
                     " and transDate> '"+TransUtil.sdf.format(m01.getTime())+"'"+
                     " and transDate< '"+TransUtil.sdf.format(m00.getTime())+"'"+
                     " group by productNum ";
-            //System.out.println(sql);
+            System.out.println(sql);
 
             pstmt = con.prepareStatement( sql );
             rset = pstmt.executeQuery();
@@ -650,12 +644,13 @@ public class SalesReport {
 
     public static void main( String args[] ) {
         SalesReport ir = new SalesReport();
+//        ir.fetchPastThreeYearsSold(Arrays.asList(174893L), "LEHI");
 
-        List<Product> prodList = ir.getSalesReport( "12-07-2010 00:00", "12-07-2010 23:59", "LEHI", 2,"", true, false, true, null);
-        System.out.println(prodList.size());
-        for(Product prod: prodList){
-            System.out.println(prod.getNumAvailable()+"# -->"+prod.getProductNum()+" "+prod.getYearsSold());
-        }
+//        List<Product> prodList = ir.getSalesReport( "12-07-2010 00:00", "12-07-2010 23:59", "LEHI", 2,"", true, false, true, null);
+//        System.out.println(prodList.size());
+//        for(Product prod: prodList){
+//            System.out.println(prod.getNumAvailable()+"# -->"+prod.getProductNum()+" "+prod.getYearsSold());
+//        }
         //      SalesReport ir = new SalesReport();
         //      ir.getTaxesForInvoices( "03-05-2009 00:00", "03-06-2009 00:00");
         //      Date date=null;

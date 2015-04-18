@@ -29,10 +29,17 @@ var app = angular.module('dailySalesApp').controller('DailySalesController', fun
     //GET REPORT
     $scope.getReport = function(){
         $scope.searchingInvoices = true;
-        InvoiceTransService.getSales($scope.dateToEval)
+        InvoiceTransService.getSales($scope.dateToEval, $scope.location)
             .then(function(res){
                 $scope.invoices = res.data;
                 $scope.searchingInvoices = false;
+                return res;
+            })
+            .then(function(res){
+                return InvoiceTransService.getProductSoldHistory($scope.dateToEval, $scope.location);
+            })
+            .then(function (res){
+                $scope.productHistory = res.data;
             })
     };
     //GET REPORT

@@ -254,15 +254,53 @@ public class InvoiceUtil {
         return inv;
     }
 
-    public static List<Invoice> getForDate( Date date ) {
+    public static Map<Long, ProductSold> getProdSoldForInvoices( Date date, String location ) {
         MySQL sdb = new MySQL();
-        String sql = "select * from Invoices where invoiceDate like '"+new SimpleDateFormat("yyyy-MM-dd").format(date)+"%'";
+        String sql = "select inv.* from Invoices inv join InvoiceLocation invLoc on invLoc.invoiceNum = inv.invoiceNum" +
+                " where invLoc.location = ? and invoiceDate like '"+new SimpleDateFormat("yyyy-MM-dd").format(date)+"%'";
         Connection con = null;
         List<Invoice> invList = new ArrayList<Invoice>();
         try {
             con = sdb.getConn();
             PreparedStatement pstmt = null;
             pstmt = con.prepareStatement( sql );
+            pstmt.setString(1,  location);
+            ResultSet rset = pstmt.executeQuery();
+            invList.addAll(getInvoiceListFromReSet(rset, true, true));
+            rset.close();
+            con.close();
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+        //collect product ids
+        List<Long> pIds = new ArrayList<Long>();
+        if(invList != null){
+            for(Invoice inv: invList){
+                for(Transaction trans: inv.getTransList()){
+                    pIds.add(Long.parseLong(trans.getProductNum()));
+                }
+            }
+            //clear duplicates
+            Set<Long> hs = new HashSet<Long>();
+            hs.addAll(pIds);
+            pIds.clear();
+            pIds.addAll(hs);
+            return ProductUtils.fetchPastThreeYearsSold(pIds, location);
+        }
+        return null;
+    }
+
+    public static List<Invoice> getForDate( Date date, String location ) {
+        MySQL sdb = new MySQL();
+        String sql = "select inv.* from Invoices inv join InvoiceLocation invLoc on invLoc.invoiceNum = inv.invoiceNum" +
+                " where invLoc.location = ? and invoiceDate like '"+new SimpleDateFormat("yyyy-MM-dd").format(date)+"%'";
+        Connection con = null;
+        List<Invoice> invList = new ArrayList<Invoice>();
+        try {
+            con = sdb.getConn();
+            PreparedStatement pstmt = null;
+            pstmt = con.prepareStatement( sql );
+            pstmt.setString(1,  location);
             ResultSet rset = pstmt.executeQuery();
             invList.addAll(getInvoiceListFromReSet(rset, true, true));
             rset.close();
@@ -626,7 +664,8 @@ public class InvoiceUtil {
     }
 
     public static void main( String[] args ) {
-        System.out.println(InvoiceUtil.incrementAdminInvoice());
+        //System.out.println(InvoiceUtil.incrementAdminInvoice());
+        System.out.println(InvoiceUtil.getForDate(new Date(), "MURRAY"));
     }
 
     private static int incrementAdminInvoice() {

@@ -80,7 +80,7 @@ function ValidateForm(){
 <SCRIPT LANGUAGE="JavaScript"> var cal = new CalendarPopup(); </SCRIPT>
 <%
 InvoiceUtil invUtil = new InvoiceUtil();
-ArrayList<Invoice> invList = null;
+List<Invoice> invList = null;
 TimeZone tz = TimeZone.getTimeZone("America/Salt_Lake");
 Calendar c = Calendar.getInstance();
 

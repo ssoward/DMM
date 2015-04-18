@@ -2,9 +2,6 @@ package com.soward.controller;
 
 import com.soward.enums.ProductWeight;
 import com.soward.object.Invoice;
-import com.soward.object.Product;
-import com.soward.object.TestObj;
-import com.soward.util.InvoiceUtil;
 import com.soward.util.LoginUtil;
 import com.soward.util.ProductUtils;
 import com.soward.util.ProductsLocationCountUtil;
@@ -15,10 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by ssoward on 9/23/14.
@@ -27,6 +21,7 @@ public class ProductsController extends HttpServlet {
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = (String) request.getSession().getAttribute("username");
         String searchStr = request.getParameter("searchStr");
+        String location = request.getParameter("location");
         String productNum = request.getParameter("productNum");
         LoginUtil.checkAccess(request, response);
         String endpoint = request.getParameter("funct");
@@ -45,6 +40,9 @@ public class ProductsController extends HttpServlet {
                     String numAvailable = request.getParameter("numAvailable");
                     ProductsLocationCountUtil.updateCountForLocation(numAvailable, productNum, "MURRAY");
                     break;
+//                case PROD_SOLD_HISTORY:
+//                    list = ProductUtils.fetchPastThreeYearsSold(Arrays.asList(Long.parseLong(productNum)), location);
+//                    break;
                 case WEIGHT_PUT:
                     String weight = request.getParameter("weight");
                     if(weight!=null && productNum != null) {
@@ -55,10 +53,10 @@ public class ProductsController extends HttpServlet {
                 case PROD_WEIGHT:
                     list = new ArrayList();
                     for(ProductWeight pw: ProductWeight.values()){
-                        Map<String, Object> map = new HashMap<String, Object>();
-                        map.put("name", pw.name());
-                        map.put("desc", pw.getDesc());
-                        list.add(map);
+                        Map<String, Object> hmap = new HashMap<String, Object>();
+                        hmap.put("name", pw.name());
+                        hmap.put("desc", pw.getDesc());
+                        list.add(hmap);
                     }
                     break;
             }
@@ -71,8 +69,7 @@ public class ProductsController extends HttpServlet {
         }else if(list != null){
             String json = mapper.writeValueAsString(list);
             response.getWriter().print(json);
-        }
-        else {
+        }else {
             response.getWriter().print("OK");
         }
     }

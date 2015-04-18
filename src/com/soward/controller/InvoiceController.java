@@ -1,9 +1,11 @@
 package com.soward.controller;
 
 import com.soward.object.Invoice;
+import com.soward.object.ProductSold;
 import com.soward.object.Transaction;
 import com.soward.util.InvoiceUtil;
 import com.soward.util.LoginUtil;
+import com.soward.util.ProductsLocationCountUtil;
 import com.soward.util.TransUtil;
 import org.apache.commons.discovery.log.SimpleLog;
 import org.apache.commons.logging.Log;
@@ -19,6 +21,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 
 /**
@@ -37,9 +40,11 @@ public class InvoiceController extends HttpServlet {
         String productNum = request.getParameter("productNum");
         String transNum   = request.getParameter("transNum");
         String productQty = request.getParameter("productQty");
+        String location = request.getParameter("location");
         String salesDate  = request.getParameter("date");
         Invoice inv = null;
-        List<Invoice> invList = null;
+        List invList = null;
+        Map map = null;
         List<Transaction> transList = null;
         log.info("Invoices endpoint: "+endpoint);
         if(endpoint != null) {
@@ -70,6 +75,24 @@ public class InvoiceController extends HttpServlet {
                 case TRANS_DELETE:
                     InvoiceUtil.deleteTransaction(transNum);
                     break;
+                case PROD_SOLD_FOR_INVOICES:
+                    if(salesDate != null){
+                        //"2015-03-11T06:00:00.000Z"
+                        // 2015-03-18T03:54:55.965Z
+                        try {
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                            sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+                            Date date = sdf.parse(salesDate.replace("\"", ""));
+                            if(date != null){
+                                map = InvoiceUtil.getProdSoldForInvoices(date, location);
+                                //save invoice to db return id
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        salesDate = null;
+                    }
+                    break;
                 case SALES_GET:
                     if(salesDate != null){
                         //"2015-03-11T06:00:00.000Z"
@@ -79,7 +102,8 @@ public class InvoiceController extends HttpServlet {
                             sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
                             Date date = sdf.parse(salesDate.replace("\"", ""));
                             if(date != null){
-                                invList = InvoiceUtil.getForDate(date);
+                                invList = InvoiceUtil.getForDate(date, location);
+                                //save invoice to db return id
                             }
                         } catch (ParseException e) {
                             e.printStackTrace();
@@ -97,6 +121,10 @@ public class InvoiceController extends HttpServlet {
         }else if(invList != null){
             ObjectMapper mapper = new ObjectMapper();
             String json = mapper.writeValueAsString(invList);
+            response.getWriter().print(json);
+        }else if(map != null){
+            ObjectMapper mapper = new ObjectMapper();
+            String json = mapper.writeValueAsString(map);
             response.getWriter().print(json);
         }else if(transList != null){
             ObjectMapper mapper = new ObjectMapper();

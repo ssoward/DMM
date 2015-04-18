@@ -56,7 +56,18 @@ angular.module('dmm-core').service('ProductService', function ($http, $log, $sta
             params: {
                 funct: 'PROD_WEIGHT'
             }
+        });
+    };
 
+    this.productSoldHistory = function (pId, location){
+        return $http({
+            method: 'GET',
+            url: './products',
+            params: {
+                funct: 'PROD_SOLD_HISTORY',
+                productNum:pId,
+                location:location
+            }
         });
     };
 });
