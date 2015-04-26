@@ -16,6 +16,8 @@ public enum Endpoint {
     SYNCED_INVOICES,
     ORIGINAL_FOR_INV,
 
+    PROD_COUNT_GET,
+    HOLD_BIN_GET,
     PROD_SOLD_FOR_INVOICES,
     PO_PUT,
     SALES_GET,

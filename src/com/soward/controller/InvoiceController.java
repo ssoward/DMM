@@ -60,6 +60,15 @@ public class InvoiceController extends HttpServlet {
                     String supplierNum = request.getParameter("supplierNum");
                     inv = InvoiceUtil.createNewPO(username, supplierNum);
                     break;
+                case HOLD_BIN_GET:
+                    map = TransUtil.getAllHBHash();
+                    break;
+                case PROD_COUNT_GET:
+                    Date date = getDate(salesDate);
+                    if(date != null) {
+                        map = InvoiceUtil.getProductCountsForSales(date, location);
+                    }
+                    break;
                 case TRANS_GET:
                     transList = TransUtil.getTransaction(invoiceNum, true);
                     break;
@@ -76,39 +85,17 @@ public class InvoiceController extends HttpServlet {
                     InvoiceUtil.deleteTransaction(transNum);
                     break;
                 case PROD_SOLD_FOR_INVOICES:
-                    if(salesDate != null){
-                        //"2015-03-11T06:00:00.000Z"
-                        // 2015-03-18T03:54:55.965Z
-                        try {
-                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-                            sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
-                            Date date = sdf.parse(salesDate.replace("\"", ""));
-                            if(date != null){
-                                map = InvoiceUtil.getProdSoldForInvoices(date, location);
-                                //save invoice to db return id
-                            }
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        salesDate = null;
+                    date = getDate(salesDate);
+                    if(date != null){
+                        map = InvoiceUtil.getProdSoldForInvoices(date, location);
+                        //save invoice to db return id
                     }
                     break;
                 case SALES_GET:
-                    if(salesDate != null){
-                        //"2015-03-11T06:00:00.000Z"
-                        // 2015-03-18T03:54:55.965Z
-                        try {
-                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-                            sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
-                            Date date = sdf.parse(salesDate.replace("\"", ""));
-                            if(date != null){
-                                invList = InvoiceUtil.getForDate(date, location);
-                                //save invoice to db return id
-                            }
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        salesDate = null;
+                    date = getDate(salesDate);
+                    if(date != null){
+                        invList = InvoiceUtil.getForDate(date, location);
+                        //save invoice to db return id
                     }
                     break;
             }
@@ -145,5 +132,21 @@ public class InvoiceController extends HttpServlet {
             e.printStackTrace();
         }
 
+    }
+
+    public Date getDate(String salesDate) {
+        if(salesDate != null){
+            //"2015-03-11T06:00:00.000Z"
+            // 2015-03-18T03:54:55.965Z
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+                Date date = sdf.parse(salesDate.replace("\"", ""));
+                return date;
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 }

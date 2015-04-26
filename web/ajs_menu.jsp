@@ -99,6 +99,8 @@
 
     <script src="lib/js/directives/spinner.js"></script>
     <script src="lib/js/directives/ProductSold.js"></script>
+    <script src="lib/js/directives/DMMCheckBox.js"></script>
+    <script src="lib/js/directives/DMMRadio.js"></script>
 
     <link type="text/css" href="css/jquery-ui-1.8.4.custom.css" rel="stylesheet" />
     <script type="text/javascript" src="js/notification.js"></script>

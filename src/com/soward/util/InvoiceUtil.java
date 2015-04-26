@@ -254,6 +254,35 @@ public class InvoiceUtil {
         return inv;
     }
 
+    public static Map<Long, ProductsLocationCount> getProductCountsForSales( Date date, String location ) {
+        MySQL sdb = new MySQL();
+        String sql = "select prods.* from \n" +
+                "\tInvoiceLocation invLoc join Transactions trans on invLoc.invoiceNum = trans.invoiceNum\n" +
+                "    join ProductsLocationCount prods on prods.productNum = trans.productNum\n" +
+                "\t  where invLoc.location = ? and trans.transDate like '"+new SimpleDateFormat("yyyy-MM-dd").format(date)+"%'";
+        Connection con = null;
+        List<ProductsLocationCount> plcList = new ArrayList<ProductsLocationCount>();
+        try {
+            con = sdb.getConn();
+            PreparedStatement pstmt = null;
+            pstmt = con.prepareStatement( sql );
+            pstmt.setString(1,  location);
+            ResultSet rset = pstmt.executeQuery();
+            plcList.addAll(ProductsLocationCountUtil.getPLCResult(rset));
+            rset.close();
+            con.close();
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+        Map<Long, ProductsLocationCount> map = new HashMap<Long, ProductsLocationCount>();
+        if(plcList != null){
+            for(ProductsLocationCount plc: plcList){
+                map.put(new Long(plc.getProductNum()), plc);
+            }
+            return map;
+        }
+        return null;
+    }
     public static Map<Long, ProductSold> getProdSoldForInvoices( Date date, String location ) {
         MySQL sdb = new MySQL();
         String sql = "select inv.* from Invoices inv join InvoiceLocation invLoc on invLoc.invoiceNum = inv.invoiceNum" +

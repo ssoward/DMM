@@ -263,7 +263,7 @@ public class ProductsLocationCountUtil {
     }
 
 
-    private static ArrayList<ProductsLocationCount> getPLCResult(ResultSet rset) throws Exception{
+    public static ArrayList<ProductsLocationCount> getPLCResult(ResultSet rset) throws Exception{
         ArrayList<ProductsLocationCount> plcList = new ArrayList<ProductsLocationCount>();
         while(rset.next()){
             ProductsLocationCount plc = new ProductsLocationCount();

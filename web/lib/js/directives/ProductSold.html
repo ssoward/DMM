@@ -1,10 +1,10 @@
-<ul class="list-inline">
-    <li>{{'('+ trans.prod.productCatalogNum +') '+trans.prod.productName}}</li>
+<div class="list-inline">
+    <div>{{''+ prod.productCatalogNum +' - '+prod.productName}}</div>
     <li>
-        <div ng-if="history">
-            ({{ year   + ': '+history.yearsCount[year]}},
-            {{ year-1 + ': '+history.yearsCount[year-1]}},
-            {{ year-2 + ': '+history.yearsCount[year-2]}})
-        </div>
+        <ul ng-if="history">
+            <li>{{ year   + ': '+history.yearsCount[year]}}</li>
+            <li>{{ year-1 + ': '+history.yearsCount[year-1]}}</li>
+            <li>{{ year-2 + ': '+history.yearsCount[year-2]}}</li>
+        </ul>
     </li>
-</ul>
+</div>
