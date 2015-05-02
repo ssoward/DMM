@@ -1,4 +1,4 @@
-var app = angular.module('dailySalesApp').controller('DailySalesController', function ($scope, $log, InvoiceTransService, ProductService, $modal){
+var app = angular.module('dailySalesApp').controller('DailySalesController', function ($scope, $log, InvoiceTransService, ProductService, $q){
     $scope.greeting = '';
     $scope.data = {};
     $scope.page = {};
@@ -30,41 +30,78 @@ var app = angular.module('dailySalesApp').controller('DailySalesController', fun
 
     //GET REPORT
     $scope.getReport = function(){
+        $scope.progressComplete = 0;
         $scope.page.searchingInvoices = true;
-        InvoiceTransService.getSales($scope.dateToEval, $scope.location)
-            .then(function(res){
-                $scope.invoices = res.data;
-                $scope.progressComplete = 50;
-                return res;
-            })
-            .then(function(res){
-                return InvoiceTransService.getProductSoldHistory($scope.dateToEval, $scope.location);
-            })
-            .then(function (res){
-                $scope.progressComplete = 70;
-                $scope.productHistory = res.data;
-                return res;
-            })
-            .then(function(){
-                return InvoiceTransService.getAllHBHash();
-            })
-            .then(function(res){
-                $scope.holdBin = res.data;
-                $scope.progressComplete = 85;
-                return res;
-            })
-            .then(function(){
-                return InvoiceTransService.getProductCounts($scope.dateToEval, $scope.location);
-            })
-            .then(function(res){
-                $scope.inventory = res.data;
-                $scope.progressComplete = 100;
-                $scope.page.searchingInvoices = false;
-                consolidateProducts();
-            });
-    };
-    //GET REPORT
 
+        var promises = [];
+
+        promises.push(InvoiceTransService.getSales($scope.dateToEval, $scope.location)
+                .then(function(res){
+                    $scope.invoices = res.data;
+                    $scope.progressComplete += 20;
+                    return res;
+                })
+        );
+        promises.push(InvoiceTransService.getProductSoldHistory($scope.dateToEval, $scope.location)
+                .then(function (res){
+                    $scope.progressComplete += 20;
+                    $scope.productHistory = res.data;
+                    return res;
+                })
+        );
+        promises.push(InvoiceTransService.getAllHBHash()
+                .then(function(res){
+                    $scope.holdBin = res.data;
+                    $scope.progressComplete += 20;
+                    return res;
+                })
+        );
+        promises.push(InvoiceTransService.getProductCounts($scope.dateToEval, $scope.location)
+                .then(function(res){
+                    $scope.progressComplete += 20;
+                    $scope.inventory = res.data;
+                    return res;
+                })
+        );
+        promises.push(InvoiceTransService.getInventoryCacheForDate($scope.dateToEval, $scope.location)
+                .then(function(res){
+                    $scope.invCache = res.data.DSC;
+                    $scope.progressComplete += 20;
+                    return res;
+                })
+        );
+        $q.all(promises)
+            .then(function(){
+            console.log('ehllo')
+            updateProdCache();
+            consolidateProducts();
+            $scope.page.searchingInvoices = false;
+        })
+    };
+
+    $scope.shiftCount = function(store, prod){
+
+        switch (store) {
+            case "MURRAY":
+                $scope.inventory[prod.productNum].MURRAY++;
+                $scope.inventory[prod.productNum].LEHI--;
+                break;
+            case "LEHI":
+                $scope.inventory[prod.productNum].LEHI++;
+                $scope.inventory[prod.productNum].MURRAY--
+                break;
+        }
+        ProductService.saveProductCount(prod.productNum, $scope.inventory[prod.productNum].LEHI, "LEHI");
+        ProductService.saveProductCount(prod.productNum, $scope.inventory[prod.productNum].MURRAY, "MURRAY");
+    };
+
+    $scope.saveDone = function(prod){
+        InvoiceTransService.saveDoneCache($scope.invCache.id, prod.done, prod.productNum);
+    };
+
+    $scope.saveMove = function(prod){
+        InvoiceTransService.saveMoveCache($scope.invCache.id, prod.move, prod.productNum);
+    };
 
     //datePicker
     $scope.today = function() {
@@ -98,6 +135,7 @@ var app = angular.module('dailySalesApp').controller('DailySalesController', fun
         startingDay: 1
     };
 
+    //datePicker
     $scope.format = 'dd MMM yyyy';
 
     //get all products
@@ -114,6 +152,17 @@ var app = angular.module('dailySalesApp').controller('DailySalesController', fun
             });
         });
     }
-    //datePicker
+
+    function updateProdCache(){
+        _.forEach($scope.invoices, function(invoice){
+            _.forEach(invoice.transList, function(trans){
+                var prodMap = $scope.invCache.map[trans.prod.productNum];
+                if(prodMap) {
+                    trans.prod.done = prodMap.done;
+                    trans.prod.move = prodMap.move;
+                }
+            });
+        });
+    }
 
 });

@@ -38,7 +38,7 @@ public class ProductsController extends HttpServlet {
                     break;
                 case COUNT_PUT:
                     String numAvailable = request.getParameter("numAvailable");
-                    ProductsLocationCountUtil.updateCountForLocation(numAvailable, productNum, "MURRAY");
+                    ProductsLocationCountUtil.updateCountForLocation(numAvailable, productNum, location);
                     break;
 //                case PROD_SOLD_HISTORY:
 //                    list = ProductUtils.fetchPastThreeYearsSold(Arrays.asList(Long.parseLong(productNum)), location);

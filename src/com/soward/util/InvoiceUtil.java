@@ -14,10 +14,12 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import com.soward.db.DB;
+import com.soward.enums.ProductCacheEnum;
 import com.soward.object.*;
 import org.apache.commons.lang.StringUtils;
 
 import com.soward.db.MySQL;
+import org.codehaus.jackson.map.ObjectMapper;
 
 public class InvoiceUtil {
     private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss'.0'");
@@ -235,6 +237,7 @@ public class InvoiceUtil {
                 inv.setInvoiceContactNum             (rset.getString("invoiceContactNum"));
                 inv.setInvoiceReferenceNum           (rset.getString("invoiceReferenceNum"));
                 inv.setInvoiceChargeStatus           (rset.getString("invoiceChargeStatus"));
+                inv.setInvoiceChargeStatus           (rset.getString("invoiceChargeStatus"));
                 inv.setInvoiceChargeDate             (rset.getString("invoiceChargeDate"));
                 inv.setInvoiceChargePaymentMethod    (rset.getString("invoiceChargePaymentMethod"));
                 inv.setInvoiceDiscount               (rset.getString("invoiceDiscount"));
@@ -252,6 +255,104 @@ public class InvoiceUtil {
         }
 
         return inv;
+    }
+
+    public static void main( String[] args ) {
+        Map<Long, String> current = new HashMap<Long, String>();
+//        current.put(100L, "{name:scott}");
+//        current.put(200L, "{name:larry}");
+        current.put(400L, "{name:rachel}");
+        //System.out.println(InvoiceUtil.saveInventoryCache(current, new Date(), "MURRAY"));
+    }
+
+    public static Long saveInventoryCache(DailySalesCache dsc) {
+        return saveInventoryCache(dsc, null, null);
+    }
+    public static Long saveInventoryCache(DailySalesCache dsc, Date date, String location) {
+        Connection con = null;
+        MySQL sdb = new MySQL();
+        Long key = null;
+        DailySalesCache current = dsc.getId()!=null?getInventoryCache(dsc.getId()):null;
+
+        try {
+            String sql = "insert into DailySalesInventory values (null,?,?,?, null)";
+            con = sdb.getConn();
+            PreparedStatement pstmt = null;
+            if(current != null && current.getMap() != null){
+                current.getMap().putAll(dsc.getMap());
+                String json = new ObjectMapper().writeValueAsString(current.getMap());
+                sql = "update DailySalesInventory set data1 = ? where id = ?";
+                pstmt = con.prepareStatement(sql);
+                pstmt.setString(1, json);
+                pstmt.setLong(2, current.getId());
+            } else {
+                String json = new ObjectMapper().writeValueAsString(dsc.getMap());
+                pstmt = con.prepareStatement(sql);
+                pstmt.setDate(1, new java.sql.Date(date.getTime()));
+                pstmt.setString(2, location);
+                pstmt.setString(3, json);
+            }
+            pstmt.executeUpdate();
+            ResultSet keys = pstmt.getGeneratedKeys();
+
+            if(keys.next()){
+                key = keys.getLong( 1 );
+            }
+            pstmt.close();
+            con.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return key;
+    }
+
+    public static DailySalesCache getInventoryCache(Long id) {
+        return getInventoryCacheForDateOrId(id, null, null);
+    }
+
+    public static DailySalesCache getInventoryCacheForDate( Date date, String location ) {
+        return getInventoryCacheForDateOrId(null, date, location);
+    }
+
+    public static DailySalesCache getInventoryCacheForDateOrId(Long id, Date date, String location ) {
+        MySQL sdb = new MySQL();
+        String sql = "select * from DailySalesInventory where id = ?";
+        if(id == null){
+            sql = "select * from DailySalesInventory where location = ? and date like '"+new SimpleDateFormat("yyyy-MM-dd").format(date)+"%'";
+        }
+        Connection con = null;
+        DailySalesCache dsc = null;
+        PreparedStatement pstmt = null;
+        try {
+
+            con = sdb.getConn();
+            pstmt = con.prepareStatement( sql );
+            if(id != null){
+                pstmt.setLong(1, id);
+            }else {
+                pstmt.setString(1, location);
+            }
+            ResultSet rset = pstmt.executeQuery();
+            ObjectMapper mapper = new ObjectMapper();
+            if(rset.next()) {
+                String data = rset.getString("data1");
+                Long dscId = rset.getLong("id");
+                Map<String, Map> map = mapper.readValue(data, HashMap.class);
+                map = map!=null?map:new HashMap<String, Map>();
+                dsc = new DailySalesCache(dscId, map);
+            }
+            //if DSC doesnt exist: create it
+            else if(date != null && location != null){
+                //create and return empty DailySalesCache for date and location
+                Long key = saveInventoryCache(new DailySalesCache(null, new HashMap<String, Map>()), date, location);
+                dsc = getInventoryCacheForDateOrId(key, null, null);
+            }
+            rset.close();
+            con.close();
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+        return dsc;
     }
 
     public static Map<Long, ProductsLocationCount> getProductCountsForSales( Date date, String location ) {
@@ -283,6 +384,7 @@ public class InvoiceUtil {
         }
         return null;
     }
+
     public static Map<Long, ProductSold> getProdSoldForInvoices( Date date, String location ) {
         MySQL sdb = new MySQL();
         String sql = "select inv.* from Invoices inv join InvoiceLocation invLoc on invLoc.invoiceNum = inv.invoiceNum" +
@@ -692,11 +794,6 @@ public class InvoiceUtil {
         }
     }
 
-    public static void main( String[] args ) {
-        //System.out.println(InvoiceUtil.incrementAdminInvoice());
-        System.out.println(InvoiceUtil.getForDate(new Date(), "MURRAY"));
-    }
-
     private static int incrementAdminInvoice() {
         int newId = -1;
         Connection con = null;
@@ -914,6 +1011,48 @@ public class InvoiceUtil {
             e.printStackTrace();
         }
         return result;
+    }
+
+    public static void saveInventoryCacheProperty(String invCacheId, Object property, String productNum, ProductCacheEnum cacheEnum) {
+        if(invCacheId != null){
+            DailySalesCache dailySalesCache = getInventoryCache(Long.parseLong(invCacheId));
+            if(dailySalesCache != null){
+                try {
+                    Map prodMap = dailySalesCache.getMap().get(productNum);
+                    ObjectMapper mapper = new ObjectMapper();
+                    Map<String, Object> map = prodMap != null?prodMap:new HashMap<String, Object>();
+                    map.put(cacheEnum.getName(), property);
+                    dailySalesCache.getMap().put(productNum, map);
+                    saveInventoryCache(dailySalesCache);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+//    public static void saveInventoryCacheDone(String invCacheId, String done, Long productNum) {
+//        if(invCacheId != null){
+//            DailySalesCache dailySalesCache = getInventoryCache(Long.parseLong(invCacheId));
+//            if(dailySalesCache != null){
+//                try {
+//                    Map prodMap = dailySalesCache.getMap().get(productNum);
+//                    ObjectMapper mapper = new ObjectMapper();
+//                    Map<String, Object> map = prodMap != null?prodMap:new HashMap<Map, Object>();
+//                    map.put("done", "true".equals(done));
+//                    dailySalesCache.getMap().put(productNum, map);
+//                    saveInventoryCache(dailySalesCache);
+//                }catch(Exception e){
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//    }
+
+    private static String cleanString(String json) {
+        json = json.replaceAll("'", "\\\\'"); // escapes all ' (turns all ' into \')
+        json = json.replaceAll("(?<!\\\\)\"", "'"); // turns all "bla" into 'bla'
+        return json;
     }
 
 

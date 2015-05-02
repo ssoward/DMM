@@ -11,14 +11,15 @@ angular.module('dmm-core').service('ProductService', function ($http, $log, $sta
         });
     };
 
-    this.saveProductCount = function (productNum, numAvailable){
+    this.saveProductCount = function (productNum, numAvailable, location){
         return $http({
             method: 'PUT',
             url: './products',
             params: {
                 funct: 'COUNT_PUT',
                 numAvailable:numAvailable,
-                productNum:productNum
+                productNum:productNum,
+                location:location
             }
 
         });

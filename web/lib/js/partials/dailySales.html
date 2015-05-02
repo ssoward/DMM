@@ -52,22 +52,30 @@
                 <tr>
                     <th>Product</th>
                     <th class="col-sm-1">HB</th>
-                    <th class="col-sm-1">In Stock</th>
+                    <th class="col-sm-1">Done</th>
                     <th class="col-sm-1">Move</th>
+                    <th class="col-lg-5">In Stock</th>
                 </tr>
                 <tr ng-repeat="prod in productList">
                     <td>
                         <product-sold product="prod" history="productHistory[prod.productNum]" location="location"></product-sold>
                     </td>
                     <td class="col-sm-1">{{holdBin[prod.productNum]?holdBin[prod.productNum]:0}}</td>
-                    <td>
+                    <td class="col-sm-1">
+                        <dmm-checkbox ng-click="saveDone(prod)" ng-model="prod.done"></dmm-checkbox>
+                    </td>
+                    <td class="col-sm-1">
+                        <input type="number" size="6" min="0" ng-change="saveMove(prod)" value='1' ng-value="prod.move" ng-model="prod.move" max="99"/>
+                    </td>
+                    <td class="col-lg-5">
                         <span ng-if="inventory[prod.productNum]">
-                               <div>Murray: {{inventory[prod.productNum].MURRAY}}</div>
-                               <div>Lehi: {{inventory[prod.productNum].LEHI}}</div>
+                               <div>Murray: {{inventory[prod.productNum].MURRAY}}
+                                   <a class="btn btn-default" ng-click="shiftCount('MURRAY', prod)"><span class="glyphicon glyphicon-arrow-left"></span></a>
+                                   <a class="btn btn-default" ng-click="shiftCount('LEHI', prod)"><span class="glyphicon glyphicon-arrow-right"></span></a>
+                                   Lehi: {{inventory[prod.productNum].LEHI}}</div>
                             </span>
                         </span>
                     </td>
-                    <td class="col-lg-6">hello world</td>
                 </tr>
             </table>
         </div>

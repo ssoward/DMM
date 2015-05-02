@@ -1,5 +1,7 @@
 package com.soward.controller;
 
+import com.soward.enums.ProductCacheEnum;
+import com.soward.object.DailySalesCache;
 import com.soward.object.Invoice;
 import com.soward.object.ProductSold;
 import com.soward.object.Transaction;
@@ -19,10 +21,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.TimeZone;
+import java.util.*;
 
 /**
  * Created by ssoward on 9/9/14.
@@ -42,10 +41,15 @@ public class InvoiceController extends HttpServlet {
         String productQty = request.getParameter("productQty");
         String location = request.getParameter("location");
         String salesDate  = request.getParameter("date");
+        String invCacheId  = request.getParameter("invCacheId");
+        String done  = request.getParameter("done");
+        String move  = request.getParameter("move");
+
         Invoice inv = null;
         List invList = null;
         Map map = null;
         List<Transaction> transList = null;
+        Date date = getDate(salesDate);
         log.info("Invoices endpoint: "+endpoint);
         if(endpoint != null) {
             switch (Endpoint.valueOf(endpoint)) {
@@ -63,8 +67,14 @@ public class InvoiceController extends HttpServlet {
                 case HOLD_BIN_GET:
                     map = TransUtil.getAllHBHash();
                     break;
+                case INV_CACHE_GET:
+                    if(date != null) {
+                        DailySalesCache dsc = InvoiceUtil.getInventoryCacheForDate(date, location);
+                        map = new HashMap<String, Object>();
+                        map.put("DSC", dsc);
+                    }
+                    break;
                 case PROD_COUNT_GET:
-                    Date date = getDate(salesDate);
                     if(date != null) {
                         map = InvoiceUtil.getProductCountsForSales(date, location);
                     }
@@ -74,6 +84,12 @@ public class InvoiceController extends HttpServlet {
                     break;
                 case TRANS_PUT:
                     TransUtil.addTransactionToInvoice(username, invoiceNum, productNum);
+                    break;
+                case INV_CACHE_MOVE_PUT:
+                    InvoiceUtil.saveInventoryCacheProperty(invCacheId, Integer.parseInt(move), productNum, ProductCacheEnum.MOVE);
+                    break;
+                case INV_CACHE_DONE_PUT:
+                    InvoiceUtil.saveInventoryCacheProperty(invCacheId, "true".equals(done), productNum, ProductCacheEnum.DONE);
                     break;
                 case TRANS_QTY_PUT:
                     TransUtil.updateTransactionQty(transNum, productQty);
@@ -85,14 +101,12 @@ public class InvoiceController extends HttpServlet {
                     InvoiceUtil.deleteTransaction(transNum);
                     break;
                 case PROD_SOLD_FOR_INVOICES:
-                    date = getDate(salesDate);
                     if(date != null){
                         map = InvoiceUtil.getProdSoldForInvoices(date, location);
                         //save invoice to db return id
                     }
                     break;
                 case SALES_GET:
-                    date = getDate(salesDate);
                     if(date != null){
                         invList = InvoiceUtil.getForDate(date, location);
                         //save invoice to db return id

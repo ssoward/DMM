@@ -164,7 +164,7 @@ var app = angular.module('purchaseOrderApp').controller('PurchaseOrderController
         trans.editS = false;
         var id = trans.prod.productCatalogNum;
         $scope.sendFocus('BBB'+id)
-        return ProductService.saveProductCount(trans.productNum, trans.prod.numAvailable)
+        return ProductService.saveProductCount(trans.productNum, trans.prod.numAvailable, "MURRAY")
             .then(function(res){
             });
     };
