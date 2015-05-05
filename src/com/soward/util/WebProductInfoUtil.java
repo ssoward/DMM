@@ -36,7 +36,6 @@ public class WebProductInfoUtil {
                 pstmt.setString( 2, webProdInfo.getProductFeature() );
                 pstmt.setString( 3, webProdInfo.getProductNum() );
                 pstmt.executeUpdate();
-                System.out.println("updated");
             }
             else{
                 //insert
@@ -48,7 +47,6 @@ public class WebProductInfoUtil {
                 pstmt.setString( 2, webProdInfo.getProductFeature() );
                 pstmt.setString( 3, webProdInfo.getProductNum() );
                 pstmt.executeUpdate();
-                System.out.println("insert");
             }
 
             pstmt.close();

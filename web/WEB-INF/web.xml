@@ -59,6 +59,7 @@
         <servlet-name>ProdAjax</servlet-name>
         <url-pattern>/ProdAjax</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>InstrumentAjax</servlet-name>
         <servlet-class>com.soward.ajax.InstrumentAjax</servlet-class>
@@ -69,7 +70,6 @@
         <url-pattern>/InstrumentAjax</url-pattern>
     </servlet-mapping>
 
-
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -79,7 +79,6 @@
         <servlet-name>UpdateAccount</servlet-name>
         <servlet-class>com.soward.util.UpdateAccount</servlet-class>
     </servlet>
-
 
     <servlet-mapping>
         <servlet-name>UpdateAccount</servlet-name>
@@ -102,6 +101,10 @@
     <servlet>
         <servlet-name>products</servlet-name>
         <servlet-class>com.soward.controller.ProductsController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>accounts</servlet-name>
+        <servlet-class>com.soward.controller.AccountsController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>sma</servlet-name>
@@ -129,6 +132,11 @@
     <servlet-mapping>
         <servlet-name>products</servlet-name>
         <url-pattern>/products</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>accounts</servlet-name>
+        <url-pattern>/accounts</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>

@@ -16,6 +16,9 @@ public enum Endpoint {
     SYNCED_INVOICES,
     ORIGINAL_FOR_INV,
 
+    ACCT_SEARCH,
+    ACCT_MERGE,
+
     INV_CACHE_MOVE_PUT,
     INV_CACHE_DONE_PUT,
     INV_CACHE_GET,

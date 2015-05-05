@@ -12,6 +12,7 @@
 
     <li><a class="down" href="#">Accounts<!--[if gte IE 7]><!--></a><!--<![endif]-->
         <!--[if lte IE 6]><table><tr><td><![endif]--><ul>
+            <li><a href="./ajs_accounts.jsp">Account Merging</a></li>
             <li class="last"><a href="./searchAccounts.jsp">Account Search</a></li>
         </ul><!--[if lte IE 6]></td></tr></table></a><![endif]-->
     </li>

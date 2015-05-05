@@ -31,6 +31,9 @@
     <script src="lib/js/DailySalesApp.js"></script>
     <script src="lib/js/dailySalesRouter.js"></script>
 
+    <script src="lib/js/AccountsApp.js"></script>
+    <script src="lib/js/accountsRouter.js"></script>
+
     <script src="lib/js/PurchaseOrderApp.js"></script>
     <script src="lib/js/purchaseOrderRouter.js"></script>
 
@@ -41,16 +44,19 @@
     <script src="lib/js/controllers/DailySalesController.js"></script>
     <script src="lib/js/controllers/SMAController.js"></script>
     <script src="lib/js/controllers/ProductsController.js"></script>
+    <script src="lib/js/controllers/AccountsController.js"></script>
 
     <script src="lib/js/services/SMAuthService.js"></script>
     <script src="lib/js/services/POService.js"></script>
     <script src="lib/js/services/InvoiceTransService.js"></script>
-    <script src="lib/js/services/ProductServcie.js"></script>
+    <script src="lib/js/services/ProductService.js"></script>
+    <script src="lib/js/services/AccountService.js"></script>
 
     <script src="lib/js/directives/spinner.js"></script>
     <script src="lib/js/directives/ProductSold.js"></script>
     <script src="lib/js/directives/DMMCheckBox.js"></script>
     <script src="lib/js/directives/DMMRadio.js"></script>
+
 
     <link type="text/css" href="images/jquery-ui-1.8.4.custom.css" rel="stylesheet" />
     <script type="text/javascript" src="images/notification.js"></script>
@@ -68,6 +74,6 @@
     <div id="ajaxLoader" class="hideAjaxLoader"></div>
     <div id="dialogBackground" class="dialogBackgroundHide"> </div>
 
-<div ng-app="dailySalesApp" style="margin: 0 .5em;">
+<div ng-app="accountsApp" style="margin: 0 .5em;">
     <div ui-view autoscroll="false"></div>
 </div>

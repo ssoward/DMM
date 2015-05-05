@@ -81,6 +81,9 @@
     <script src="lib/js/DailySalesApp.js"></script>
     <script src="lib/js/dailySalesRouter.js"></script>
 
+    <script src="lib/js/AccountsApp.js"></script>
+    <script src="lib/js/accountsRouter.js"></script>
+
     <script src="lib/js/PurchaseOrderApp.js"></script>
     <script src="lib/js/purchaseOrderRouter.js"></script>
 
@@ -91,11 +94,13 @@
     <script src="lib/js/controllers/DailySalesController.js"></script>
     <script src="lib/js/controllers/SMAController.js"></script>
     <script src="lib/js/controllers/ProductsController.js"></script>
+    <script src="lib/js/controllers/AccountsController.js"></script>
 
     <script src="lib/js/services/SMAuthService.js"></script>
     <script src="lib/js/services/POService.js"></script>
     <script src="lib/js/services/InvoiceTransService.js"></script>
-    <script src="lib/js/services/ProductServcie.js"></script>
+    <script src="lib/js/services/ProductService.js"></script>
+    <script src="lib/js/services/AccountService.js"></script>
 
     <script src="lib/js/directives/spinner.js"></script>
     <script src="lib/js/directives/ProductSold.js"></script>

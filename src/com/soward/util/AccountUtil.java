@@ -15,6 +15,7 @@ import java.util.Set;
 import javax.print.attribute.standard.Chromaticity;
 
 import com.soward.enums.SearchTypeEnum;
+import org.apache.commons.discovery.log.SimpleLog;
 import org.apache.commons.lang.StringUtils;
 
 import com.soward.db.MySQL;
@@ -24,9 +25,13 @@ import com.soward.object.AccountType;
 import com.soward.object.CreditHistory;
 import com.soward.object.DBObj;
 import com.soward.object.Invoice;
+import org.apache.commons.logging.Log;
 import org.apache.tools.ant.taskdefs.email.EmailAddress;
 
 public class AccountUtil {
+
+    private static Log log = new SimpleLog(AccountUtil.class.getName());
+
     public String query;
 
     // test case: limit number of TE accounts returned.
@@ -449,16 +454,15 @@ public class AccountUtil {
         Connection con = null;
         MySQL sdb = new MySQL();
 
-        String sql = "(select * from Accounts where lower(accountName) like ? " +
-                "union all select * from Accounts where accountNum like ? " +
-                "union all select * from Accounts where accountPhone1 like ?) limit 10";
+        String sql = "select * from Accounts where lower(accountName) like ? " +
+                " or accountNum like ? or accountPhone1 like ? limit 50";
         try {
             con = sdb.getConn();
             PreparedStatement pstmt = null;
             pstmt = con.prepareStatement( sql );
             pstmt.setString( 1, "%"+searchObj.trim().toLowerCase()+"%" );
             pstmt.setString( 2, searchObj.trim()+"%" );
-            pstmt.setString( 3, searchObj+"%" );
+            pstmt.setString(3, searchObj + "%");
             ResultSet rset = pstmt.executeQuery();
             while ( rset.next() ) {
                 Account cl = new Account();
@@ -477,8 +481,8 @@ public class AccountUtil {
                 cl.setAccountCountry( rset.getString( "accountCountry" ) );
                 cl.setAccountType1( rset.getString( "accountType1" ) );
                 cl.setAccountType2( rset.getString( "accountType2" ) );
-                cl.setAccountOpenDate( rset.getString( "accountOpenDate" ) );
-                cl.setAccountCloseDate( rset.getString( "accountCloseDate" ) );
+//                cl.setAccountOpenDate( rset.getString( "accountOpenDate" ) );
+//                cl.setAccountCloseDate( rset.getString( "accountCloseDate" ) );
                 cl.setAccountBalance( rset.getString( "accountBalance" ) );
                 prods.add( cl );
             }
@@ -572,6 +576,32 @@ public class AccountUtil {
         //			e.printStackTrace();
         //		}
         return success;
+    }
+
+    public static void mergeAccountsDelete(String toBeMergedAndDeleted, String acct2) {
+        log.info("Merging accounts: "+toBeMergedAndDeleted+" into "+ acct2);
+        String sql = "update Invoices inv set inv.accountNum = ? where inv.accountNum = ?";
+
+        Connection con = null;
+        MySQL sdb = new MySQL();
+        try {
+            con = sdb.getConn();
+            PreparedStatement pstmt = null;
+            pstmt = con.prepareStatement( sql );
+            pstmt.setString( 1, acct2);
+            pstmt.setString( 2, toBeMergedAndDeleted);
+            int rset = pstmt.executeUpdate();
+
+            sql = "delete from Accounts where accountNum = ?";
+            log.info("Deleting account: "+toBeMergedAndDeleted);
+            pstmt = con.prepareStatement( sql );
+            pstmt.setString( 1, toBeMergedAndDeleted);
+            rset = pstmt.executeUpdate();
+
+            con.close();
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
     }
 
     public static Account saveUpdateAccount(Account acct) {
@@ -717,10 +747,10 @@ public class AccountUtil {
 
     public static void main( String[] args ) {
 //        ArrayList<Account> aList = AccountUtil.getAccountAddress("1000,1001,1002,1003,1005,1007,1008,1009,1010,1011,1012,1013,1014,1015,1016");
-        ArrayList<Account> aList = AccountUtil.getAccountAddress("40730");
-        for(Account a: aList){
-            System.out.println(a.getAccountAddressFormated());
-        }
+//        ArrayList<Account> aList = AccountUtil.getAccountAddress("40730");
+//        for(Account a: aList){
+//            System.out.println(a.getAccountAddressFormated());
+//        }
 
 
 
@@ -730,7 +760,7 @@ public class AccountUtil {
         //      AccountUtil.getAccountCreditHistory( "1053" );
         //      System.out.println("done");
         //System.out.println(AccountUtil.getMaxNextCreditHistoryNumber());
-//        ArrayList<Account> aList = AccountUtil.searchAccounts( "scott" );
+        ArrayList<Account> aList = AccountUtil.searchAccounts( "scott" );
 //        for(SearchTypeEnum en: SearchTypeEnum.values()){
 //            ArrayList<Account> aList = AccountUtil.fetchAccounts(en.getName(), "scott",null, false, 10 );
 //            for(Account a: aList){
@@ -741,4 +771,5 @@ public class AccountUtil {
 //        }
 
     }
+
 }

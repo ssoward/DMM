@@ -5,6 +5,8 @@ import com.soward.object.Invoice;
 import com.soward.util.LoginUtil;
 import com.soward.util.ProductUtils;
 import com.soward.util.ProductsLocationCountUtil;
+import org.apache.commons.discovery.log.SimpleLog;
+import org.apache.commons.logging.Log;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import javax.servlet.ServletException;
@@ -19,6 +21,8 @@ import java.util.*;
  */
 public class ProductsController extends HttpServlet {
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Log log = new SimpleLog(InvoiceController.class.getName());
+
         String username = (String) request.getSession().getAttribute("username");
         String searchStr = request.getParameter("searchStr");
         String location = request.getParameter("location");
@@ -28,6 +32,7 @@ public class ProductsController extends HttpServlet {
         Invoice inv = null;
         List list = null;
 
+        log.info("ProductsController endpoint: "+endpoint+" accessed by: "+username);
         if(endpoint != null) {
             switch (Endpoint.valueOf(endpoint)) {
                 case PROD_CAT_GET:

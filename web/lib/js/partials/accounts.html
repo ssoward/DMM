@@ -1,0 +1,73 @@
+<!-- APP SCRIPT -->
+<div>
+    <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+</div>
+<div class="list-group-item">
+    <h5 class="pull-right">Account Merging</h5>
+    <br />
+    <spinner class="bl-spinner-large" ng-show="pageLoaded"></spinner>
+    <div class="form">
+        <form name="reportForm">
+            <div class="form-group">
+                <label for="accountSearch">Search</label>
+                <div class="form-inline">
+                    1. <input type="text" ng-model="data.newAccount1" id="accountSearch"
+                           placeholder="acct# or Name"
+                           bl-autofocus
+                           autocomplete="off"
+                           autocorrect="off"
+                           autocapitalize="off"
+                           typeahead="account as account.accountName + ' ' +account.accountNum for account in getSearchAccounts($viewValue) | filter:$viewValue"
+                           typeahead-loading="!matchesLoaded"
+                           typeahead-min-length="4"
+                           typeahead-editable="false"
+                           typeahead-on-select="setAccount(data.newAccount1)"
+                           required="true"
+                           class="form-control bishop-typeahead"/>
+                </div>
+                <spinner ng-show="fetchingAccounts1" class="bishop-typeahead-spinner"></spinner>
+            </div>
+            <div class="form-group">
+                <div class="form-inline">
+                   2. <input type="text" ng-model="data.newAccount2" id="accountSearch2"
+                           placeholder="acct# or Name"
+                           bl-autofocus
+                           autocomplete="off"
+                           autocorrect="off"
+                           autocapitalize="off"
+                           typeahead="account as account.accountName + ' ' +account.accountNum for account in getSearchAccounts($viewValue) | filter:$viewValue"
+                           typeahead-loading="!matchesLoaded"
+                           typeahead-min-length="4"
+                           typeahead-editable="false"
+                           typeahead-on-select="setAccount(data.newAccount2)"
+                           required="true"
+                           class="form-control bishop-typeahead"/>
+                </div>
+                <spinner ng-show="fetchingAccounts2" class="bishop-typeahead-spinner"></spinner>
+            </div>
+            <button ng-disabled="!reportForm.$valid" class="btn btn-default" ng-click="openMerge()">Merge</button>
+        </form>
+    </div>
+</div>
+<script type="text/ng-template" id="lockModal.html">
+    <div id="permissionsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="cancel()" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Merging Accounts</h4>
+            </div>
+            <div class="modal-body">
+                <p><b>Are you certain that you want to merge Account 1 ({{data.newAccount1.accountNum}}) into Account 2 ({{data.newAccount2.accountNum}})?</b></p>
+                <ul>
+                    <li>This will combine the history of {{data.newAccount1.accountNum}} and {{data.newAccount2.accountNum}}.</li>
+                    <li>This will delete acct. {{data.newAccount1.accountNum}} and all the contact info address, phone, email etc.</li>
+                </ul>
+                <br><span class="text-muted">This <b>cannot</b> be undone.</span>
+            </div>
+            <div class="modal-footer clearfix">
+                <button type="button" ng-click="cancel()" class="btn btn-default btn-sm pull-left" data-dismiss="modal">Cancel</button>
+                <button type="button" ng-click="merge()" class="btn btn-primary btn-sm pull-right" data-dismiss="modal">Merge</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</script>
