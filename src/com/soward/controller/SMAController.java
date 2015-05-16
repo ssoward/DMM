@@ -43,6 +43,9 @@ public class SMAController  extends HttpServlet {
                 case ORIGINAL_FOR_INV:
                     order = smaService.getOriginalInvoice(invoiceId);
                     break;
+                case DELETE_RECORD_INV:
+                    smaService.deleteRecordInvoice(invoiceId);
+                    break;
             }
         }
         response.setContentType("application/json");

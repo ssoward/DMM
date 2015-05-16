@@ -25,6 +25,23 @@ public class SMAServiceImpl implements SMAService {
         return InvoiceUtil.getSynced();
     }
 
+    public void deleteRecordInvoice(String invoiceId){
+        InvoiceUtil.deleteInvoice(invoiceId);
+        Connection con = null;
+        MySQL db = new MySQL();
+        try {
+            con = db.getConn();
+            String sql = "delete from sm_sales_order where dmm_invoice_id = ?";
+            PreparedStatement pstmt = con.prepareStatement( sql );
+            pstmt.setInt(1, Integer.parseInt(invoiceId));
+            pstmt.executeUpdate();
+            pstmt.close();
+            con.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public String getOriginalInvoice(String invoiceId) {
         Map<String, Object> hash = new HashMap<String, Object>();
         Connection con = null;

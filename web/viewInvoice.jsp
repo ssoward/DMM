@@ -199,7 +199,8 @@
                         <tr align=right><td colspan=8>
                             <table border=0>
                                 <%
-                                    double sub = Utils.parseDouble(inv.getInvoiceTotal()) -
+                                    double sub =
+                                            Utils.parseDouble(inv.getInvoiceTotal()) -
                                             Utils.parseDouble(inv.getInvoiceTax()) -
                                             Utils.parseDouble(inv.getInvoiceShipTotal());
                                     String taxType = "";

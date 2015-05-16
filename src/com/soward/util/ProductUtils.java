@@ -3,6 +3,7 @@ package com.soward.util;
 import com.soward.db.DB;
 import com.soward.db.MySQL;
 import com.soward.enums.LocationsDBName;
+import com.soward.enums.ProductColsEnum;
 import com.soward.enums.ProductWeight;
 import com.soward.object.Product;
 import com.soward.object.ProductSold;
@@ -403,11 +404,15 @@ public class ProductUtils {
     }
 
     public static Product fetchProductForNum( String prodNum, String location ) {
+        return fetchProductForColumn(ProductColsEnum.NUM, prodNum, location);
+    }
+
+    public static Product fetchProductForColumn( ProductColsEnum pEnum, String prodNum, String location ) {
         String prodLocation = location;// .equalsIgnoreCase( "lehi" ) ?
         Product prod = new Product();
         Connection con = null;
         MySQL sdb = new MySQL();
-        String sql = "select * from Products where productNum = '" + prodNum + "' ";
+        String sql = "select * from Products where "+pEnum.getLabel()+" = '" + prodNum + "' ";
         try {
             con = sdb.getConn();
             PreparedStatement pstmt = null;

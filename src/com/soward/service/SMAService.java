@@ -15,4 +15,6 @@ public interface SMAService {
     List<Invoice> getSynced();
 
     String getOriginalInvoice(String invoiceId);
+
+    void deleteRecordInvoice(String invoiceId);
 }

@@ -15,6 +15,7 @@ public enum Endpoint {
     SYNC_INVOICES,
     SYNCED_INVOICES,
     ORIGINAL_FOR_INV,
+    DELETE_RECORD_INV,
 
     ACCT_SEARCH,
     ACCT_MERGE,

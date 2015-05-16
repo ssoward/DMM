@@ -1,36 +1,38 @@
 <div class="list-group-item">
     <h5 class="pull-right">SheetMusic Authority</h5>
     <br/>
-    <button class="btn" ng-click="syncSMA()">Sync Invoices</button>
+    <button class="btn" ng-click="confirmSync()">Sync Invoices</button>
     <button class="btn" ng-click="syncedSMA()">Synced</button>
     <br/>
     <spinner class="bl-spinner-large" ng-show="pageLoaded"></spinner>
     <div ng-if="syncedSMALoaded"> Total invoices created: {{invoices.length}}</div>
     <div ng-if="invoices">
         <input ng-model="search.$">
-        <table class="table">
+        <table class="table table-responsive table-bordered">
             <caption>Invoices synced from sheetmusicauthority.com</caption>
             <thead>
             <tr>
                 <th>#</th>
                 <th>Number</th>
-                <th>Total</th>
+                <th>Date</th>
                 <th>Total</th>
                 <th>Products</th>
+                <th>Delete</th>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="inv in invoices | filter:search:strict | orderBy:invoiceDate:true">
                 <th scope="row">{{$index + 1}}</th>
-                <td><a href="./viewInvoice.jsp?pid={{inv.invoiceNum}}">{{inv.invoiceNum}}</a></td>
+                <td><a target="_blank" href="./viewInvoice.jsp?pid={{inv.invoiceNum}}">{{inv.invoiceNum}}</a></td>
+                <td>{{inv.invoiceDate | date:'dd MMM yyyy'}}</td>
                 <td>{{inv.invoiceTotal}}</td>
-                <td>{{inv.invoiceDate}}</td>
                 <td>
                     <span tooltip="View Original Invoice" ng-click="getOriginalInvoice(inv.invoiceNum)" class="cursor-pointer glyphicon glyphicon-cloud-download"></span>
                     <li ng-repeat="trans in inv.transList">
                         <ul>{{trans.productNum}} {{trans.productName}}</ul>
                     </li>
                 </td>
+                <td><span class="cursor-pointer glyphicon glyphicon-remove text-danger" ng-click="deleteConfirm(inv)"></span> </td>
             </tr>
             </tbody>
         </table>

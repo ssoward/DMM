@@ -1,6 +1,7 @@
 package com.soward.service;
 
 import com.soward.db.MySQL;
+import com.soward.enums.ProductColsEnum;
 import com.soward.enums.TransTypeEnum;
 import com.soward.object.Invoice;
 import com.soward.object.Product;
@@ -21,6 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -89,7 +91,8 @@ public class MagentoSyncServiceImp {
             trans = new Transaction();
             trans.setInvoiceNum(invId);
             trans.setTransType(TransTypeEnum.SMA.code);
-            Product prod = ProductUtils.fetchProductForNum(item.getProduct_id(), null);
+            Product prod = ProductUtils.fetchProductForColumn(ProductColsEnum.CAT_NUM, item.getSku(), null);
+            trans.setProductNum(null);
             if(prod != null) {
                 trans.setProductNum(prod.getProductNum());
                 trans.setProductName(prod.getProductName());
@@ -116,7 +119,7 @@ public class MagentoSyncServiceImp {
             invoice.setInvoiceDate(en.getCreated_at());
             invoice.setLocationNum(sma);
             invoice.setUsername2(sma);
-            invoice.setInvoiceTotal(en.getTotal_invoiced());
+            invoice.setInvoiceTotal(en.getGrand_total());
             invoice.setInvoiceTax(en.getTax_amount());
             invoice.setInvoiceShipTotal(en.getShipping_amount());
             invoice.setInvoicePaid(en.getTotal_paid());
@@ -157,7 +160,7 @@ public class MagentoSyncServiceImp {
             con.close();
             result = true;
         }catch(Exception e){
-            e.printStackTrace();
+            log.log(Level.SEVERE, "Failed to save invoice: " + en);
         }
         return result;
     }

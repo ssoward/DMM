@@ -29,4 +29,14 @@ angular.module('smaApp').service('SMAuthService', function ($http, $log, $state,
             }
         });
     };
+    this.deleteRecordInvoice = function (invId){
+        return $http({
+            method: 'GET',
+            url: './sma',
+            params: {
+                funct: 'DELETE_RECORD_INV',
+                invoiceId: invId
+            }
+        });
+    };
 });
