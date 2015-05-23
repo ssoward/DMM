@@ -7,14 +7,6 @@
  * */
 package com.soward.object;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-
-import org.apache.commons.lang.StringUtils;
-
-import com.soward.db.MySQL;
-
 public class Location {
 	public String locationNum;
 	public String locationIP;

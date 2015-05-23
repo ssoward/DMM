@@ -28,6 +28,7 @@
     </li>
     <li><a class="down" href="#">Reports<!--[if gte IE 7]><!--></a><!--<![endif]-->
         <!--[if lte IE 6]><table><tr><td><![endif]--><ul>
+            <li> <a href="ajs_hourlySales.jsp#/home"         >Hourly Sales Floor</a></li>
             <li> <a href="ajs_dailySales.jsp#/home"         >Daily Sales Phil</a></li>
             <li> <a href="./reportAging.jsp"                  >Aging</a></li>
             <li> <a href="./reportHoldBin.jsp"                >Hold Bin</a></li>

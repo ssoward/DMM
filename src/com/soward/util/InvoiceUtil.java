@@ -10,10 +10,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 import com.soward.db.DB;
+import com.soward.enums.FloorEnum;
 import com.soward.enums.ProductCacheEnum;
 import com.soward.object.*;
 import org.apache.commons.lang.StringUtils;
@@ -23,6 +25,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 public class InvoiceUtil {
     private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss'.0'");
+    private static SimpleDateFormat sdfInv = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
     private String taxExemptSql =
             "(165930, 165932, 165933,165929, 104388,165931  ) or productNum  in " +
                     "(select productNum from Products where category in " +
@@ -83,6 +86,11 @@ public class InvoiceUtil {
             inv.setInvoiceNum                    (rset.getString("invoiceNum"));
             inv.setAccountNum                    (rset.getString("accountNum"));
             inv.setInvoiceDate                   (rset.getString("invoiceDate"));
+            try {
+                inv.setInvDate                       (sdfInv.parse(inv.getInvoiceDate()));
+            } catch (ParseException e) {
+//                e.printStackTrace();
+            }
             inv.setLocationNum                   (rset.getString("locationNum"));
             inv.setUsername2                     (rset.getString("username"));
             inv.setInvoiceTotal                  (rset.getString("invoiceTotal"));
@@ -421,7 +429,26 @@ public class InvoiceUtil {
         return null;
     }
 
-    public static List<Invoice> getForDate( Date date, String location ) {
+    public static Map<String, List<Invoice>> getHourlyLocatioForDate( Date date, String location, boolean getTransList ) {
+        List<Invoice> invoices = getForDate(date, location, false, false);
+        Map<String, List<Invoice>> map = new HashMap<String, List<Invoice>>();
+        if(invoices != null){
+            for(final Invoice invoice: invoices){
+                invoice.setAccount(null);
+                FloorEnum floorEnum = FloorEnum.getForName(invoice.getLocationNum());
+                if(floorEnum != null){
+                    if(map.containsKey(floorEnum.getLocationName())){
+                        map.get(floorEnum.getLocationName()).add(invoice);
+                    }else{
+                        map.put(floorEnum.getLocationName(), new ArrayList<Invoice>(){{add(invoice);}});
+                    }
+                }
+            }
+        }
+        return map;
+    }
+
+    public static List<Invoice> getForDate( Date date, String location, boolean getTransList, boolean getProds ) {
         MySQL sdb = new MySQL();
         String sql = "select inv.* from Invoices inv join InvoiceLocation invLoc on invLoc.invoiceNum = inv.invoiceNum" +
                 " where invLoc.location = ? and invoiceDate like '"+new SimpleDateFormat("yyyy-MM-dd").format(date)+"%'";
@@ -433,7 +460,7 @@ public class InvoiceUtil {
             pstmt = con.prepareStatement( sql );
             pstmt.setString(1,  location);
             ResultSet rset = pstmt.executeQuery();
-            invList.addAll(getInvoiceListFromReSet(rset, true, true));
+            invList.addAll(getInvoiceListFromReSet(rset, getTransList, getProds));
             rset.close();
             con.close();
         } catch ( Exception e ) {

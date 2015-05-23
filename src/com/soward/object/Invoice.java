@@ -6,6 +6,7 @@ package com.soward.object;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.omg.IOP.TransactionService;
@@ -19,6 +20,7 @@ public class Invoice implements Serializable {
     public String invoiceNum;
     public String accountNum;
     public String invoiceDate;
+    public Date invDate;
     public String locationNum;
     public String username2;
     public String invoiceTotal;
@@ -370,6 +372,14 @@ public class Invoice implements Serializable {
         sb.append(",transList="+                 this.transList                 );
         sb.append("]");
         return sb.toString();
+    }
+
+    public Date getInvDate() {
+        return invDate;
+    }
+
+    public void setInvDate(Date invDate) {
+        this.invDate = invDate;
     }
 }
 

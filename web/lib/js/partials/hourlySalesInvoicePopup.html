@@ -1,0 +1,20 @@
+<div style="position: relative">
+    <a ng-click="loc9 = true"><b>{{getVal(hour, keyName)}}</b></a>
+    <div ng-show="loc9" class="popover fade bottom in" style="top:10px; display: block; width: 300px">
+        <div class="pull-left">
+            <div class="arrow"></div>
+        </div>
+        <a class="pull-right" ng-click="loc9 = false"><span class="glyphicon glyphicon-remove"></span> </a>
+        <div class="popover-title">
+            <h5>Invoices</h5>
+        </div>
+        <div class="popover-content">
+            <table class="table table-responsive table-bordered table-striped">
+                <tr ng-repeat="invoice in getInvoices(hour, keyName)">
+                    <td>{{invoice.invoiceNum}}</td>
+                    <td>{{invoice.invDate |  date:'hh:mm a dd MMM yyyy' }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

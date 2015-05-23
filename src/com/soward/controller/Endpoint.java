@@ -27,6 +27,8 @@ public enum Endpoint {
     HOLD_BIN_GET,
     PROD_SOLD_FOR_INVOICES,
     PO_PUT,
+
+    HOURLY_SALES_GET,
     SALES_GET,
     TRANS_GET,
     TRANS_PUT,

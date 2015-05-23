@@ -72,7 +72,6 @@ var app = angular.module('dailySalesApp').controller('DailySalesController', fun
         );
         $q.all(promises)
             .then(function(){
-            console.log('ehllo')
             updateProdCache();
             consolidateProducts();
             $scope.page.searchingInvoices = false;
