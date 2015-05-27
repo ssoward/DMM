@@ -86,11 +86,7 @@ public class InvoiceUtil {
             inv.setInvoiceNum                    (rset.getString("invoiceNum"));
             inv.setAccountNum                    (rset.getString("accountNum"));
             inv.setInvoiceDate                   (rset.getString("invoiceDate"));
-            try {
-                inv.setInvDate                       (sdfInv.parse(inv.getInvoiceDate()));
-            } catch (ParseException e) {
-//                e.printStackTrace();
-            }
+            try {inv.setInvDate(sdfInv.parse(inv.getInvoiceDate()));} catch (Exception e) {/*e.printStackTrace();*/}
             inv.setLocationNum                   (rset.getString("locationNum"));
             inv.setUsername2                     (rset.getString("username"));
             inv.setInvoiceTotal                  (rset.getString("invoiceTotal"));

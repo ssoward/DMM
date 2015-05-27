@@ -11,8 +11,9 @@
         <div class="popover-content">
             <table class="table table-responsive table-bordered table-striped">
                 <tr ng-repeat="invoice in getInvoices(hour, keyName)">
-                    <td>{{invoice.invoiceNum}}</td>
-                    <td>{{invoice.invDate |  date:'hh:mm a dd MMM yyyy' }}</td>
+                    <td><h6><a href="./viewInvoicePopup.jsp?pid={{invoice.invoiceNum}}" target="_blank">{{invoice.invoiceNum}}</a></h6></td>
+                    <td><h6>{{invoice.invDate |  date:'hh:mm a dd/MM/yy' }}</h6></td>
+                    <td><h6>{{invoice.invoiceTotal | currency }}</h6></td>
                 </tr>
             </table>
         </div>

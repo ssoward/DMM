@@ -71,7 +71,7 @@ var app = angular.module('hourlySalesApp').controller('HourlySalesController', f
 
         var promises = [];
 
-        promises.push(InvoiceTransService.getHourlySales($scope.dateToEval, 'Murray')
+        promises.push(InvoiceTransService.getHourlySales($scope.dateToEval, $scope.location)
                 .then(function(res){
                     $scope.locInvMap = res.data;
                     $scope.getKeys();
@@ -127,7 +127,18 @@ var app = angular.module('hourlySalesApp').controller('HourlySalesController', f
                 total += Number(spent);
             });
         }
-        return total.toFixed(2);;
+        return total.toFixed(2);
+    };
+
+    $scope.getGrandTotal = function(){
+        var total = 0;
+        angular.forEach($scope.locInvMap, function(locInvList, key) {
+            angular.forEach(locInvList, function(value) {
+                var spent = value.invoiceTotal;
+                total += Number(spent);
+            });
+        });
+        return total.toFixed(2);
     };
 
     $scope.getInvoices = function(time, location){

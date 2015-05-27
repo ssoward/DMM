@@ -7,6 +7,11 @@ var app = angular.module('purchaseOrderApp').controller('PurchaseOrderController
     $scope.matchesLoaded = true;
     $scope.pageLoaded = true;
 
+    $scope.sort = {
+        column: '',
+        descending: false
+    };
+
     $scope.alerts = [
 //        { type: 'danger', msg: 'Oh snap! Change a few things up and try submitting again.' },
 //        { type: 'success', msg: 'Well done! You successfully read this important alert message.' }
@@ -233,6 +238,18 @@ var app = angular.module('purchaseOrderApp').controller('PurchaseOrderController
         }, function () {
             $log.info('Modal dismissed at: ' + new Date());
         });
+    };
+
+    $scope.changeSorting = function(column) {
+
+        var sort = $scope.sort;
+
+        if (sort.column == column) {
+            sort.descending = !sort.descending;
+        } else {
+            sort.column = column;
+            sort.descending = false;
+        }
     };
 
     init();

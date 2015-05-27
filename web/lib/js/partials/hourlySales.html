@@ -13,6 +13,13 @@
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                         </span>
+
+                    <p class="input-group">
+                        <select required class="form-control" ng-model="location">
+                            <option value="Murray">Murray</option>
+                            <option value="LEHI">Lehi</option>
+                        </select>
+                    </p>
                 </form>
             </div>
         </div>
@@ -46,6 +53,10 @@
                 </td>
                 <td class="text-center"><b>{{getTotalCount(keyName)}}</b></td>
                 <td class="text-center"><b>{{getTotal(keyName)}}</b></td>
+            </tr>
+            <tr>
+                <td colspan="13"></td>
+                <td class="text-center"><b>{{getGrandTotal()}}</b></td>
             </tr>
         </table>
     </div>

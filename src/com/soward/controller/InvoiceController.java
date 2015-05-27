@@ -113,7 +113,7 @@ public class InvoiceController extends HttpServlet {
                     break;
                 case SALES_GET:
                     if(date != null){
-                        invList = InvoiceUtil.getForDate(date, location, true, false);
+                        invList = InvoiceUtil.getForDate(date, location, true, true);
                         //save invoice to db return id
                     }
                     break;

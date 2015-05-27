@@ -80,17 +80,17 @@
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>Name</th>
-                    <th>Catalog</th>
-                    <th>Barcode</th>
-                    <th>Price</th>
+                    <th><a ng-click="changeSorting('productName')">Name</a></th>
+                    <th><a ng-click="changeSorting('prod.productCatalogNum')">Catalog</a></th>
+                    <th><a ng-click="changeSorting('prod.productBarCode')">Barcode</a></th>
+                    <th><a ng-click="changeSorting('prod.productCost1')">Price</a></th>
                     <th>Count: Shelf</th>
                     <th>Count: Order</th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="transaction in data.transactions">
+                <tr ng-repeat="transaction in data.transactions | orderBy:sort.column:sort.descending">
                     <td>{{$index+1}}</td>
                     <td>{{transaction.productName}}</td>
                     <td>{{transaction.prod.productCatalogNum}}</td>
