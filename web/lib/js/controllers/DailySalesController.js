@@ -3,6 +3,7 @@ var app = angular.module('dailySalesApp').controller('DailySalesController', fun
     $scope.data = {};
     $scope.page = {};
     $scope.progressComplete = 0;
+    $scope.dateToEval = new Date();
 
     $scope.alerts = [
 //        { type: 'danger', msg: 'Oh snap! Change a few things up and try submitting again.' },

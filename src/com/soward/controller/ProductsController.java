@@ -2,6 +2,7 @@ package com.soward.controller;
 
 import com.soward.enums.ProductWeight;
 import com.soward.object.Invoice;
+import com.soward.util.InvoiceUtil;
 import com.soward.util.LoginUtil;
 import com.soward.util.ProductUtils;
 import com.soward.util.ProductsLocationCountUtil;
@@ -32,7 +33,7 @@ public class ProductsController extends HttpServlet {
         Invoice inv = null;
         List list = null;
 
-        log.info("ProductsController endpoint: "+endpoint+" accessed by: "+username);
+        log.info(InvoiceUtil.sdf.format(new Date())+ " ProductsController endpoint: "+endpoint+" accessed by: "+username);
         if(endpoint != null) {
             switch (Endpoint.valueOf(endpoint)) {
                 case PROD_CAT_GET:

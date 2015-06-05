@@ -3,7 +3,9 @@ var app = angular.module('hourlySalesApp').controller('HourlySalesController', f
     $scope.data = {};
     $scope.page = {};
     $scope.progressComplete = 0;
-    $scope.times = ['9','10','11','12','13','14','15','16','17','18','19'];
+    $scope.times = [9,10,11,12,13,14,15,16,17,18,19];
+    $scope.hoursBuckets = ['9','10','11','12','13','14','15','16','17','18','19', 'OFFHOURS'];
+    $scope.dateToEval = new Date();
 
     $scope.alerts = [
 //        { type: 'danger', msg: 'Oh snap! Change a few things up and try submitting again.' },
@@ -94,23 +96,88 @@ var app = angular.module('hourlySalesApp').controller('HourlySalesController', f
         return invList.length;
     };
 
-    $scope.getVal = function(time, location){
+    $scope.getTotalOffHours = function(location){
         var invList;
         angular.forEach($scope.locInvMap, function(value, key) {
             if(location === key){
                 invList = value;
             }
         });
-        var hourCount = 0;
+        var hourList = [];
         if(invList){
             angular.forEach(invList, function(value) {
                 var hour = new Date(value.invDate).getHours();
-                if(hour == time){
-                    hourCount++;
+                if($scope.times.indexOf(hour) === -1) {
+                    hourList.push(value);
                 }
             });
         }
-        return hourCount;
+        return hourList;
+    };
+
+    $scope.getAllTotalOffHours = function(){
+
+        var hourList = [];
+        angular.forEach($scope.locInvMap, function(offHoursList, key) {
+            angular.forEach(offHoursList, function(value) {
+                var hour = new Date(value.invDate).getHours();
+                if($scope.times.indexOf(hour) === -1) {
+                    hourList.push(value);
+                }
+            });
+        });
+        return hourList;
+    };
+
+    $scope.getAllLocationCountForHour = function(time, location){
+        if(time === 'OFFHOURS'){
+            var offHoursInvList = $scope.getAllTotalOffHours();
+            return formatTotal(offHoursInvList);
+        }else {
+            var hourList = [];;
+            angular.forEach($scope.locInvMap, function (locInvList, key) {
+                angular.forEach(locInvList, function (value) {
+                    var hour = new Date(value.invDate).getHours();
+                    if (hour == time) {
+                        hourList.push(value);
+                    }
+                });
+            });
+            return formatTotal(hourList);
+        }
+    };
+
+    function formatTotal(invList){
+        var total = 0;
+        angular.forEach(invList, function(value) {
+            var spent = value.invoiceTotal;
+            total += Number(spent);
+        });
+        return '('+invList.length+') ' + total.toFixed(2);
+    }
+
+    $scope.getVal = function(time, location){
+        if(time === 'OFFHOURS'){
+            var offHoursInvList = $scope.getTotalOffHours(location);
+            return offHoursInvList.length;
+        }else {
+            var invList;
+            angular.forEach($scope.locInvMap, function (value, key) {
+                if (location === key) {
+                    invList = value;
+                }
+            });
+            var hourCount = 0;
+            if (invList) {
+                angular.forEach(invList, function (value) {
+                    var hour = new Date(value.invDate).getHours();
+                    if (hour == time) {
+                        hourCount++;
+                    }
+                });
+            }
+            return hourCount;
+        }
     };
 
     $scope.getTotal = function(location){
@@ -130,6 +197,16 @@ var app = angular.module('hourlySalesApp').controller('HourlySalesController', f
         return total.toFixed(2);
     };
 
+    $scope.getTickets = function(){
+        var allTickets = [];
+        angular.forEach($scope.locInvMap, function(locInvList, key) {
+            angular.forEach(locInvList, function(value) {
+                allTickets.push(value);
+            });
+        });
+        return allTickets.length;
+    };
+
     $scope.getGrandTotal = function(){
         var total = 0;
         angular.forEach($scope.locInvMap, function(locInvList, key) {
@@ -142,23 +219,29 @@ var app = angular.module('hourlySalesApp').controller('HourlySalesController', f
     };
 
     $scope.getInvoices = function(time, location){
-        var invList;
-        angular.forEach($scope.locInvMap, function(value, key) {
-            if(location === key){
-                invList = value;
-            }
-        });
-        var hourList = [];
-        if(invList){
-            angular.forEach(invList, function(value) {
-                var hour = new Date(value.invDate).getHours();
-                if(hour == time){
-                    hourList.push(value);
+        if(time === 'OFFHOURS'){
+            var offHoursInvList = $scope.getTotalOffHours(location);
+            return offHoursInvList;
+        }else {
 
+            var invList;
+            angular.forEach($scope.locInvMap, function (value, key) {
+                if (location === key) {
+                    invList = value;
                 }
             });
+            var hourList = [];
+            if (invList) {
+                angular.forEach(invList, function (value) {
+                    var hour = new Date(value.invDate).getHours();
+                    if (hour == time) {
+                        hourList.push(value);
+
+                    }
+                });
+            }
+            return hourList;
         }
-        return hourList;
     };
 
     $scope.getKeys = function(){

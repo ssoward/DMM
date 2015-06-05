@@ -1,5 +1,6 @@
 package com.soward.controller;
 
+import com.soward.util.InvoiceUtil;
 import com.soward.util.SupplierUtil;
 import org.apache.commons.discovery.log.SimpleLog;
 import org.apache.commons.logging.Log;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,7 +23,7 @@ public class SupplierController extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String searchStr = request.getParameter("searchStr");
-        log.info("Searching suppliers for: "+searchStr);
+        log.info(InvoiceUtil.sdf.format(new Date())+ " Searching suppliers for: "+searchStr);
         List list = SupplierUtil.fetchSupForName(searchStr);
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(list);

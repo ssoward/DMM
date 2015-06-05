@@ -44,18 +44,23 @@
             <th class="text-center">5-6</th>
             <th class="text-center">6-7</th>
             <th class="text-center">7-8</th>
+            <th class="text-center">Off Hours</th>
             <th class="text-center">Total</th>
             <th class="text-center">Sales</th>
             <tr ng-repeat="keyName in locations">
                 <td class="text-center"><b>{{keyName}}</b></td>
-                <td class="text-center" ng-repeat="hour in times">
+                <td class="text-center" ng-repeat="hour in hoursBuckets">
                     <div ng-include="'./lib/js/partials/hourlySalesInvoicePopup.html'"></div>
                 </td>
                 <td class="text-center"><b>{{getTotalCount(keyName)}}</b></td>
                 <td class="text-center"><b>{{getTotal(keyName)}}</b></td>
             </tr>
             <tr>
-                <td colspan="13"></td>
+                <td class="text-center"><b>Totals</b></td>
+                <td class="text-center" ng-repeat="hour in hoursBuckets">
+                    <div>{{getAllLocationCountForHour(hour)}}</div>
+                </td>
+                <td class="text-center"><b>{{getTickets()}}</b></td>
                 <td class="text-center"><b>{{getGrandTotal()}}</b></td>
             </tr>
         </table>

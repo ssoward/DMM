@@ -24,8 +24,9 @@ import com.soward.db.MySQL;
 import org.codehaus.jackson.map.ObjectMapper;
 
 public class InvoiceUtil {
-    private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss'.0'");
-    private static SimpleDateFormat sdfInv = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    public static SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss a");
+    private static SimpleDateFormat sdfInvoice = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss'.0'");
+    private static SimpleDateFormat sdfInv = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private String taxExemptSql =
             "(165930, 165932, 165933,165929, 104388,165931  ) or productNum  in " +
                     "(select productNum from Products where category in " +
@@ -756,7 +757,7 @@ public class InvoiceUtil {
     public static Invoice createNewPO(String username, String supplier){
         Connection con = null;
         MySQL sdb = new MySQL();
-        String invoiceDate = sdf.format(Calendar.getInstance().getTime());
+        String invoiceDate = sdfInvoice.format(Calendar.getInstance().getTime());
         String sql = "insert into Invoices (invoiceNum, accountNum, invoiceDate, locationNum, username, invoiceTotal, " +
                 "invoiceTax, invoiceShipTotal, invoicePaid, invoiceReceivedBy, invoiceContactNum, invoiceReferenceNum, " +
                 "invoiceChargeStatus, paymentMethod1) " +
@@ -853,7 +854,7 @@ public class InvoiceUtil {
     public static Invoice saveInvoice(Invoice inv){
         Connection con = null;
         MySQL sdb = new MySQL();
-        String invoiceDate = sdf.format(Calendar.getInstance().getTime());
+        String invoiceDate = sdfInvoice.format(Calendar.getInstance().getTime());
         String sql =
                 " INSERT INTO dmm.Invoices"+
                         " (invoiceNum, accountNum, invoiceDate, locationNum, username, invoiceTotal, invoiceTax, invoiceShipTotal, invoicePaid,"+

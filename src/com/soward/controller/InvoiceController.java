@@ -50,7 +50,7 @@ public class InvoiceController extends HttpServlet {
         Map map = null;
         List<Transaction> transList = null;
         Date date = getDate(salesDate);
-        log.info("Invoices endpoint: "+endpoint+" accessed by: "+username);
+        log.info(InvoiceUtil.sdf.format(new Date())+ " Invoices endpoint: "+endpoint+" accessed by: "+username);
         if(endpoint != null) {
             switch (Endpoint.valueOf(endpoint)) {
                 case PO_GET:

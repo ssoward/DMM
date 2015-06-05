@@ -2,6 +2,7 @@ package com.soward.controller;
 
 import com.soward.object.Invoice;
 import com.soward.util.AccountUtil;
+import com.soward.util.InvoiceUtil;
 import com.soward.util.LoginUtil;
 import org.apache.commons.discovery.log.SimpleLog;
 import org.apache.commons.logging.Log;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,7 +33,7 @@ public class AccountsController extends HttpServlet {
         Invoice inv = null;
         List list = null;
 
-        log.info("Accounts endpoint: "+endpoint+" accessed by: "+username);
+        log.info(InvoiceUtil.sdf.format(new Date())+ " Accounts endpoint: "+endpoint+" accessed by: "+username);
         if(endpoint != null) {
             switch (Endpoint.valueOf(endpoint)) {
                 case ACCT_SEARCH:
