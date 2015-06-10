@@ -1,40 +1,30 @@
 package com.soward.ajax;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import com.soward.object.Order;
+import com.soward.object.Product;
+import com.soward.object.Supplier;
+import com.soward.object.SupplierData;
+import com.soward.util.*;
+import org.apache.commons.discovery.log.SimpleLog;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.lang.StringUtils;
-
-import com.soward.object.Order;
-import com.soward.object.Product;
-import com.soward.object.Supplier;
-import com.soward.object.SupplierData;
-import com.soward.util.AccountUtil;
-import com.soward.util.OrderUtils;
-import com.soward.util.ProductUtils;
-import com.soward.util.SupplierUtil;
-import com.soward.util.TransUtil;
-import com.soward.util.Utils;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class InventoryUtilAjax extends HttpServlet {
+    Log log = new SimpleLog(InventoryUtilAjax.class.getName());
     public static final String key = "invIndexVisited";
     public void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        String username = (String) request.getSession().getAttribute("username");
 
         String inventoryIndex = request.getParameter("inventoryIndex");
         String accountTypeUpdate = request.getParameter("accountTypeUpdate");
@@ -75,7 +65,6 @@ public class InventoryUtilAjax extends HttpServlet {
 
         // run checkbox
         if(!StringUtils.isBlank( inventoryIndex )&&!StringUtils.isBlank(checked)){
-            System.out.println("================== "+inventoryIndex);
             boolean bool = Boolean.parseBoolean(checked);
             if(bool){
                 set.add( inventoryIndex );
@@ -93,7 +82,6 @@ public class InventoryUtilAjax extends HttpServlet {
         // run update account type2
         else if(!StringUtils.isBlank( accountTypeUpdate )){
             String acct = request.getParameter("acct");
-            //System.out.println("================== "+accountTypeUpdate+" account: "+acct);
             AccountUtil.saveType1ForId(acct, accountTypeUpdate);
             out.println("<font color=\"blue\">Saved</font>");
             out.flush();
@@ -112,7 +100,7 @@ public class InventoryUtilAjax extends HttpServlet {
             for(Order or: oList){
                 if(or.getProdNum() == (Integer.parseInt(prodNum))){
                     createOrder = false;
-                    System.out.println("ERROR, this product has already been added for this supplier.");
+                    log.error(InvoiceUtil.sdf.format(new Date()) + "  " + username + " Product has already been added for this supplier.");
                 }
             }
             if(createOrder){
@@ -128,18 +116,18 @@ public class InventoryUtilAjax extends HttpServlet {
 
         else if(!StringUtils.isBlank(function)&&function.equals("deleteSupProdOrderCount")){
             if(StringUtils.isBlank(orderId)){
-                System.out.println("Non valid input: "+orderId);
-            }else{
-                System.out.println("deleted order: "+orderId);
+                log.info(InvoiceUtil.sdf.format(new Date()) + "  " + username + " Non valid input: " + orderId);
+            } else {
+                log.info(InvoiceUtil.sdf.format(new Date()) + "  " + username + " Deleted order: " + orderId);
                 OrderUtils.deleteSupProdOrder(orderId);
                 createOrderTable(supNum, out, locationName);
             }
         }
         else if(!StringUtils.isBlank(function)&&function.equals("deleteAllSupProdOrderCount")){
             if(StringUtils.isBlank(supNum)){
-                System.out.println("Non valid input: "+supNum);
+                log.info(InvoiceUtil.sdf.format(new Date()) + "  " + username + " Non valid input: " + supNum);
             }else{
-                System.out.println("deleted all supplier orders: "+supNum);
+                log.info(InvoiceUtil.sdf.format(new Date()) + "  " + username + " Deleted all supplier orders: "+supNum);
                 OrderUtils.deleteAllSupProdOrder(supNum, locationName);
                 createOrderTable(supNum, out, locationName);
             }
@@ -280,9 +268,6 @@ public class InventoryUtilAjax extends HttpServlet {
                 e.printStackTrace();
                 /*not a valid number*/}
 
-//			System.out.println("ProdNum: "+prodNum+" Count: "+count);
-//			map.put( prodNum, count );
-//			mapAll.put(supNum, map);
         }
         if(!StringUtils.isBlank(locationName)){
             request.getSession().setAttribute( locationName, mapAll );

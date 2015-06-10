@@ -90,7 +90,6 @@ public class SalesReport {
                 }
                 count++;
             }
-            //System.out.println(count);
             pstmt.close();
             rset.close();
             con.close();
@@ -128,7 +127,6 @@ public class SalesReport {
             sql = "select invoiceNum, transCost as invoiceTotal, 0.00 as invoiceTax from Transactions where transDate>'"+startDate+"' and transDate< '"+endDate+"'  and productNum in (313,314,104749)";
         }
         try {
-            //System.out.println(sql);
             con = sdb.getConn();
             PreparedStatement pstmt = null;
             pstmt = con.prepareStatement( sql );
@@ -287,7 +285,6 @@ public class SalesReport {
         try {
             con = sdb.getConn();
             PreparedStatement pstmt = null;
-            //System.out.println("\n\ngetSalesReport  " +sql);
             pstmt = con.prepareStatement( sql );
             ResultSet rset = pstmt.executeQuery();
             int count = 0;
@@ -336,7 +333,6 @@ public class SalesReport {
                 prodList.add( prod );
                 count++;
             }
-            //System.out.println(count);
             pstmt.close();
             rset.close();
             con.close();
@@ -420,7 +416,6 @@ public class SalesReport {
                     " and transDate> '"+TransUtil.sdf.format(m01.getTime())+"'"+
                     " and transDate< '"+TransUtil.sdf.format(m00.getTime())+"'"+
                     " group by productNum ";
-            System.out.println(sql);
 
             pstmt = con.prepareStatement( sql );
             rset = pstmt.executeQuery();
@@ -437,7 +432,6 @@ public class SalesReport {
                     " and transDate> '"+TransUtil.sdf.format(m06.getTime())+"'"+
                     " and transDate< '"+TransUtil.sdf.format(m00.getTime())+"'"+
                     " group by productNum ";
-            //System.out.println(sql);
 
             pstmt = con.prepareStatement( sql );
             rset = pstmt.executeQuery();
@@ -455,7 +449,6 @@ public class SalesReport {
                     " and transDate> '"+TransUtil.sdf.format(m12.getTime())+"'"+
                     " and transDate< '"+TransUtil.sdf.format(m00.getTime())+"'"+
                     " group by productNum ";
-            //System.out.println(sql);
             pstmt = con.prepareStatement( sql );
             rset = pstmt.executeQuery();
             while ( rset.next() ) {
@@ -522,7 +515,6 @@ public class SalesReport {
         MySQL sdb = new MySQL();
         String sql = "select  * from PaymentMethods";
         try {
-            //System.out.println(sql);
             con = sdb.getConn();
             PreparedStatement pstmt = null;
             pstmt = con.prepareStatement( sql );
@@ -623,7 +615,6 @@ public class SalesReport {
         String sql = "select productNum, numAvailable from "+locNm.dbName()+" where productNum in ("+str+")";
         HashMap<String, String> hm = new HashMap<String, String>();
         try {
-            //System.out.println(sql);
             Connection con = null;
             MySQL sdb = new MySQL();
             con = sdb.getConn();

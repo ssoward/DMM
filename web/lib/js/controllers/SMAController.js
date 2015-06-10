@@ -85,11 +85,6 @@ var app = angular.module('smaApp').controller('SMAController', function ($scope,
                 }
             }
         });
-//        modalInstance.result.then(function (selectedItem) {
-//            $scope.selected = selectedItem;
-//        }, function () {
-//            $log.info('Modal dismissed at: ' + new Date());
-//        });
     };
     $scope.syncedSMA = function(){
         $scope.pageLoaded = true;

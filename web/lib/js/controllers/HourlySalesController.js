@@ -168,15 +168,18 @@ var app = angular.module('hourlySalesApp').controller('HourlySalesController', f
                 }
             });
             var hourCount = 0;
+            var hourTotal = 0;
             if (invList) {
                 angular.forEach(invList, function (value) {
                     var hour = new Date(value.invDate).getHours();
                     if (hour == time) {
+                        var spent = value.invoiceTotal;
+                        hourTotal += Number(spent);
                         hourCount++;
                     }
                 });
             }
-            return hourCount;
+            return '('+hourCount+') '+hourTotal.toFixed(2);;
         }
     };
 
