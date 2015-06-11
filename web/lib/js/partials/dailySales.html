@@ -7,13 +7,23 @@
         <div class="row">
             <div class="col-md-3">
                 <form name="reportForm">
-                    <p class="input-group">
-                        <input required type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dateToEval" is-open="opened"
+                    <label for="cal1">Date From</label>
+                    <div class="input-group">
+                        <input required type="text" id="cal1" class="form-control" datepicker-popup="{{format}}" ng-model="dateToEval1" is-open="page.cal1"
                                min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
-                <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-                </span>
-                    </p>
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open($event, 'cal1')"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </div>
+                    </div>
+                    <label for="cal2">Date To</label>
+                    <div class="input-group">
+                        <input required type="text" id="cal2" class="form-control" datepicker-popup="{{format}}" ng-model="dateToEval2" is-open="page.cal2"
+                               min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open($event, 'cal2')"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </div>
+                    </div>
+                    <p></p>
                     <p class="input-group">
                         <select required class="form-control" ng-model="location">
                             <option value="Murray">Murray</option>
@@ -44,14 +54,13 @@
             </div>
         </div>
         <br/>
-        <div>Showing Results for: <em>{{dateToEval | date:'fullDate' }}</em></div>
+        <div>Showing Results for: <em>{{dateToEval1 | date:'fullDate' }}</em>- <em>{{dateToEval2 | date:'fullDate' }}</em></div>
 
         <!--//sort by products-->
         <div ng-show="!page.searchingInvoices && page.sortOrder === 'products'">
             <table class="table table-striped table-bordered table-hover table-responsive">
                 <tr>
                     <th>Product</th>
-                    <th class="col-sm-1">HB</th>
                     <th class="col-sm-1">Done</th>
                     <th class="col-sm-1">Move</th>
                     <th class="col-lg-5">In Stock</th>
@@ -60,12 +69,14 @@
                     <td>
                         <product-sold product="prod" history="productHistory[prod.productNum]" location="location"></product-sold>
                     </td>
-                    <td class="col-sm-1">{{holdBin[prod.productNum]?holdBin[prod.productNum]:0}}</td>
                     <td class="col-sm-1">
                         <dmm-checkbox ng-click="saveDone(prod)" ng-model="prod.done"></dmm-checkbox>
                     </td>
                     <td class="col-sm-1">
-                        <input type="number" size="6" min="0" ng-change="saveMove(prod)" value='1' ng-value="prod.move" ng-model="prod.move" max="99"/>
+                        <select type="number" min="0" ng-change="saveMove(prod)" value='1'
+                                ng-options="n as n for n in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]"
+                                ng-value="prod.move" ng-model="prod.move" max="99">
+                        </select>
                     </td>
                     <td class="col-lg-5">
                         <span ng-if="inventory[prod.productNum]">

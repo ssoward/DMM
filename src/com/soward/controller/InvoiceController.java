@@ -40,6 +40,8 @@ public class InvoiceController extends HttpServlet {
         String transNum   = request.getParameter("transNum");
         String productQty = request.getParameter("productQty");
         String location = request.getParameter("location");
+        String toDateStr  = request.getParameter("toDate");
+        String fromDateStr  = request.getParameter("fromDate");
         String salesDate  = request.getParameter("date");
         String invCacheId  = request.getParameter("invCacheId");
         String done  = request.getParameter("done");
@@ -49,6 +51,8 @@ public class InvoiceController extends HttpServlet {
         List invList = null;
         Map map = null;
         List<Transaction> transList = null;
+        Date toDate = getDate(toDateStr);
+        Date fromDate = getDate(fromDateStr);
         Date date = getDate(salesDate);
         log.info(InvoiceUtil.sdf.format(new Date())+ " Invoices endpoint: "+endpoint+" accessed by: "+username);
         if(endpoint != null) {
@@ -68,15 +72,15 @@ public class InvoiceController extends HttpServlet {
                     map = TransUtil.getAllHBHash();
                     break;
                 case INV_CACHE_GET:
-                    if(date != null) {
-                        DailySalesCache dsc = InvoiceUtil.getInventoryCacheForDate(date, location);
+                    if(toDate != null) {
+                        DailySalesCache dsc = InvoiceUtil.getInventoryCacheForDate(toDate, location);
                         map = new HashMap<String, Object>();
                         map.put("DSC", dsc);
                     }
                     break;
                 case PROD_COUNT_GET:
-                    if(date != null) {
-                        map = InvoiceUtil.getProductCountsForSales(date, location);
+                    if(toDate != null && fromDate != null) {
+                        map = InvoiceUtil.getProductCountsForSales(fromDate, toDate, location);
                     }
                     break;
                 case TRANS_GET:
@@ -101,19 +105,19 @@ public class InvoiceController extends HttpServlet {
                     InvoiceUtil.deleteTransaction(transNum);
                     break;
                 case PROD_SOLD_FOR_INVOICES:
-                    if(date != null){
-                        map = InvoiceUtil.getProdSoldForInvoices(date, location);
+                    if(toDate != null && fromDate != null) {
+                        map = InvoiceUtil.getProdSoldForInvoices(fromDate, toDate, location);
                         //save invoice to db return id
                     }
                     break;
                 case HOURLY_SALES_GET:
-                    if(date != null){
-                        map = InvoiceUtil.getHourlyLocatioForDate(date, location, false);
+                    if(toDate != null && fromDate != null) {
+                        map = InvoiceUtil.getHourlyLocatioForDate(fromDate, toDate, location, false);
                     }
                     break;
                 case SALES_GET:
-                    if(date != null){
-                        invList = InvoiceUtil.getForDate(date, location, true, true);
+                    if(toDate != null && fromDate != null) {
+                        invList = InvoiceUtil.getForDate(fromDate, toDate, location, true, true);
                         //save invoice to db return id
                     }
                     break;

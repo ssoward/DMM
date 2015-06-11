@@ -11,12 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -162,6 +157,52 @@ public class TransUtil {
         }
         return transList;
     }
+
+    public static List<Transaction> getTransactionsForInvNum(List<Long> pids, boolean getProds) {
+        List<Transaction> transList = new ArrayList<Transaction>();
+        Connection con = null;
+        MySQL sdb = new MySQL();
+        int pidNum = 0;
+        if ( pids != null && pids.size() > 1 ) {
+            String sql = "select * from Transactions where invoiceNum in ("+(pids.toString().replace("[", "").replace("]", ""))+") ";
+            // Transactions.transDate";
+
+            try {
+                con = sdb.getConn();
+                PreparedStatement pstmt = null;
+                pstmt = con.prepareStatement( sql );
+                ResultSet rset = pstmt.executeQuery();
+                transList = getForRSet(rset);
+                rset.close();
+                con.close();
+            } catch ( Exception e ) {
+                e.printStackTrace();
+            }
+            if(getProds){
+                List<Long> pIds = new ArrayList<Long>();
+                for(Transaction inv: transList){
+                    pIds.add(Long.parseLong(inv.getProductNum()));
+                }
+                //clear duplicates
+                Set<Long> hs = new HashSet<Long>();
+                hs.addAll(pIds);
+                pIds.clear();
+                pIds.addAll(hs);
+
+                List<Product> productList = ProductUtils.getProducts(pIds);
+
+                for(Transaction t: transList){
+                    for(Product product: productList) {
+                        if(product.getProductNum().equals(t.getProductNum())) {
+                            t.setProd(product);
+                        }
+                    }
+                }
+            }
+        }
+        return transList;
+    }
+
     public static List<Transaction> getTransactions(String pid, boolean getProds) {
         List<Transaction> transList = new ArrayList<Transaction>();
         Connection con = null;

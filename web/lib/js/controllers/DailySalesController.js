@@ -2,8 +2,11 @@ var app = angular.module('dailySalesApp').controller('DailySalesController', fun
     $scope.greeting = '';
     $scope.data = {};
     $scope.page = {};
+    $scope.page.cal1 = false;
+    $scope.page.cal2 = false;
     $scope.progressComplete = 0;
-    $scope.dateToEval = new Date();
+    $scope.dateToEval1 = new Date();
+    $scope.dateToEval2 = new Date();
 
     $scope.alerts = [
 //        { type: 'danger', msg: 'Oh snap! Change a few things up and try submitting again.' },
@@ -36,35 +39,28 @@ var app = angular.module('dailySalesApp').controller('DailySalesController', fun
 
         var promises = [];
 
-        promises.push(InvoiceTransService.getSales($scope.dateToEval, $scope.location)
+        promises.push(InvoiceTransService.getSales($scope.dateToEval1, $scope.dateToEval2, $scope.location)
                 .then(function(res){
                     $scope.invoices = res.data;
                     $scope.progressComplete += 20;
                     return res;
                 })
         );
-        promises.push(InvoiceTransService.getProductSoldHistory($scope.dateToEval, $scope.location)
+        promises.push(InvoiceTransService.getProductSoldHistory($scope.dateToEval1, $scope.dateToEval2, $scope.location)
                 .then(function (res){
                     $scope.progressComplete += 20;
                     $scope.productHistory = res.data;
                     return res;
                 })
         );
-        promises.push(InvoiceTransService.getAllHBHash()
-                .then(function(res){
-                    $scope.holdBin = res.data;
-                    $scope.progressComplete += 20;
-                    return res;
-                })
-        );
-        promises.push(InvoiceTransService.getProductCounts($scope.dateToEval, $scope.location)
+        promises.push(InvoiceTransService.getProductCounts($scope.dateToEval1, $scope.dateToEval2, $scope.location)
                 .then(function(res){
                     $scope.progressComplete += 20;
                     $scope.inventory = res.data;
                     return res;
                 })
         );
-        promises.push(InvoiceTransService.getInventoryCacheForDate($scope.dateToEval, $scope.location)
+        promises.push(InvoiceTransService.getInventoryCacheForDate($scope.dateToEval1, $scope.location)
                 .then(function(res){
                     $scope.invCache = res.data.DSC;
                     $scope.progressComplete += 20;
@@ -123,11 +119,11 @@ var app = angular.module('dailySalesApp').controller('DailySalesController', fun
     };
     $scope.toggleMin();
 
-    $scope.open = function($event) {
+    $scope.open = function($event, cal) {
         $event.preventDefault();
         $event.stopPropagation();
-
-        $scope.opened = true;
+        if(cal === 'cal1'){$scope.page.cal1 = true;}
+        else{$scope.page.cal2 = true;}
     };
 
     $scope.dateOptions = {

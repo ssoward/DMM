@@ -8,7 +8,9 @@ import com.soward.enums.ProductWeight;
 import com.soward.object.Product;
 import com.soward.object.ProductSold;
 import com.soward.object.ProductsLocationCount;
+import org.apache.commons.discovery.log.SimpleLog;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class ProductUtils {
+    static Log log = new SimpleLog(ProductUtils.class.getName());
 
 
     /**
@@ -298,6 +301,26 @@ public class ProductUtils {
         }
         return result;
     }
+
+    public static List<Product> getProducts(List<Long> pIds) {
+        Connection con = null;
+        MySQL sdb = new MySQL();
+        String sql = "select * from Products where productNum in ("+pIds.toString().replace("[", "").replace("]", "")+")";
+        ArrayList<Product> pList = new ArrayList<Product>();
+        try {
+            con = sdb.getConn();
+            PreparedStatement pstmt = null;
+            pstmt = con.prepareStatement( sql );
+            ResultSet rset =  pstmt.executeQuery();
+            pList = getForRSet(rset, null);
+            pstmt.close();
+            con.close();
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+        return pList;
+    }
+
     public static ArrayList<Product> getAstricsList( ) {
         Connection con = null;
         MySQL sdb = new MySQL();
@@ -316,6 +339,7 @@ public class ProductUtils {
         }
         return pList;
     }
+
     public static ArrayList<Product> getProducts(String searchType, String productNumOffSet) {
         Connection con = null;
         ArrayList<Product> pList = new ArrayList<Product>();
@@ -529,7 +553,7 @@ public class ProductUtils {
             prod.setWeight( rset.getString( "weight" ) );
             if(!StringUtils.isBlank( location ))
                 prod.setNumAvailable( ProductsLocationCountUtil.getForProdNum(prod.getProductNum()).getLocation(location)+"" );
-            prod.setLastSold( rset.getString( "lastSold" ) );
+            try{prod.setLastSold( rset.getString( "lastSold" ) );}catch(Exception e){/*java.sql.SQLException: Cannot convert value '0000-00-00 00:00:00' from column 20 to TIMESTAMP.*/}
             prod.setLastInvDate( rset.getString( "lastInvDate" ) );
             prod.setDCCatalogNum( rset.getString( "DCCatalogNum" ) );
             if(setChildObject) {
@@ -1478,13 +1502,17 @@ public class ProductUtils {
     }
 
     private static void getHistoryForYear(List<Long> prodIds, String location, int year, Map<Long, ProductSold> map){
-
+        String sql = "";
         try {
             Connection con = null;
             MySQL sdb = new MySQL();
             con = sdb.getConn();
             String pids = StringUtils.join(prodIds, ',');
-            String sql = "Select sum(trans.productQty) as count, trans.productNum from Transactions trans join InvoiceLocation invLoc on trans.invoiceNum = invLoc.invoiceNum where trans.productNum in ("+pids+") and invLoc.location = ? and year(transDate) = ? group by productNum";
+            sql = "Select sum(trans.productQty) as count, trans.productNum from\n" +
+                    " Transactions trans join InvoiceLocation invLoc \n" +
+                    "   on trans.invoiceNum = invLoc.invoiceNum \n" +
+                    "   where trans.productNum in ("+pids+") and invLoc.location = ? and year(transDate) = ? group by productNum";
+            System.out.println();
             PreparedStatement pstmt = con.prepareStatement( sql );
             pstmt.setString(1, location);
             pstmt.setInt   (2, year);
@@ -1500,6 +1528,7 @@ public class ProductUtils {
             pstmt.close();
             con.close();
         }catch (Exception e){
+            log.error("SQL: "+ sql);
             e.printStackTrace();
         }
     }

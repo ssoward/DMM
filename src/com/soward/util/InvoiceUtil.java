@@ -105,10 +105,28 @@ public class InvoiceUtil {
             inv.setInvoiceChargeDate             (rset.getString("invoiceChargeDate"));
             inv.setInvoiceChargePaymentMethod    (rset.getString("invoiceChargePaymentMethod"));
             inv.setInvoiceDiscount               (rset.getString("invoiceDiscount"));
-            if(getTransList){
-                inv.setTransList( TransUtil.getTransactions(inv.getInvoiceNum(), getProds));
-            }
             invList.add( inv );
+        }
+        if(getTransList && invList.size()>0){
+            List<Long> pIds = new ArrayList<Long>();
+            for(Invoice inv: invList){
+                pIds.add(Long.parseLong(inv.getInvoiceNum()));
+            }
+            //clear duplicates
+            Set<Long> hs = new HashSet<Long>();
+            hs.addAll(pIds);
+            pIds.clear();
+            pIds.addAll(hs);
+            List<Transaction> transList = TransUtil.getTransactionsForInvNum(pIds, getProds);
+
+            for(Invoice invoice: invList){
+                for(Transaction transaction: transList) {
+                    if(invoice.getInvoiceNum().equals(transaction.getInvoiceNum())) {
+                        invoice.setTransList((invoice.getTransList()!=null?invoice.getTransList():new ArrayList<Transaction>()));
+                        invoice.getTransList().add(transaction);
+                    }
+                }
+            }
         }
         return invList;
     }
@@ -262,14 +280,6 @@ public class InvoiceUtil {
         return inv;
     }
 
-    public static void main( String[] args ) {
-        Map<Long, String> current = new HashMap<Long, String>();
-//        current.put(100L, "{name:scott}");
-//        current.put(200L, "{name:larry}");
-        current.put(400L, "{name:rachel}");
-        //System.out.println(InvoiceUtil.saveInventoryCache(current, new Date(), "MURRAY"));
-    }
-
     public static Long saveInventoryCache(DailySalesCache dsc) {
         return saveInventoryCache(dsc, null, null);
     }
@@ -360,12 +370,24 @@ public class InvoiceUtil {
         return dsc;
     }
 
-    public static Map<Long, ProductsLocationCount> getProductCountsForSales( Date date, String location ) {
+    public static void main( String[] args ) {
+        Calendar toCal = Calendar.getInstance();
+        Calendar fromCal = Calendar.getInstance();
+        toCal.add(Calendar.MONTH, -5);
+        fromCal.add(Calendar.MONTH, -4);
+//        Map<Long, ProductsLocationCount> map = InvoiceUtil.getProductCountsForSales(toCal.getTime(), toCal.getTime(), "MURRAY");
+//        Map<Long, ProductSold> map = InvoiceUtil.getProdSoldForInvoices(toCal.getTime(), fromCal.getTime(), "MURRAY");
+        List<Invoice> map = getForDate(toCal.getTime(), fromCal.getTime(), "MURRAY", true, true);
+        System.out.println(map);
+    }
+
+    public static Map<Long, ProductsLocationCount> getProductCountsForSales(Date fromDate, Date toDate, String location ) {
         MySQL sdb = new MySQL();
         String sql = "select prods.* from \n" +
                 "\tInvoiceLocation invLoc join Transactions trans on invLoc.invoiceNum = trans.invoiceNum\n" +
                 "    join ProductsLocationCount prods on prods.productNum = trans.productNum\n" +
-                "\t  where invLoc.location = ? and trans.transDate like '"+new SimpleDateFormat("yyyy-MM-dd").format(date)+"%'";
+                "\t  where invLoc.location = ? and trans.transDate between '"+new SimpleDateFormat("yyyy-MM-dd").format(fromDate)+"%'\n"+
+                "\t  and '"+new SimpleDateFormat("yyyy-MM-dd").format(toDate)+"%'\n";
         Connection con = null;
         List<ProductsLocationCount> plcList = new ArrayList<ProductsLocationCount>();
         try {
@@ -390,44 +412,47 @@ public class InvoiceUtil {
         return null;
     }
 
-    public static Map<Long, ProductSold> getProdSoldForInvoices( Date date, String location ) {
+    public static Map<Long, ProductSold> getProdSoldForInvoices( Date fromDate, Date toDate, String location ) {
         MySQL sdb = new MySQL();
-        String sql = "select inv.* from Invoices inv join InvoiceLocation invLoc on invLoc.invoiceNum = inv.invoiceNum" +
-                " where invLoc.location = ? and invoiceDate like '"+new SimpleDateFormat("yyyy-MM-dd").format(date)+"%'";
+        String sql = "select prods.productNum from \n" +
+                "\tInvoiceLocation invLoc join Transactions trans on invLoc.invoiceNum = trans.invoiceNum\n" +
+                "    join ProductsLocationCount prods on prods.productNum = trans.productNum\n" +
+                "\t  where invLoc.location = ? and trans.transDate between '"+new SimpleDateFormat("yyyy-MM-dd").format(fromDate)+"%'\n"+
+                "\t  and '"+new SimpleDateFormat("yyyy-MM-dd").format(toDate)+"%'\n";
         Connection con = null;
-        List<Invoice> invList = new ArrayList<Invoice>();
+        List<Long> pIds = new ArrayList<Long>();
         try {
             con = sdb.getConn();
             PreparedStatement pstmt = null;
             pstmt = con.prepareStatement( sql );
             pstmt.setString(1,  location);
             ResultSet rset = pstmt.executeQuery();
-            invList.addAll(getInvoiceListFromReSet(rset, true, true));
+            while ( rset.next() ) {
+                pIds.add(Long.parseLong(rset.getString("productNum")));
+            }
             rset.close();
             con.close();
         } catch ( Exception e ) {
             e.printStackTrace();
         }
         //collect product ids
-        List<Long> pIds = new ArrayList<Long>();
-        if(invList != null){
-            for(Invoice inv: invList){
-                for(Transaction trans: inv.getTransList()){
-                    pIds.add(Long.parseLong(trans.getProductNum()));
-                }
-            }
+
+        if(pIds != null){
+
             //clear duplicates
             Set<Long> hs = new HashSet<Long>();
             hs.addAll(pIds);
             pIds.clear();
             pIds.addAll(hs);
-            return ProductUtils.fetchPastThreeYearsSold(pIds, location);
+            if(pIds!=null&&pIds.size()>0) {
+                return ProductUtils.fetchPastThreeYearsSold(pIds, location);
+            }
         }
         return null;
     }
 
-    public static Map<String, List<Invoice>> getHourlyLocatioForDate( Date date, String location, boolean getTransList ) {
-        List<Invoice> invoices = getForDate(date, location, false, false);
+    public static Map<String, List<Invoice>> getHourlyLocatioForDate( Date fromDate, Date toDate, String location, boolean getTransList ) {
+        List<Invoice> invoices = getForDate(toDate, fromDate, location, false, false);
         Map<String, List<Invoice>> map = new HashMap<String, List<Invoice>>();
         if(invoices != null){
             for(final Invoice invoice: invoices){
@@ -445,10 +470,11 @@ public class InvoiceUtil {
         return map;
     }
 
-    public static List<Invoice> getForDate( Date date, String location, boolean getTransList, boolean getProds ) {
+    public static List<Invoice> getForDate( Date fromDate, Date toDate, String location, boolean getTransList, boolean getProds ) {
         MySQL sdb = new MySQL();
         String sql = "select inv.* from Invoices inv join InvoiceLocation invLoc on invLoc.invoiceNum = inv.invoiceNum" +
-                " where invLoc.location = ? and invoiceDate like '"+new SimpleDateFormat("yyyy-MM-dd").format(date)+"%'";
+                " where invLoc.location = ? and invoiceDate between '"+new SimpleDateFormat("yyyy-MM-dd").format(fromDate)+"%'\n"+
+                "\t  and '"+new SimpleDateFormat("yyyy-MM-dd").format(toDate)+"%'\n";
         Connection con = null;
         List<Invoice> invList = new ArrayList<Invoice>();
         try {
