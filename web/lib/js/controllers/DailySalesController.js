@@ -7,6 +7,7 @@ var app = angular.module('dailySalesApp').controller('DailySalesController', fun
     $scope.progressComplete = 0;
     $scope.dateToEval1 = new Date();
     $scope.dateToEval2 = new Date();
+    $scope.year = new Date().getFullYear();
 
     $scope.alerts = [
 //        { type: 'danger', msg: 'Oh snap! Change a few things up and try submitting again.' },
@@ -104,6 +105,18 @@ var app = angular.module('dailySalesApp').controller('DailySalesController', fun
         $scope.dt = new Date();
     };
     $scope.today();
+
+    $scope.getEstimate = function(prod){
+        var hist = $scope.productHistory[prod.productNum];
+        var one = hist.yearsCount[$scope.year];
+        var two = hist.yearsCount[$scope.year-1];
+        var three = hist.yearsCount[$scope.year-2];
+        one = one?one:0;
+        two = two?two:0;
+        three = three?three:0;
+        var total = (one+two+three);
+        return total>0?(total/36).toFixed(2):0;
+    };
 
     $scope.clear = function () {
         $scope.dt = null;

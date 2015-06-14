@@ -1,8 +1,7 @@
 <div class="list-inline">
-    <div>{{''+ prod.productCatalogNum +' - '+prod.productName}}</div>
     <div ng-if="history">
-        <span><b>Sold:</b> {{ year   + ': '+history.yearsCount[year]}}, </span>
-        <span>{{ year-1 + ': '+history.yearsCount[year-1]}}, </span>
-        <span>{{ year-2 + ': '+history.yearsCount[year-2]}}</span>
+        <div>{{ year   + ': '+history.yearsCount[year]}}</div>
+        <div>{{ year-1 + ': '+history.yearsCount[year-1]}}</div>
+        <div>{{ year-2 + ': '+history.yearsCount[year-2]}}</div>
     </div>
 </div>

@@ -377,7 +377,7 @@ public class InvoiceUtil {
         fromCal.add(Calendar.MONTH, -4);
 //        Map<Long, ProductsLocationCount> map = InvoiceUtil.getProductCountsForSales(toCal.getTime(), toCal.getTime(), "MURRAY");
 //        Map<Long, ProductSold> map = InvoiceUtil.getProdSoldForInvoices(toCal.getTime(), fromCal.getTime(), "MURRAY");
-        List<Invoice> map = getForDate(toCal.getTime(), fromCal.getTime(), "MURRAY", true, true);
+        List<Invoice> map = getForDateRange(toCal.getTime(), fromCal.getTime(), "MURRAY", true, true);
         System.out.println(map);
     }
 
@@ -451,8 +451,8 @@ public class InvoiceUtil {
         return null;
     }
 
-    public static Map<String, List<Invoice>> getHourlyLocatioForDate( Date fromDate, Date toDate, String location, boolean getTransList ) {
-        List<Invoice> invoices = getForDate(toDate, fromDate, location, false, false);
+    public static Map<String, List<Invoice>> getHourlyLocatioForDate( Date date, String location, boolean getTransList ) {
+        List<Invoice> invoices = getForDate(date, location, false, false);
         Map<String, List<Invoice>> map = new HashMap<String, List<Invoice>>();
         if(invoices != null){
             for(final Invoice invoice: invoices){
@@ -470,7 +470,28 @@ public class InvoiceUtil {
         return map;
     }
 
-    public static List<Invoice> getForDate( Date fromDate, Date toDate, String location, boolean getTransList, boolean getProds ) {
+    public static List<Invoice> getForDate( Date date, String location, boolean getTransList, boolean getProds ) {
+        MySQL sdb = new MySQL();
+        String sql = "select inv.* from Invoices inv join InvoiceLocation invLoc on invLoc.invoiceNum = inv.invoiceNum" +
+                " where invLoc.location = ? and invoiceDate like '"+new SimpleDateFormat("yyyy-MM-dd").format(date)+"%'";
+        Connection con = null;
+        List<Invoice> invList = new ArrayList<Invoice>();
+        try {
+            con = sdb.getConn();
+            PreparedStatement pstmt = null;
+            pstmt = con.prepareStatement( sql );
+            pstmt.setString(1,  location);
+            ResultSet rset = pstmt.executeQuery();
+            invList.addAll(getInvoiceListFromReSet(rset, getTransList, getProds));
+            rset.close();
+            con.close();
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+        return invList;
+    }
+
+    public static List<Invoice> getForDateRange( Date fromDate, Date toDate, String location, boolean getTransList, boolean getProds ) {
         MySQL sdb = new MySQL();
         String sql = "select inv.* from Invoices inv join InvoiceLocation invLoc on invLoc.invoiceNum = inv.invoiceNum" +
                 " where invLoc.location = ? and invoiceDate between '"+new SimpleDateFormat("yyyy-MM-dd").format(fromDate)+"%'\n"+

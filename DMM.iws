@@ -2,14 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b981aaa5-4095-49e1-8d4e-c9aba5b79258" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/lib/js/json/INV_CACHE_GET.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/lib/js/json/PROD_COUNT_GET.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/lib/js/json/PROD_SOLD_FOR_INVOICES.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/lib/js/json/SALES_GET.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DMM.iws" afterPath="$PROJECT_DIR$/DMM.iws" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/lib/js/controllers/DailySalesController.js" afterPath="$PROJECT_DIR$/web/lib/js/controllers/DailySalesController.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/soward/controller/InvoiceController.java" afterPath="$PROJECT_DIR$/src/com/soward/controller/InvoiceController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/lib/js/services/InvoiceTransService.js" afterPath="$PROJECT_DIR$/web/lib/js/services/InvoiceTransService.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/soward/util/InvoiceUtil.java" afterPath="$PROJECT_DIR$/src/com/soward/util/InvoiceUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/soward/util/ProductUtils.java" afterPath="$PROJECT_DIR$/src/com/soward/util/ProductUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/soward/util/TransUtil.java" afterPath="$PROJECT_DIR$/src/com/soward/util/TransUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/lib/js/directives/ProductSold.html" afterPath="$PROJECT_DIR$/web/lib/js/directives/ProductSold.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/lib/js/partials/dailySales.html" afterPath="$PROJECT_DIR$/web/lib/js/partials/dailySales.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/test.html" afterPath="$PROJECT_DIR$/web/test.html" />
     </list>
     <list id="cc6a38e3-ae6f-44db-a1f5-19c9735597e4" name="DO NOT COMMIT" comment="" />
     <ignored path="DMM.iws" />
@@ -174,11 +178,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MySQL.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MySQL.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/soward/db/MySQL.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.51861703" vertical-offset="0" max-vertical-offset="752">
-              <caret line="28" column="5" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="510">
+              <caret line="14" column="12" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -187,8 +191,8 @@
       <file leaf-file-name="InvoiceTransService.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/lib/js/services/InvoiceTransService.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.660714" vertical-offset="2583" max-vertical-offset="3600">
-              <caret line="212" column="61" selection-start-line="212" selection-start-column="61" selection-end-line="212" selection-end-column="61" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="724" max-vertical-offset="3240">
+              <caret line="54" column="29" selection-start-line="54" selection-start-column="29" selection-end-line="54" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -197,18 +201,38 @@
       <file leaf-file-name="hourlySales.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/lib/js/partials/hourlySales.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.4166665" vertical-offset="461" max-vertical-offset="1110">
+            <state vertical-scroll-proportion="-21.0" vertical-offset="111" max-vertical-offset="1110">
               <caret line="41" column="44" selection-start-line="41" selection-start-column="44" selection-end-line="41" selection-end-column="44" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="hourlySalesInvoicePopup.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/lib/js/partials/hourlySalesInvoicePopup.html">
+      <file leaf-file-name="INV_CACHE_GET.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/lib/js/json/INV_CACHE_GET.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.625" vertical-offset="0" max-vertical-offset="390">
-              <caret line="1" column="38" selection-start-line="1" selection-start-column="38" selection-end-line="1" selection-end-column="38" />
+            <state vertical-scroll-proportion="-8.125" vertical-offset="0" max-vertical-offset="285">
+              <caret line="13" column="1" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SALES_GET.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/lib/js/json/SALES_GET.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-18.020409" vertical-offset="2116922" max-vertical-offset="2117895">
+              <caret line="141187" column="1" selection-start-line="0" selection-start-column="0" selection-end-line="141187" selection-end-column="3" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HourlySalesController.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/lib/js/controllers/HourlySalesController.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="2301" max-vertical-offset="4005">
+              <caret line="75" column="42" selection-start-line="75" selection-start-column="42" selection-end-line="75" selection-end-column="42" />
               <folding />
             </state>
           </provider>
@@ -217,18 +241,28 @@
       <file leaf-file-name="DailySalesController.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/lib/js/controllers/DailySalesController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2039" max-vertical-offset="2550">
-              <caret line="154" column="23" selection-start-line="154" selection-start-column="23" selection-end-line="154" selection-end-column="23" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1131" max-vertical-offset="2745">
+              <caret line="83" column="57" selection-start-line="83" selection-start-column="57" selection-end-line="83" selection-end-column="57" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/test.html">
+      <file leaf-file-name="PROD_COUNT_GET.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/lib/js/json/PROD_COUNT_GET.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-23.541666" vertical-offset="665" max-vertical-offset="1365">
-              <caret line="82" column="31" selection-start-line="82" selection-start-column="31" selection-end-line="82" selection-end-column="31" />
+            <state vertical-scroll-proportion="-3.75" vertical-offset="0" max-vertical-offset="130605">
+              <caret line="6" column="16" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PROD_SOLD_FOR_INVOICES.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/lib/js/json/PROD_SOLD_FOR_INVOICES.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-3.125" vertical-offset="0" max-vertical-offset="63240">
+              <caret line="5" column="15" selection-start-line="5" selection-start-column="15" selection-end-line="5" selection-end-column="15" />
               <folding />
             </state>
           </provider>
@@ -237,8 +271,28 @@
       <file leaf-file-name="dailySales.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/lib/js/partials/dailySales.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.625" vertical-offset="990" max-vertical-offset="1815">
-              <caret line="75" column="46" selection-start-line="75" selection-start-column="46" selection-end-line="75" selection-end-column="46" />
+            <state vertical-scroll-proportion="-39.375" vertical-offset="135" max-vertical-offset="1935">
+              <caret line="72" column="66" selection-start-line="72" selection-start-column="66" selection-end-line="72" selection-end-column="66" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProductSold.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/lib/js/directives/ProductSold.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="375">
+              <caret line="11" column="51" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="51" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProductSold.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web/lib/js/directives/ProductSold.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.12448133" vertical-offset="0" max-vertical-offset="723">
+              <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -247,8 +301,8 @@
       <file leaf-file-name="InvoiceController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/soward/controller/InvoiceController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.259259" vertical-offset="653" max-vertical-offset="2385">
-              <caret line="74" column="29" selection-start-line="74" selection-start-column="29" selection-end-line="74" selection-end-column="29" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1043" max-vertical-offset="2385">
+              <caret line="102" column="26" selection-start-line="102" selection-start-column="26" selection-end-line="102" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -257,58 +311,41 @@
       <file leaf-file-name="InvoiceUtil.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/soward/util/InvoiceUtil.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.703704" vertical-offset="4418" max-vertical-offset="16575">
-              <caret line="327" column="34" selection-start-line="327" selection-start-column="34" selection-end-line="327" selection-end-column="34" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="6568" max-vertical-offset="16860">
+              <caret line="479" column="0" selection-start-line="479" selection-start-column="0" selection-end-line="479" selection-end-column="0" />
               <folding>
-                <element signature="e#3026#3035#0" expanded="true" />
-                <element signature="e#5062#5068#0" expanded="true" />
-                <element signature="e#15353#15354#0" expanded="true" />
-                <element signature="e#15420#15421#0" expanded="true" />
-                <element signature="e#20132#20138#0" expanded="true" />
-                <element signature="e#22521#22530#0" expanded="true" />
+                <element signature="n#!!doc" expanded="false" />
+                <element signature="imports" expanded="false" />
+                <element signature="e#1305#1314#0" expanded="false" />
+                <element signature="e#2027#2036#0" expanded="false" />
+                <element signature="e#5257#5263#0" expanded="false" />
+                <element signature="e#6072#6081#0" expanded="false" />
+                <element signature="e#9668#9669#0" expanded="false" />
+                <element signature="e#9712#9713#0" expanded="false" />
+                <element signature="e#13705#13706#0" expanded="false" />
+                <element signature="e#13763#13764#0" expanded="false" />
+                <element signature="e#15353#15354#0" expanded="false" />
+                <element signature="e#15420#15421#0" expanded="false" />
+                <element signature="e#18658#18681#0" expanded="false" />
+                <element signature="e#19179#19208#0" expanded="false" />
+                <element signature="e#20758#20764#0" expanded="false" />
+                <element signature="e#21275#21298#0" expanded="false" />
+                <element signature="e#28106#28115#0" expanded="false" />
+                <element signature="e#28990#28999#0" expanded="false" />
+                <element signature="e#31779#31788#0" expanded="false" />
+                <element signature="e#36655#36665#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Invoice.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/soward/object/Invoice.java">
+      <file leaf-file-name="test.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/test.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1329" max-vertical-offset="4440">
-              <caret line="106" column="28" selection-start-line="106" selection-start-column="11" selection-end-line="106" selection-end-column="28" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ProductUtils.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/soward/util/ProductUtils.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.703704" vertical-offset="4493" max-vertical-offset="23565">
-              <caret line="308" column="0" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
+            <state vertical-scroll-proportion="-8.625" vertical-offset="588" max-vertical-offset="1365">
+              <caret line="53" column="35" selection-start-line="53" selection-start-column="35" selection-end-line="53" selection-end-column="35" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#13693#13702#0" expanded="true" />
-                <element signature="e#14345#14354#0" expanded="true" />
-                <element signature="e#39270#39279#0" expanded="true" />
-                <element signature="e#60199#60208#0" expanded="true" />
-                <element signature="e#64708#64717#0" expanded="true" />
-                <element signature="e#65912#65921#0" expanded="true" />
-                <element signature="e#69396#69415#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TransUtil.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/soward/util/TransUtil.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.5185184" vertical-offset="1996" max-vertical-offset="9765">
-              <caret line="166" column="92" selection-start-line="166" selection-start-column="92" selection-end-line="166" selection-end-column="92" />
-              <folding>
-                <element signature="e#5393#5406#0" expanded="true" />
-                <element signature="e#6200#6206#0" expanded="true" />
-                <element signature="e#7094#7107#0" expanded="true" />
+                <element signature="n#style#0;n#div#3;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -335,12 +372,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/web/lib/js/AccountsApp.js" />
-        <option value="$PROJECT_DIR$/web/lib/js/accountsRouter.js" />
-        <option value="$PROJECT_DIR$/web/WEB-INF/web.xml" />
-        <option value="$PROJECT_DIR$/web/lib/js/directives/MergeModal.html" />
-        <option value="$PROJECT_DIR$/web/lib/js/directives/MergeModal.js" />
-        <option value="$PROJECT_DIR$/web/lib/js/services/AccountService.js" />
         <option value="$PROJECT_DIR$/src/com/soward/util/AccountUtil.java" />
         <option value="$PROJECT_DIR$/web/lib/js/controllers/AccountsController.js" />
         <option value="$PROJECT_DIR$/web/lib/js/partials/accounts.html" />
@@ -377,15 +408,21 @@
         <option value="$PROJECT_DIR$/src/com/soward/ajax/InventoryUtilAjax.java" />
         <option value="$PROJECT_DIR$/src/com/soward/util/SalesReport.java" />
         <option value="$PROJECT_DIR$/web/lib/js/controllers/HourlySalesController.js" />
-        <option value="$PROJECT_DIR$/web/test.html" />
-        <option value="$PROJECT_DIR$/src/com/soward/util/InvoiceUtil.java" />
-        <option value="$PROJECT_DIR$/web/lib/js/services/InvoiceTransService.js" />
-        <option value="$PROJECT_DIR$/web/lib/js/controllers/DailySalesController.js" />
-        <option value="$PROJECT_DIR$/src/com/soward/controller/InvoiceController.java" />
         <option value="$PROJECT_DIR$/src/com/soward/util/TransUtil.java" />
         <option value="$PROJECT_DIR$/src/com/soward/util/ProductUtils.java" />
+        <option value="$PROJECT_DIR$/src/com/soward/util/InvoiceUtil.java" />
+        <option value="$PROJECT_DIR$/src/com/soward/controller/InvoiceController.java" />
+        <option value="$PROJECT_DIR$/web/test.html" />
+        <option value="$PROJECT_DIR$/web/lib/js/json/TRANS_GET.json" />
+        <option value="$PROJECT_DIR$/web/lib/js/json/INV_CACHE_GET.json" />
+        <option value="$PROJECT_DIR$/web/lib/js/json/PROD_COUNT_GET.json" />
+        <option value="$PROJECT_DIR$/web/lib/js/json/PROD_SOLD_FOR_INVOICES.json" />
+        <option value="$PROJECT_DIR$/web/lib/js/json/SALES_GET.json" />
         <option value="$PROJECT_DIR$/web/lib/js/partials/dailySales.html" />
+        <option value="$PROJECT_DIR$/web/lib/js/controllers/DailySalesController.js" />
+        <option value="$PROJECT_DIR$/web/lib/js/services/InvoiceTransService.js" />
         <option value="$PROJECT_DIR$/src/com/soward/db/MySQL.java" />
+        <option value="$PROJECT_DIR$/web/lib/js/directives/ProductSold.html" />
       </list>
     </option>
   </component>
@@ -521,7 +558,59 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="services" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DMM" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DMM" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="partials" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DMM" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DMM" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="json" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1200,8 +1289,8 @@
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23591213" sideWeight="0.32977587" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30120483" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24068768" sideWeight="0.32977587" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3008596" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32960597" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295129" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295129" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
@@ -1253,7 +1342,6 @@
       <TodoPanelSettings />
     </option>
     <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="false" />
-    <MESSAGE value="changed OREM to DV" />
     <MESSAGE value="fixed broken report." />
     <MESSAGE value="added validation for createProduct description page." />
     <MESSAGE value="MySql conversion" />
@@ -1278,7 +1366,8 @@
     <MESSAGE value="added sort to PO table columns and additional columns to floor report." />
     <MESSAGE value="Fixed date time for Sales Floor Report." />
     <MESSAGE value="Added total on invoices for hour on floor hourly sales report" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added total on invoices for hour on floor hourly sales report" />
+    <MESSAGE value="Phil Report: add date range, remove HB, make move box a number dropdown." />
+    <option name="LAST_COMMIT_MESSAGE" value="Phil Report: add date range, remove HB, make move box a number dropdown." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1295,56 +1384,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/soward/wsdl/SalesOrderEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="8195" max-vertical-offset="37950">
-          <caret line="630" column="28" selection-start-line="630" selection-start-column="28" selection-end-line="630" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/soward/service/SMAServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="990">
-          <caret line="20" column="43" selection-start-line="20" selection-start-column="43" selection-end-line="20" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/viewInvoice.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2834" max-vertical-offset="4005">
-          <caret line="202" column="44" selection-start-line="202" selection-start-column="44" selection-end-line="202" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/soward/service/MagentoSyncServiceImp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1161" max-vertical-offset="2670">
-          <caret line="127" column="48" selection-start-line="127" selection-start-column="48" selection-end-line="127" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/ajs_dailySales.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.25" vertical-offset="0" max-vertical-offset="210">
-          <caret line="2" column="18" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/lib/js/DailySalesApp.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="105">
-          <caret line="0" column="29" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/lib/js/dailySalesRouter.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="315">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/ajs_menu.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1051" max-vertical-offset="2145">
@@ -1503,7 +1542,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="540">
           <caret line="25" column="55" selection-start-line="25" selection-start-column="55" selection-end-line="25" selection-end-column="55" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1563,33 +1601,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/lib/js/controllers/HourlySalesController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.27162978" vertical-offset="960" max-vertical-offset="4005">
-          <caret line="73" column="26" selection-start-line="73" selection-start-column="26" selection-end-line="73" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/test.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-23.541666" vertical-offset="665" max-vertical-offset="1365">
-          <caret line="82" column="31" selection-start-line="82" selection-start-column="31" selection-end-line="82" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/lib/js/partials/hourlySalesInvoicePopup.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.625" vertical-offset="0" max-vertical-offset="390">
+        <state vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="390">
           <caret line="1" column="38" selection-start-line="1" selection-start-column="38" selection-end-line="1" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/lib/js/partials/hourlySales.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.4166665" vertical-offset="461" max-vertical-offset="1110">
-          <caret line="41" column="44" selection-start-line="41" selection-start-column="44" selection-end-line="41" selection-end-column="44" />
           <folding />
         </state>
       </provider>
@@ -1602,86 +1617,182 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/lib/js/services/InvoiceTransService.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.660714" vertical-offset="2583" max-vertical-offset="3600">
-          <caret line="212" column="61" selection-start-line="212" selection-start-column="61" selection-end-line="212" selection-end-column="61" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/soward/util/InvoiceUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.703704" vertical-offset="4418" max-vertical-offset="16575">
-          <caret line="327" column="34" selection-start-line="327" selection-start-column="34" selection-end-line="327" selection-end-column="34" />
-          <folding>
-            <element signature="e#3026#3035#0" expanded="true" />
-            <element signature="e#5062#5068#0" expanded="true" />
-            <element signature="e#15353#15354#0" expanded="true" />
-            <element signature="e#15420#15421#0" expanded="true" />
-            <element signature="e#20132#20138#0" expanded="true" />
-            <element signature="e#22521#22530#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/soward/controller/InvoiceController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.259259" vertical-offset="653" max-vertical-offset="2385">
-          <caret line="74" column="29" selection-start-line="74" selection-start-column="29" selection-end-line="74" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/lib/js/controllers/DailySalesController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2039" max-vertical-offset="2550">
-          <caret line="154" column="23" selection-start-line="154" selection-start-column="23" selection-end-line="154" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/soward/util/TransUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.5185184" vertical-offset="1996" max-vertical-offset="9765">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1996" max-vertical-offset="9765">
           <caret line="166" column="92" selection-start-line="166" selection-start-column="92" selection-end-line="166" selection-end-column="92" />
           <folding>
-            <element signature="e#5393#5406#0" expanded="true" />
-            <element signature="e#6200#6206#0" expanded="true" />
-            <element signature="e#7094#7107#0" expanded="true" />
+            <element signature="e#5393#5406#0" expanded="false" />
+            <element signature="e#6200#6206#0" expanded="false" />
+            <element signature="e#7094#7107#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/soward/util/ProductUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.703704" vertical-offset="4493" max-vertical-offset="23565">
+        <state vertical-scroll-proportion="0.0" vertical-offset="4493" max-vertical-offset="23565">
           <caret line="308" column="0" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#13693#13702#0" expanded="true" />
-            <element signature="e#14345#14354#0" expanded="true" />
-            <element signature="e#39270#39279#0" expanded="true" />
-            <element signature="e#60199#60208#0" expanded="true" />
-            <element signature="e#64708#64717#0" expanded="true" />
-            <element signature="e#65912#65921#0" expanded="true" />
-            <element signature="e#69396#69415#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#13693#13702#0" expanded="false" />
+            <element signature="e#14345#14354#0" expanded="false" />
+            <element signature="e#39270#39279#0" expanded="false" />
+            <element signature="e#60199#60208#0" expanded="false" />
+            <element signature="e#64708#64717#0" expanded="false" />
+            <element signature="e#65912#65921#0" expanded="false" />
+            <element signature="e#69396#69415#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/soward/util/InvoiceUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="6568" max-vertical-offset="16860">
+          <caret line="479" column="0" selection-start-line="479" selection-start-column="0" selection-end-line="479" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#1305#1314#0" expanded="false" />
+            <element signature="e#2027#2036#0" expanded="false" />
+            <element signature="e#5257#5263#0" expanded="false" />
+            <element signature="e#6072#6081#0" expanded="false" />
+            <element signature="e#9668#9669#0" expanded="false" />
+            <element signature="e#9712#9713#0" expanded="false" />
+            <element signature="e#13705#13706#0" expanded="false" />
+            <element signature="e#13763#13764#0" expanded="false" />
+            <element signature="e#15353#15354#0" expanded="false" />
+            <element signature="e#15420#15421#0" expanded="false" />
+            <element signature="e#18658#18681#0" expanded="false" />
+            <element signature="e#19179#19208#0" expanded="false" />
+            <element signature="e#20758#20764#0" expanded="false" />
+            <element signature="e#21275#21298#0" expanded="false" />
+            <element signature="e#28106#28115#0" expanded="false" />
+            <element signature="e#28990#28999#0" expanded="false" />
+            <element signature="e#31779#31788#0" expanded="false" />
+            <element signature="e#36655#36665#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.625" vertical-offset="588" max-vertical-offset="1365">
+          <caret line="53" column="35" selection-start-line="53" selection-start-column="35" selection-end-line="53" selection-end-column="35" />
+          <folding>
+            <element signature="n#style#0;n#div#3;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/lib/js/json/PROD_COUNT_GET.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.75" vertical-offset="0" max-vertical-offset="130605">
+          <caret line="6" column="16" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/lib/js/json/PROD_SOLD_FOR_INVOICES.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.125" vertical-offset="0" max-vertical-offset="63240">
+          <caret line="5" column="15" selection-start-line="5" selection-start-column="15" selection-end-line="5" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/lib/js/json/SALES_GET.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-18.020409" vertical-offset="2116922" max-vertical-offset="2117895">
+          <caret line="141187" column="1" selection-start-line="0" selection-start-column="0" selection-end-line="141187" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/lib/js/json/INV_CACHE_GET.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.125" vertical-offset="0" max-vertical-offset="285">
+          <caret line="13" column="1" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/soward/controller/InvoiceController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1043" max-vertical-offset="2385">
+          <caret line="102" column="26" selection-start-line="102" selection-start-column="26" selection-end-line="102" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/myfaces-extensions.jar!/org/apache/myfaces/custom/calendar/resource/popcalendar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334" vertical-offset="5067" max-vertical-offset="9150">
+          <caret line="364" column="4" selection-start-line="364" selection-start-column="4" selection-end-line="364" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/lib/js/directives/ProductSold.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="375">
+          <caret line="11" column="51" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/lib/js/controllers/HourlySalesController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="906" max-vertical-offset="4005">
+          <caret line="75" column="42" selection-start-line="75" selection-start-column="42" selection-end-line="75" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/lib/js/partials/hourlySales.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-21.0" vertical-offset="111" max-vertical-offset="1110">
+          <caret line="41" column="44" selection-start-line="41" selection-start-column="44" selection-end-line="41" selection-end-column="44" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/lib/js/partials/dailySales.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.625" vertical-offset="990" max-vertical-offset="1815">
-          <caret line="75" column="46" selection-start-line="75" selection-start-column="46" selection-end-line="75" selection-end-column="46" />
+        <state vertical-scroll-proportion="-39.375" vertical-offset="135" max-vertical-offset="1935">
+          <caret line="72" column="66" selection-start-line="72" selection-start-column="66" selection-end-line="72" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/lib/js/controllers/DailySalesController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1131" max-vertical-offset="2745">
+          <caret line="83" column="57" selection-start-line="83" selection-start-column="57" selection-end-line="83" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/lib/js/services/InvoiceTransService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="724" max-vertical-offset="3240">
+          <caret line="54" column="29" selection-start-line="54" selection-start-column="29" selection-end-line="54" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/soward/db/MySQL.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.51861703" vertical-offset="0" max-vertical-offset="752">
-          <caret line="28" column="5" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="510">
+          <caret line="14" column="12" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/lib/js/directives/ProductSold.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.12448133" vertical-offset="0" max-vertical-offset="723">
+          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
           <folding />
         </state>
       </provider>

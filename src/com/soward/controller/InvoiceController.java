@@ -111,13 +111,13 @@ public class InvoiceController extends HttpServlet {
                     }
                     break;
                 case HOURLY_SALES_GET:
-                    if(toDate != null && fromDate != null) {
-                        map = InvoiceUtil.getHourlyLocatioForDate(fromDate, toDate, location, false);
+                    if(date != null) {
+                        map = InvoiceUtil.getHourlyLocatioForDate(date, location, false);
                     }
                     break;
                 case SALES_GET:
                     if(toDate != null && fromDate != null) {
-                        invList = InvoiceUtil.getForDate(fromDate, toDate, location, true, true);
+                        invList = InvoiceUtil.getForDateRange(fromDate, toDate, location, true, true);
                         //save invoice to db return id
                     }
                     break;
