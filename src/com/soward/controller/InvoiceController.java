@@ -86,6 +86,12 @@ public class InvoiceController extends HttpServlet {
                 case TRANS_GET:
                     transList = TransUtil.getTransaction(invoiceNum, true);
                     break;
+                case SALES_PRODUCT_GET:
+                    map = InvoiceUtil.getRecentSold(productNum);
+                    break;
+                case PRODUCT_INSTORE_LOCATION_GET:
+                    map = InvoiceUtil.getProductLocation(productNum);
+                    break;
                 case TRANS_PUT:
                     TransUtil.addTransactionToInvoice(username, invoiceNum, productNum);
                     break;

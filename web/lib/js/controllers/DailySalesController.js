@@ -8,6 +8,7 @@ var app = angular.module('dailySalesApp').controller('DailySalesController', fun
     $scope.dateToEval1 = new Date();
     $scope.dateToEval2 = new Date();
     $scope.year = new Date().getFullYear();
+    $scope.page.sortOrder = 'products';
 
     $scope.alerts = [
 //        { type: 'danger', msg: 'Oh snap! Change a few things up and try submitting again.' },
@@ -70,10 +71,10 @@ var app = angular.module('dailySalesApp').controller('DailySalesController', fun
         );
         $q.all(promises)
             .then(function(){
-            updateProdCache();
-            consolidateProducts();
-            $scope.page.searchingInvoices = false;
-        })
+                updateProdCache();
+                consolidateProducts();
+                $scope.page.searchingInvoices = false;
+            })
     };
 
     $scope.shiftCount = function(store, prod){
@@ -105,6 +106,24 @@ var app = angular.module('dailySalesApp').controller('DailySalesController', fun
         $scope.dt = new Date();
     };
     $scope.today();
+
+    $scope.getLocation = function(prod){
+        prod.locationLoading = true;
+        InvoiceTransService.getLocation(prod.productNum)
+            .then(function(res){
+                prod.location = res.data.location;
+                prod.locationLoading = false;
+            })
+    };
+
+    $scope.getRecentSold = function(prod){
+        prod.recentSoldLoading = true;
+        InvoiceTransService.getRecentSold(prod.productNum)
+            .then(function(res){
+                prod.recent = res.data;
+                prod.recentSoldLoading = false;
+            })
+    };
 
     $scope.getEstimate = function(prod){
         var hist = $scope.productHistory[prod.productNum];

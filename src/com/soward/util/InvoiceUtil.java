@@ -371,14 +371,74 @@ public class InvoiceUtil {
     }
 
     public static void main( String[] args ) {
-        Calendar toCal = Calendar.getInstance();
-        Calendar fromCal = Calendar.getInstance();
-        toCal.add(Calendar.MONTH, -5);
-        fromCal.add(Calendar.MONTH, -4);
+//        Calendar toCal = Calendar.getInstance();
+//        Calendar fromCal = Calendar.getInstance();
+//        toCal.add(Calendar.MONTH, -5);
+//        fromCal.add(Calendar.MONTH, -4);
 //        Map<Long, ProductsLocationCount> map = InvoiceUtil.getProductCountsForSales(toCal.getTime(), toCal.getTime(), "MURRAY");
 //        Map<Long, ProductSold> map = InvoiceUtil.getProdSoldForInvoices(toCal.getTime(), fromCal.getTime(), "MURRAY");
-        List<Invoice> map = getForDateRange(toCal.getTime(), fromCal.getTime(), "MURRAY", true, true);
-        System.out.println(map);
+//        List<Invoice> map = getForDateRange(toCal.getTime(), fromCal.getTime(), "MURRAY", true, true);
+//        System.out.println(map);
+        InvoiceUtil.getRecentSold("167594");
+    }
+
+    public static Map<String, Object> getRecentSold(String productNum) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("Days30", getRecentSoldForDaysBack(productNum, 30));
+        map.put("Days90", getRecentSoldForDaysBack(productNum, 90));
+        map.put("Days365", getRecentSoldForDaysBack(productNum, 365));
+        return map;
+    }
+
+    private static int getRecentSoldForDaysBack(String productNum, int daysBack) {
+        MySQL sdb = new MySQL();
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_YEAR, -daysBack);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM");
+        String sql = "select sum(productQty) count from Transactions where productNum = ? and transDate >= '"+simpleDateFormat.format(cal.getTime())+"%'";
+        Connection con = null;
+        int count = 0;
+        try {
+            con = sdb.getConn();
+            PreparedStatement pstmt = null;
+            pstmt = con.prepareStatement( sql );
+            pstmt.setString(1,  productNum);
+            ResultSet rset = pstmt.executeQuery();
+            if(rset.next()) {
+                count = rset.getInt("count");
+            }
+            rset.close();
+            con.close();
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+
+        return count;
+    }
+
+    public static Map<String, String> getProductLocation(String productNum) {
+        MySQL sdb = new MySQL();
+        String sql = "select productFeature from WebProductInfo where productNum = ?";
+        Connection con = null;
+        String productFeature = null;
+        try {
+            con = sdb.getConn();
+            PreparedStatement pstmt = null;
+            pstmt = con.prepareStatement( sql );
+            pstmt.setString(1,  productNum);
+            ResultSet rset = pstmt.executeQuery();
+            if(rset.next()) {
+                productFeature = rset.getString("productFeature");
+            }
+            rset.close();
+            con.close();
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("location", productFeature!=null&&productFeature.length()>2?productFeature.substring(0, 3):productFeature);
+        return map;
     }
 
     public static Map<Long, ProductsLocationCount> getProductCountsForSales(Date fromDate, Date toDate, String location ) {
@@ -474,6 +534,28 @@ public class InvoiceUtil {
         MySQL sdb = new MySQL();
         String sql = "select inv.* from Invoices inv join InvoiceLocation invLoc on invLoc.invoiceNum = inv.invoiceNum" +
                 " where invLoc.location = ? and invoiceDate like '"+new SimpleDateFormat("yyyy-MM-dd").format(date)+"%'";
+        Connection con = null;
+        List<Invoice> invList = new ArrayList<Invoice>();
+        try {
+            con = sdb.getConn();
+            PreparedStatement pstmt = null;
+            pstmt = con.prepareStatement( sql );
+            pstmt.setString(1,  location);
+            ResultSet rset = pstmt.executeQuery();
+            invList.addAll(getInvoiceListFromReSet(rset, getTransList, getProds));
+            rset.close();
+            con.close();
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+        return invList;
+    }
+
+    public static List<Invoice> getRecentSalesFromDateRange( Date fromDate, Date toDate, String location, boolean getTransList, boolean getProds ) {
+        MySQL sdb = new MySQL();
+        String sql = "select inv.* from Invoices inv join InvoiceLocation invLoc on invLoc.invoiceNum = inv.invoiceNum" +
+                " where invLoc.location = ? and invoiceDate between '"+new SimpleDateFormat("yyyy-MM-dd").format(fromDate)+"%'\n"+
+                "\t  and '"+new SimpleDateFormat("yyyy-MM-dd").format(toDate)+"%'\n";
         Connection con = null;
         List<Invoice> invList = new ArrayList<Invoice>();
         try {

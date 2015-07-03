@@ -29,6 +29,8 @@ public enum Endpoint {
     PO_PUT,
 
     HOURLY_SALES_GET,
+    SALES_PRODUCT_GET,
+    PRODUCT_INSTORE_LOCATION_GET,
     SALES_GET,
     TRANS_GET,
     TRANS_PUT,

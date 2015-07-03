@@ -154,6 +154,38 @@ angular.module('dmm-core').service('InvoiceTransService', function ($http, $log,
         }
     };
 
+    this.getRecentSold = function (productNum) {
+        if(test){
+            return $http.get('lib/js/json/SALES_GET.json');
+        }
+        else{
+            return $http({
+                method: 'GET',
+                url: './invoices',
+                params: {
+                    productNum:productNum,
+                    funct: 'SALES_PRODUCT_GET'
+                }
+            });
+        }
+    };
+
+    this.getLocation = function (productNum) {
+        if(test){
+            return $http.get('lib/js/json/SALES_GET.json');
+        }
+        else{
+            return $http({
+                method: 'GET',
+                url: './invoices',
+                params: {
+                    productNum:productNum,
+                    funct: 'PRODUCT_INSTORE_LOCATION_GET'
+                }
+            });
+        }
+    };
+
     this.getSales = function (fromDate, toDate, location) {
         if(test){
             return $http.get('lib/js/json/SALES_GET.json');

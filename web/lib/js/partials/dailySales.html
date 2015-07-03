@@ -24,19 +24,23 @@
                         </div>
                     </div>
                     <p></p>
+                    <label for="location">Location</label>
                     <p class="input-group">
-                        <select required class="form-control" ng-model="location">
+                        <select id="location" required class="form-control" ng-model="location">
                             <option value="Murray">Murray</option>
                             <option value="LEHI">Lehi</option>
                         </select>
                     </p>
                     <ul class="list-inline">
-                        <li>
-                            <dmm-radio required="true" ng-model="page.sortOrder" ng-value="'products'" group-name="sortOrder" name="products">Group by Products</dmm-radio>
-                        </li>
-                        <li>
-                            <dmm-radio required="true" ng-model="page.sortOrder" ng-value="'invoices'" group-name="sortOrder" name="invoices">Group by Invoices</dmm-radio>
-                        </li>
+                    <li>
+                    <dmm-radio required="true" ng-model="page.sortOrder" ng-value="'products'" group-name="sortOrder" name="products">Group by Supplier</dmm-radio>
+                    </li>
+                    <!--<li>-->
+                    <!--<dmm-radio required="true" ng-model="page.sortOrder" ng-value="'location'" group-name="sortOrder" name="invoices">Group by Location</dmm-radio>-->
+                    <!--</li>-->
+                    <li>
+                    <dmm-radio required="true" ng-model="page.sortOrder" ng-value="'invoices'" group-name="sortOrder" name="invoices">Group by Invoices</dmm-radio>
+                    </li>
                     </ul>
                 </form>
             </div>
@@ -62,19 +66,34 @@
                 <tr>
                     <th>Catalog#</th>
                     <th>Title</th>
-                    <th>Description</th>
-                    <th class="col-sm-1">Sold</th>
+                    <th>Location</th>
+                    <th class="col-sm-1">History</th>
+                    <th class="col-sm-1"><div tooltip="Average amount sold per month for past 3 years">Recent</div></th>
                     <th class="col-sm-1">Done</th>
                     <th class="col-sm-1">Move</th>
                     <th class="col-sm-1">In Stock</th>
-                    <th class="col-sm-1"><div tooltip="Average amount sold per month for past 3 years">Estimate</div></th>
                 </tr>
                 <tr ng-repeat="prod in productList">
                     <td><div>{{prod.productCatalogNum}}</div></td>
                     <td><div>{{prod.productName}}</div></td>
-                    <td><div>{{prod.productDescription}}</div></td>
+                    <td>
+                        <span ng-hide="prod.location || prod.locationLoading" tooltip="Get Product Location" ng-click="getLocation(prod)" class="text-info glyphicon glyphicon-info-sign"></span>
+                        <div ng-if="prod.locationLoading"><spinner></spinner></div>
+                        <div ng-if="prod.location">
+                            {{prod.location}}
+                        </div>
+                    </td>
                     <td>
                         <product-sold product="prod" history="productHistory[prod.productNum]" location="location"></product-sold>
+                    </td>
+                    <td>
+                        <span ng-hide="prod.recent || prod.recentSoldLoading" tooltip="Get Recent Invoices" ng-click="getRecentSold(prod)" class="text-info glyphicon glyphicon-info-sign"></span>
+                        <div ng-if="prod.recentSoldLoading"><spinner></spinner></div>
+                        <div ng-if="prod.recent">
+                            30Days: {{prod.recent.Days30}}</br>
+                            90Days: {{prod.recent.Days90}}</br>
+                            365Days:{{prod.recent.Days365}}
+                        </div>
                     </td>
                     <td class="col-sm-1">
                         <dmm-checkbox ng-click="saveDone(prod)" ng-model="prod.done"></dmm-checkbox>
@@ -94,7 +113,6 @@
                             </span>
                         </span>
                     </td>
-                    <td>{{getEstimate(prod)}}</td>
                 </tr>
             </table>
         </div>
