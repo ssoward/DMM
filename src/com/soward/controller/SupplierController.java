@@ -1,6 +1,7 @@
 package com.soward.controller;
 
 import com.soward.util.InvoiceUtil;
+import com.soward.util.LoginUtil;
 import com.soward.util.SupplierUtil;
 import org.apache.commons.discovery.log.SimpleLog;
 import org.apache.commons.logging.Log;
@@ -21,22 +22,32 @@ public class SupplierController extends HttpServlet {
 
     Log log = new SimpleLog(SupplierController.class.getName());
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        String username = (String) request.getSession().getAttribute("username");
+        LoginUtil.checkAccess(request, response);
         String searchStr = request.getParameter("searchStr");
-        log.info(InvoiceUtil.sdf.format(new Date())+ " Searching suppliers for: "+searchStr);
-        List list = SupplierUtil.fetchSupForName(searchStr);
-        ObjectMapper mapper = new ObjectMapper();
-        String json = mapper.writeValueAsString(list);
-        response.getWriter().print(json);
+        String endpoint   = request.getParameter("funct");
+
+        List list = null;
+        log.info(InvoiceUtil.sdf.format(new Date())+ " Supplier endpoint: "+endpoint+" accessed by: "+username);
+        if(endpoint != null) {
+            switch (Endpoint.valueOf(endpoint)) {
+                case SUPPLIERS_GET:
+                    list = SupplierUtil.getAllSuppliersNumAndName();
+                    break;
+            }
+        }else if(searchStr != null) {
+            log.info(InvoiceUtil.sdf.format(new Date()) + " Searching suppliers for: " + searchStr);
+            list = SupplierUtil.fetchSupForName(searchStr);
+        }
+        if(list != null) {
+            ObjectMapper mapper = new ObjectMapper();
+            String json = mapper.writeValueAsString(list);
+            response.getWriter().print(json);
+        }
     }
     protected void doPost(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
         response.getWriter().print("back from the server from POST");
     }
-
-//    public int count = 0;
-//    //  ArrayList hp = new ArrayList<String>();
-//    public void service( final HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
-//        System.out.println("hello world");
-//        response.getWriter().print( "back from the server");
-//    }
 }

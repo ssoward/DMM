@@ -62,27 +62,25 @@
 
         <!--//sort by products-->
         <div ng-show="!page.searchingInvoices && page.sortOrder === 'products'">
+           <div><label for="filter">Filter/Search: </label> <input ng-model="search.$" id="filter"></div>
             <table class="table table-striped table-bordered table-hover table-responsive">
                 <tr>
-                    <th>Catalog#</th>
-                    <th>Title</th>
-                    <th>Location</th>
+                    <th ng-repeat="header in tHeaders">
+                        <a ng-click="toggleSort($index)">{{ tHeaders[$index].name }}</a>
+                    </th>
                     <th class="col-sm-1">History</th>
                     <th class="col-sm-1"><div tooltip="Average amount sold per month for past 3 years">Recent</div></th>
                     <th class="col-sm-1">Done</th>
                     <th class="col-sm-1">Move</th>
                     <th class="col-sm-1">In Stock</th>
                 </tr>
-                <tr ng-repeat="prod in productList">
+                <tr ng-repeat="prod in productList | filter:search:strict | orderBy:sortColumn:reverse">
                     <td><div>{{prod.productCatalogNum}}</div></td>
                     <td><div>{{prod.productName}}</div></td>
                     <td>
-                        <span ng-hide="prod.location || prod.locationLoading" tooltip="Get Product Location" ng-click="getLocation(prod)" class="text-info glyphicon glyphicon-info-sign"></span>
-                        <div ng-if="prod.locationLoading"><spinner></spinner></div>
-                        <div ng-if="prod.location">
-                            {{prod.location}}
-                        </div>
+                        <div>{{prod.prodLocation}}</div>
                     </td>
+                    <td>{{prod.supplier.supplierName}}</td>
                     <td>
                         <product-sold product="prod" history="productHistory[prod.productNum]" location="location"></product-sold>
                     </td>

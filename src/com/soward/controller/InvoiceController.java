@@ -48,7 +48,7 @@ public class InvoiceController extends HttpServlet {
         String move  = request.getParameter("move");
 
         Invoice inv = null;
-        List invList = null;
+        List list = null;
         Map map = null;
         List<Transaction> transList = null;
         Date toDate = getDate(toDateStr);
@@ -61,7 +61,7 @@ public class InvoiceController extends HttpServlet {
                     String searchStr = request.getParameter("searchStr");
                     //get list if searchStr
                     if(searchStr != null){
-                        invList = InvoiceUtil.invoiceContactNum(searchStr);
+                        list = InvoiceUtil.invoiceContactNum(searchStr);
                     }
                     break;
                 case PO_PUT:
@@ -86,11 +86,17 @@ public class InvoiceController extends HttpServlet {
                 case TRANS_GET:
                     transList = TransUtil.getTransaction(invoiceNum, true);
                     break;
+                case SALES_PRODUCT_ALL_GET:
+                    map = InvoiceUtil.getRecentSoldForDate(fromDate, toDate, location);
+                    break;
                 case SALES_PRODUCT_GET:
                     map = InvoiceUtil.getRecentSold(productNum);
                     break;
                 case PRODUCT_INSTORE_LOCATION_GET:
                     map = InvoiceUtil.getProductLocation(productNum);
+                    break;
+                case PRODUCT_INSTORE_LOCATION_ALL_GET:
+                    list = InvoiceUtil.getProductLocationForDate(fromDate, toDate, location);
                     break;
                 case TRANS_PUT:
                     TransUtil.addTransactionToInvoice(username, invoiceNum, productNum);
@@ -123,7 +129,7 @@ public class InvoiceController extends HttpServlet {
                     break;
                 case SALES_GET:
                     if(toDate != null && fromDate != null) {
-                        invList = InvoiceUtil.getForDateRange(fromDate, toDate, location, true, true);
+                        list = InvoiceUtil.getForDateRange(fromDate, toDate, location, true, true);
                         //save invoice to db return id
                     }
                     break;
@@ -134,9 +140,9 @@ public class InvoiceController extends HttpServlet {
             ObjectMapper mapper = new ObjectMapper();
             String json = mapper.writeValueAsString(inv);
             response.getWriter().print(json);
-        }else if(invList != null){
+        }else if(list != null){
             ObjectMapper mapper = new ObjectMapper();
-            String json = mapper.writeValueAsString(invList);
+            String json = mapper.writeValueAsString(list);
             response.getWriter().print(json);
         }else if(map != null){
             ObjectMapper mapper = new ObjectMapper();

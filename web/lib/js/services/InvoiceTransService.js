@@ -116,6 +116,25 @@ angular.module('dmm-core').service('InvoiceTransService', function ($http, $log,
         }
     };
 
+    this.getProductLocationForDate = function (fromDate, toDate, location) {
+
+        if(test){
+            return $http.get('lib/js/json/PROD_COUNT_ALL_GET.json');
+        }
+        else{
+            return $http({
+                method: 'GET',
+                url: './invoices',
+                params: {
+                    toDate: toDate,
+                    fromDate: fromDate,
+                    location: location,
+                    funct: 'PRODUCT_INSTORE_LOCATION_ALL_GET'
+                }
+            });
+        }
+    };
+
     this.getProductCounts = function (fromDate, toDate, location) {
 
         if(test){
@@ -149,6 +168,24 @@ angular.module('dmm-core').service('InvoiceTransService', function ($http, $log,
                     date: date,
                     location: location,
                     funct: 'HOURLY_SALES_GET'
+                }
+            });
+        }
+    };
+
+    this.getRecentSoldForDate = function (fromDate, toDate, location) {
+        if(test){
+            return $http.get('lib/js/json/SALES_PRODUCT_ALL_GET.json');
+        }
+        else{
+            return $http({
+                method: 'GET',
+                url: './invoices',
+                params: {
+                    toDate: toDate,
+                    fromDate: fromDate,
+                    location: location,
+                    funct: 'SALES_PRODUCT_ALL_GET'
                 }
             });
         }
@@ -216,6 +253,20 @@ angular.module('dmm-core').service('InvoiceTransService', function ($http, $log,
                 url: './invoices',
                 params: {
                     funct: 'HOLD_BIN_GET'
+                }
+            });
+        }
+    };
+    this.getAllSuppliers = function () {
+        if (test) {
+            return $http.get('lib/js/json/SUPPLIERS_GET.json')
+        }
+        else{
+            return $http({
+                method: 'GET',
+                url: './suppliers',
+                params: {
+                    funct: 'SUPPLIERS_GET'
                 }
             });
         }

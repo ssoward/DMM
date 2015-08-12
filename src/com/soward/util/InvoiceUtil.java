@@ -382,6 +382,86 @@ public class InvoiceUtil {
         InvoiceUtil.getRecentSold("167594");
     }
 
+    public static Map<Long, Map> getRecentSoldForDate(Date fromDate, Date toDate, String location ) {
+        Map<Long, Map> map = new HashMap<Long, Map>();
+
+        Map<Long, Long> map30  = getRecentSoldForDateAndDays(fromDate, toDate, location, 30);
+        Map<Long, Long> map90  = getRecentSoldForDateAndDays(fromDate, toDate, location, 90);
+        Map<Long, Long> map365 = getRecentSoldForDateAndDays(fromDate, toDate, location, 365);
+
+        Set set = map30.keySet();
+        Iterator<Long> iter = set.iterator();
+        while(iter.hasNext()){
+            Long prodNum = iter.next();
+            Map<String, Long> prodMap = map.get(prodNum)!=null?map.get(prodNum):new HashMap<String, Long>();
+            prodMap.put("Days30", map30.get(prodNum));
+            prodMap.put("Days90", map90.get(prodNum));
+            prodMap.put("Days365",map365.get(prodNum));
+            map.put(prodNum, prodMap);
+        }
+        set = map90.keySet();
+        iter = set.iterator();
+        while(iter.hasNext()){
+            Long prodNum = iter.next();
+            Map<String, Long> prodMap = map.get(prodNum)!=null?map.get(prodNum):new HashMap<String, Long>();
+            prodMap.put("Days30", map30.get(prodNum));
+            prodMap.put("Days90", map90.get(prodNum));
+            prodMap.put("Days365",map365.get(prodNum));
+            map.put(prodNum, prodMap);
+        }
+        set = map365.keySet();
+        iter = set.iterator();
+        while(iter.hasNext()){
+            Long prodNum = iter.next();
+            Map<String, Long> prodMap = map.get(prodNum)!=null?map.get(prodNum):new HashMap<String, Long>();
+            prodMap.put("Days30", map30.get(prodNum));
+            prodMap.put("Days90", map90.get(prodNum));
+            prodMap.put("Days365",map365.get(prodNum));
+            map.put(prodNum, prodMap);
+        }
+
+        return map;
+    }
+
+    private static Map<Long, Long> getRecentSoldForDateAndDays(Date fromDate, Date toDate, String location, int daysBack ) {
+        MySQL sdb = new MySQL();
+        Map<Long, Long> map = new HashMap<Long, Long>();
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_YEAR, -daysBack);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM");
+        String sql = "select sum(productQty) count, productNum from Transactions where transDate >= '"+simpleDateFormat.format(cal.getTime())+"%'";
+
+        sql += "and productNum in (select productNum from \n" +
+                "\tInvoiceLocation invLoc join Transactions trans on invLoc.invoiceNum = trans.invoiceNum\n" +
+                "\t  where invLoc.location = ?";
+
+        String wSql = " and trans.transDate between '"+new SimpleDateFormat("yyyy-MM-dd").format(fromDate)+"%'\n"+
+                "\t  and '"+new SimpleDateFormat("yyyy-MM-dd").format(toDate)+"%'\n";
+        if(fromDate.equals(toDate)){
+            wSql = " and trans.transDate like '"+new SimpleDateFormat("yyyy-MM-dd").format(fromDate)+"%'\n";
+        }
+
+        sql+=wSql +") group by productNum";
+
+        Connection con = null;
+        try {
+            con = sdb.getConn();
+            PreparedStatement pstmt = null;
+            pstmt = con.prepareStatement( sql );
+            pstmt.setString(1,  location);
+            ResultSet rset = pstmt.executeQuery();
+            while(rset.next()) {
+                map.put(rset.getLong("productNum"), rset.getLong("count"));
+            }
+            rset.close();
+            con.close();
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+
+        return map;
+    }
+
     public static Map<String, Object> getRecentSold(String productNum) {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("Days30", getRecentSoldForDaysBack(productNum, 30));
@@ -416,6 +496,49 @@ public class InvoiceUtil {
         return count;
     }
 
+    public static List<Map<String, String>> getProductLocationForDate(Date fromDate, Date toDate, String location ) {
+        MySQL sdb = new MySQL();
+        List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+
+        String sql = "select webInfo.* from \n" +
+                "\tInvoiceLocation invLoc join Transactions trans on invLoc.invoiceNum = trans.invoiceNum\n" +
+                "    join WebProductInfo webInfo on webInfo.productNum = trans.productNum\n" +
+                "\t  where invLoc.location = ?";
+
+        String wSql = " and trans.transDate between '"+new SimpleDateFormat("yyyy-MM-dd").format(fromDate)+"%'\n"+
+                "\t  and '"+new SimpleDateFormat("yyyy-MM-dd").format(toDate)+"%'\n";
+        if(fromDate.equals(toDate)){
+            wSql = " and trans.transDate like '"+new SimpleDateFormat("yyyy-MM-dd").format(fromDate)+"%'\n";
+        }
+
+        sql+=wSql;
+
+        Connection con = null;
+        try {
+            con = sdb.getConn();
+            PreparedStatement pstmt = null;
+            pstmt = con.prepareStatement( sql );
+            pstmt.setString(1,  location);
+            ResultSet rset = pstmt.executeQuery();
+            while(rset.next()) {
+                String productFeature = rset.getString("productFeature");
+                if(productFeature!=null&&!StringUtils.isBlank(productFeature)&&productFeature.length()>2) {
+                    Map<String, String> map = new HashMap<String, String>();
+                    map.put("productNum" , rset.getString("productNum"));
+                    map.put("prodLocation", productFeature.substring(0, 3));
+                    map.put("prodLocationFull", rset.getString("productFeature"));
+                    list.add(map);
+                }
+            }
+            rset.close();
+            con.close();
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
     public static Map<String, String> getProductLocation(String productNum) {
         MySQL sdb = new MySQL();
         String sql = "select productFeature from WebProductInfo where productNum = ?";
@@ -446,8 +569,15 @@ public class InvoiceUtil {
         String sql = "select prods.* from \n" +
                 "\tInvoiceLocation invLoc join Transactions trans on invLoc.invoiceNum = trans.invoiceNum\n" +
                 "    join ProductsLocationCount prods on prods.productNum = trans.productNum\n" +
-                "\t  where invLoc.location = ? and trans.transDate between '"+new SimpleDateFormat("yyyy-MM-dd").format(fromDate)+"%'\n"+
+                "\t  where invLoc.location = ?";
+
+        String wSql = " and trans.transDate between '"+new SimpleDateFormat("yyyy-MM-dd").format(fromDate)+"%'\n"+
                 "\t  and '"+new SimpleDateFormat("yyyy-MM-dd").format(toDate)+"%'\n";
+        if(fromDate.equals(toDate)){
+            wSql = " and trans.transDate like '"+new SimpleDateFormat("yyyy-MM-dd").format(fromDate)+"%'\n";
+        }
+
+        sql+=wSql;
         Connection con = null;
         List<ProductsLocationCount> plcList = new ArrayList<ProductsLocationCount>();
         try {
@@ -477,8 +607,16 @@ public class InvoiceUtil {
         String sql = "select prods.productNum from \n" +
                 "\tInvoiceLocation invLoc join Transactions trans on invLoc.invoiceNum = trans.invoiceNum\n" +
                 "    join ProductsLocationCount prods on prods.productNum = trans.productNum\n" +
-                "\t  where invLoc.location = ? and trans.transDate between '"+new SimpleDateFormat("yyyy-MM-dd").format(fromDate)+"%'\n"+
+                "\t  where invLoc.location = ?";
+
+        String wSql = " and trans.transDate between '"+new SimpleDateFormat("yyyy-MM-dd").format(fromDate)+"%'\n"+
                 "\t  and '"+new SimpleDateFormat("yyyy-MM-dd").format(toDate)+"%'\n";
+        if(fromDate.equals(toDate)){
+            wSql = " and trans.transDate like '"+new SimpleDateFormat("yyyy-MM-dd").format(fromDate)+"%'\n";
+        }
+
+        sql+=wSql;
+
         Connection con = null;
         List<Long> pIds = new ArrayList<Long>();
         try {
@@ -576,8 +714,14 @@ public class InvoiceUtil {
     public static List<Invoice> getForDateRange( Date fromDate, Date toDate, String location, boolean getTransList, boolean getProds ) {
         MySQL sdb = new MySQL();
         String sql = "select inv.* from Invoices inv join InvoiceLocation invLoc on invLoc.invoiceNum = inv.invoiceNum" +
-                " where invLoc.location = ? and invoiceDate between '"+new SimpleDateFormat("yyyy-MM-dd").format(fromDate)+"%'\n"+
+                " where invLoc.location = ?";
+
+        String wSql = " and invoiceDate between '"+new SimpleDateFormat("yyyy-MM-dd").format(fromDate)+"%'\n"+
                 "\t  and '"+new SimpleDateFormat("yyyy-MM-dd").format(toDate)+"%'\n";
+        if(fromDate.equals(toDate)){
+            wSql = " and invoiceDate like '"+new SimpleDateFormat("yyyy-MM-dd").format(fromDate)+"%'\n";
+        }
+        sql+=wSql;
         Connection con = null;
         List<Invoice> invList = new ArrayList<Invoice>();
         try {

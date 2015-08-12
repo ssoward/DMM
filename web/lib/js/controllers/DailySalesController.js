@@ -10,6 +10,13 @@ var app = angular.module('dailySalesApp').controller('DailySalesController', fun
     $scope.year = new Date().getFullYear();
     $scope.page.sortOrder = 'products';
 
+    $scope.tHeaders = [
+        {name:'Catalog#',val:'productCatalogNum'},
+        {name:'Title',val:'productName'},
+        {name:'Location',val:'prodLocation'},
+        {name:'Supplier',val:'supplier.supplierName'}
+    ];
+
     $scope.alerts = [
 //        { type: 'danger', msg: 'Oh snap! Change a few things up and try submitting again.' },
 //        { type: 'success', msg: 'Well done! You successfully read this important alert message.' }
@@ -50,22 +57,43 @@ var app = angular.module('dailySalesApp').controller('DailySalesController', fun
         );
         promises.push(InvoiceTransService.getProductSoldHistory($scope.dateToEval1, $scope.dateToEval2, $scope.location)
                 .then(function (res){
-                    $scope.progressComplete += 20;
+                    $scope.progressComplete += 10;
                     $scope.productHistory = res.data;
                     return res;
                 })
         );
         promises.push(InvoiceTransService.getProductCounts($scope.dateToEval1, $scope.dateToEval2, $scope.location)
                 .then(function(res){
-                    $scope.progressComplete += 20;
+                    $scope.progressComplete += 10;
                     $scope.inventory = res.data;
                     return res;
                 })
         );
+        promises.push(InvoiceTransService.getProductLocationForDate($scope.dateToEval1, $scope.dateToEval2, $scope.location)
+                .then(function(res){
+                    $scope.progressComplete += 10;
+                    $scope.prodLocations = res.data;
+                    return res;
+                })
+        );
+        //promises.push(InvoiceTransService.getRecentSoldForDate($scope.dateToEval1, $scope.dateToEval2, $scope.location)
+        //        .then(function(res){
+        //            $scope.progressComplete += 10;
+        //            $scope.recentlySoldList = res.data;
+        //            return res;
+        //        })
+        //);
         promises.push(InvoiceTransService.getInventoryCacheForDate($scope.dateToEval1, $scope.location)
                 .then(function(res){
                     $scope.invCache = res.data.DSC;
-                    $scope.progressComplete += 20;
+                    $scope.progressComplete += 10;
+                    return res;
+                })
+        );
+        promises.push(InvoiceTransService.getAllSuppliers()
+                .then(function(res){
+                    $scope.suppliers = res.data;
+                    $scope.progressComplete += 10;
                     return res;
                 })
         );
@@ -179,7 +207,34 @@ var app = angular.module('dailySalesApp').controller('DailySalesController', fun
                 }
             });
         });
+        _.forEach($scope.productList, function(prod){
+            _.forEach($scope.suppliers, function(supplier){
+                if(supplier.supplierNum === prod.productSupplier1){
+                    prod.supplier = supplier;
+                }
+            });
+        });
+        _.forEach($scope.productList, function(prod){
+            _.forEach($scope.prodLocations, function(prodLocation){
+                if(prodLocation.productNum === prod.productNum){
+                    prod.prodLocation = prodLocation.prodLocation;
+                }
+            });
+            if(!prod.prodLocation){
+                prod.prodLocation = '--';
+            }
+        });
+        //_.forEach($scope.productList, function(prod){
+        //    prod.recent = $scope.recentlySoldList[prod.productNum];
+        //});
     }
+
+    $scope.toggleSort = function(index) {
+        if($scope.sortColumn === $scope.tHeaders[index].val){
+            $scope.reverse = !$scope.reverse;
+        }
+        $scope.sortColumn = $scope.tHeaders[index].val;
+    };
 
     function updateProdCache(){
         _.forEach($scope.invoices, function(invoice){
