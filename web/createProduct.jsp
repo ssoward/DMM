@@ -82,7 +82,7 @@
     String numAvailable         = request.getParameter("numAvailable")!=null?request.getParameter("numAvailable"):"0";
     String lehiQty              = request.getParameter("lehiQty")!=null?request.getParameter("lehiQty"):"0";
     String murrayQty            = request.getParameter("murrayQty")!=null?request.getParameter("murrayQty"):"0";
-    String oremQty            = request.getParameter("oremQty")!=null?request.getParameter("oremQty"):"0";
+    String oremQty              = request.getParameter("oremQty")!=null?request.getParameter("oremQty"):"0";
     String lastSold             = request.getParameter("lastSold")!=null?request.getParameter("lastSold"):"";
     String lastInvDate          = request.getParameter("lastInvDate")!=null?request.getParameter("lastInvDate"):defaultInvDate;
     String DCCatalogNum         = request.getParameter("DCCatalogNum")!=null?request.getParameter("DCCatalogNum"):"";

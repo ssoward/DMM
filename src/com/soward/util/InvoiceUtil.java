@@ -385,9 +385,11 @@ public class InvoiceUtil {
     public static Map<Long, Map> getRecentSoldForDate(Date fromDate, Date toDate, String location ) {
         Map<Long, Map> map = new HashMap<Long, Map>();
 
-        Map<Long, Long> map30  = getRecentSoldForDateAndDays(fromDate, toDate, location, 30);
-        Map<Long, Long> map90  = getRecentSoldForDateAndDays(fromDate, toDate, location, 90);
-        Map<Long, Long> map365 = getRecentSoldForDateAndDays(fromDate, toDate, location, 365);
+        List<Long> prodIds = getProdIdsForDate(fromDate, toDate, location);
+
+        Map<Long, Long> map30  = addAllForPropIds(30, prodIds);
+        Map<Long, Long> map90  = addAllForPropIds(90, prodIds);
+        Map<Long, Long> map365 = addAllForPropIds(365, prodIds);
 
         Set set = map30.keySet();
         Iterator<Long> iter = set.iterator();
@@ -423,15 +425,42 @@ public class InvoiceUtil {
         return map;
     }
 
-    private static Map<Long, Long> getRecentSoldForDateAndDays(Date fromDate, Date toDate, String location, int daysBack ) {
-        MySQL sdb = new MySQL();
-        Map<Long, Long> map = new HashMap<Long, Long>();
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DAY_OF_YEAR, -daysBack);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM");
-        String sql = "select sum(productQty) count, productNum from Transactions where transDate >= '"+simpleDateFormat.format(cal.getTime())+"%'";
+    //iterate over the list prod ids and added them to the where clause at < 1000 chucks.
+    private static Map<Long, Long> addAllForPropIds(int daysBack, List<Long> prodIds) {
+        Map<Long, Long> prodCountMap = new HashMap<Long, Long>();
+        List<Long> subsetProdList = new ArrayList<Long>();
+        int count = 0;
+        for(Long l: prodIds){
+            if(count > 900){
+                Map<Long, Long> temp = getRecentSoldForDateAndDays(daysBack , subsetProdList);
+                addCountsToMap(prodCountMap, temp);
+                count = 0;
+            }
+            subsetProdList.add(l);
+            count++;
+        }
+        Map<Long, Long> temp = getRecentSoldForDateAndDays(daysBack , subsetProdList);
+        addCountsToMap(prodCountMap, temp);
+        return prodCountMap;
+    }
 
-        sql += "and productNum in (select productNum from \n" +
+    private static void addCountsToMap(Map<Long, Long> prodCountMap, Map<Long, Long> temp) {
+        Set<Long> set = temp.keySet();
+        Iterator<Long> iter = set.iterator();
+        while(iter.hasNext()){
+            Long prodNum = iter.next();
+            Long count = temp.get(prodNum);
+            if(prodCountMap.containsKey(prodNum)){
+                count += temp.get(prodNum);
+            }
+            prodCountMap.put(prodNum, count);
+        }
+    }
+
+    private static List<Long> getProdIdsForDate(Date fromDate, Date toDate, String location) {
+        MySQL sdb = new MySQL();
+        List<Long> list = new ArrayList<Long>();
+        String sql = "select productNum from \n" +
                 "\tInvoiceLocation invLoc join Transactions trans on invLoc.invoiceNum = trans.invoiceNum\n" +
                 "\t  where invLoc.location = ?";
 
@@ -440,15 +469,40 @@ public class InvoiceUtil {
         if(fromDate.equals(toDate)){
             wSql = " and trans.transDate like '"+new SimpleDateFormat("yyyy-MM-dd").format(fromDate)+"%'\n";
         }
-
-        sql+=wSql +") group by productNum";
-
+        sql+=wSql;
         Connection con = null;
         try {
             con = sdb.getConn();
             PreparedStatement pstmt = null;
             pstmt = con.prepareStatement( sql );
             pstmt.setString(1,  location);
+            ResultSet rset = pstmt.executeQuery();
+            while(rset.next()) {
+                list.add(rset.getLong("productNum"));
+            }
+            rset.close();
+            con.close();
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    private static Map<Long, Long> getRecentSoldForDateAndDays(int daysBack, List<Long> pIds ) {
+        MySQL sdb = new MySQL();
+        Map<Long, Long> map = new HashMap<Long, Long>();
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_YEAR, -daysBack);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM");
+        String sql = "select sum(productQty) count, productNum from Transactions where transDate >= '"+simpleDateFormat.format(cal.getTime())+"%'";
+        sql += "and productNum in ("+StringUtils.join(pIds, ",")+") group by productNum";
+
+        Connection con = null;
+        try {
+            con = sdb.getConn();
+            PreparedStatement pstmt = null;
+            pstmt = con.prepareStatement( sql );
             ResultSet rset = pstmt.executeQuery();
             while(rset.next()) {
                 map.put(rset.getLong("productNum"), rset.getLong("count"));
@@ -461,6 +515,45 @@ public class InvoiceUtil {
 
         return map;
     }
+
+//    private static Map<Long, Long> getRecentSoldForDateAndDays(Date fromDate, Date toDate, String location, int daysBack, List<Long> pIds ) {
+//        MySQL sdb = new MySQL();
+//        Map<Long, Long> map = new HashMap<Long, Long>();
+//        Calendar cal = Calendar.getInstance();
+//        cal.add(Calendar.DAY_OF_YEAR, -daysBack);
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM");
+//        String sql = "select sum(productQty) count, productNum from Transactions where transDate >= '"+simpleDateFormat.format(cal.getTime())+"%'";
+//
+//        sql += "and productNum in (select productNum from \n" +
+//                "\tInvoiceLocation invLoc join Transactions trans on invLoc.invoiceNum = trans.invoiceNum\n" +
+//                "\t  where invLoc.location = ?";
+//
+//        String wSql = " and trans.transDate between '"+new SimpleDateFormat("yyyy-MM-dd").format(fromDate)+"%'\n"+
+//                "\t  and '"+new SimpleDateFormat("yyyy-MM-dd").format(toDate)+"%'\n";
+//        if(fromDate.equals(toDate)){
+//            wSql = " and trans.transDate like '"+new SimpleDateFormat("yyyy-MM-dd").format(fromDate)+"%'\n";
+//        }
+//
+//        sql+=wSql +") group by productNum";
+//
+//        Connection con = null;
+//        try {
+//            con = sdb.getConn();
+//            PreparedStatement pstmt = null;
+//            pstmt = con.prepareStatement( sql );
+//            pstmt.setString(1,  location);
+//            ResultSet rset = pstmt.executeQuery();
+//            while(rset.next()) {
+//                map.put(rset.getLong("productNum"), rset.getLong("count"));
+//            }
+//            rset.close();
+//            con.close();
+//        } catch ( Exception e ) {
+//            e.printStackTrace();
+//        }
+//
+//        return map;
+//    }
 
     public static Map<String, Object> getRecentSold(String productNum) {
         Map<String, Object> map = new HashMap<String, Object>();

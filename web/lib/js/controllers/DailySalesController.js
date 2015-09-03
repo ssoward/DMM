@@ -76,13 +76,13 @@ var app = angular.module('dailySalesApp').controller('DailySalesController', fun
                     return res;
                 })
         );
-        //promises.push(InvoiceTransService.getRecentSoldForDate($scope.dateToEval1, $scope.dateToEval2, $scope.location)
-        //        .then(function(res){
-        //            $scope.progressComplete += 10;
-        //            $scope.recentlySoldList = res.data;
-        //            return res;
-        //        })
-        //);
+        promises.push(InvoiceTransService.getRecentSoldForDate($scope.dateToEval1, $scope.dateToEval2, $scope.location)
+                .then(function(res){
+                    $scope.progressComplete += 10;
+                    $scope.recentlySoldList = res.data;
+                    return res;
+                })
+        );
         promises.push(InvoiceTransService.getInventoryCacheForDate($scope.dateToEval1, $scope.location)
                 .then(function(res){
                     $scope.invCache = res.data.DSC;
@@ -224,9 +224,9 @@ var app = angular.module('dailySalesApp').controller('DailySalesController', fun
                 prod.prodLocation = '--';
             }
         });
-        //_.forEach($scope.productList, function(prod){
-        //    prod.recent = $scope.recentlySoldList[prod.productNum];
-        //});
+        _.forEach($scope.productList, function(prod){
+            prod.recent = $scope.recentlySoldList[prod.productNum];
+        });
     }
 
     $scope.toggleSort = function(index) {

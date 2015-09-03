@@ -1463,8 +1463,11 @@ public class ProductUtils {
                 "or category like '"+searchStr+"%' " +
                 "or DCCatalogNum like '"+searchStr+"%' " +
                 "or productSKU like '"+searchStr+"%' " +
-                "or productName like '"+searchStr+"%' " +
-                "limit 200";
+                "or productAuthor like '"+searchStr+"%' " +
+                "or productArranger like '"+searchStr+"%' " +
+                "or productArtist like '"+searchStr+"%' " +
+                "or productName like '%"+searchStr+"%' " +
+                "limit 25";
         try {
             con = sdb.getConn();
             PreparedStatement pstmt = null;
